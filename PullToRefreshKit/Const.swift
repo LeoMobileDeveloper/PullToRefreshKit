@@ -30,7 +30,7 @@ struct PullToRefreshKitConst{
 }
 
 struct PullToRefreshKitHeaderString{
-    static let downToRefersh = "下拉可以刷新"
+    static let pullToRefresh = "下拉可以刷新"
     static let releaseToRefresh = "松开立即刷新"
     static let refreshSuccess = "刷新成功"
     static let refreshError = "刷新出错"

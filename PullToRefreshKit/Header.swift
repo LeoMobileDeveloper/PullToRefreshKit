@@ -10,10 +10,21 @@
 import Foundation
 import UIKit
 
+
+enum RefreshKitHeaderText{
+    case pullToRefresh
+    case releaseToRefresh
+    case refreshSuccess
+    case refreshError
+    case refreshFailure
+    case refreshing
+}
+
 class DefaultRefreshHeader:UIView,RefreshableHeader{
     let spinner:UIActivityIndicatorView = UIActivityIndicatorView(activityIndicatorStyle: .Gray)
-    let textLabel:UILabel = UILabel(frame: CGRectMake(0,0,100,40))
+    let textLabel:UILabel = UILabel(frame: CGRectMake(0,0,120,40))
     let imageView:UIImageView = UIImageView(frame: CGRectZero)
+    private var textDic = [RefreshKitHeaderText:String]()
     override init(frame: CGRect) {
         super.init(frame: frame)
         addSubview(spinner)
@@ -22,36 +33,48 @@ class DefaultRefreshHeader:UIView,RefreshableHeader{
         imageView.image = UIImage(named: "arrow_down");
         imageView.sizeToFit()
         imageView.frame = CGRectMake(0, 0, 24, 24)
-        imageView.center = CGPointMake(frame.width/2 - 50 - 20, frame.size.height/2)
+        imageView.center = CGPointMake(frame.width/2 - 60 - 20, frame.size.height/2)
         spinner.center = imageView.center
         
         textLabel.center = CGPointMake(frame.size.width/2, frame.size.height/2);
         textLabel.font = UIFont.systemFontOfSize(14)
         textLabel.textAlignment = .Center
-        textLabel.text = PullToRefreshKitHeaderString.downToRefersh
+        self.hidden = true
+        //Default text
+        textDic[.pullToRefresh] = PullToRefreshKitHeaderString.pullToRefresh
+        textDic[.releaseToRefresh] = PullToRefreshKitHeaderString.releaseToRefresh
+        textDic[.refreshSuccess] = PullToRefreshKitHeaderString.refreshSuccess
+        textDic[.refreshError] = PullToRefreshKitHeaderString.refreshError
+        textDic[.refreshFailure] = PullToRefreshKitHeaderString.refreshFailure
+        textDic[.refreshing] = PullToRefreshKitHeaderString.refreshing
+        textLabel.text = textDic[.pullToRefresh]
     }
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    func setText(text:String,mode:RefreshKitHeaderText){
+        textDic[mode] = text
     }
     // MARK: - Refreshable  -
     func distanceToRefresh() -> CGFloat {
         return PullToRefreshKitConst.defaultHeaderHeight
     }
     func percentageChangedDuringDragging(percent:CGFloat){
+        self.hidden = !(percent > 0.0)
         if percent > 1.0{
+            textLabel.text = textDic[.releaseToRefresh]
             guard CGAffineTransformEqualToTransform(self.imageView.transform, CGAffineTransformIdentity)  else{
                 return
             }
             UIView.animateWithDuration(0.4, animations: {
                 self.imageView.transform = CGAffineTransformMakeRotation(CGFloat(-M_PI+0.000001))
             })
-            textLabel.text = PullToRefreshKitHeaderString.releaseToRefresh
         }
         if percent <= 1.0{
+            textLabel.text = textDic[.pullToRefresh]
             guard CGAffineTransformEqualToTransform(self.imageView.transform, CGAffineTransformMakeRotation(CGFloat(-M_PI+0.000001)))  else{
                 return
             }
-            textLabel.text = PullToRefreshKitHeaderString.downToRefersh
             UIView.animateWithDuration(0.4, animations: {
                 self.imageView.transform = CGAffineTransformIdentity
             })
@@ -63,21 +86,21 @@ class DefaultRefreshHeader:UIView,RefreshableHeader{
         imageView.hidden = false
         switch result {
         case .Success:
-            textLabel.text = PullToRefreshKitHeaderString.refreshSuccess
+            textLabel.text = textDic[.refreshSuccess]
         case .Error:
-            textLabel.text = PullToRefreshKitHeaderString.refreshError
+            textLabel.text = textDic[.refreshError]
         case .Failure:
-            textLabel.text = PullToRefreshKitHeaderString.refreshFailure
+            textLabel.text = textDic[.refreshFailure]
         case .None:
-            textLabel.text = PullToRefreshKitHeaderString.downToRefersh
+            textLabel.text = textDic[.pullToRefresh]
         }
     }
     func didEndRefreshing(result:RefreshResult) {
-        imageView.image = UIImage(named: "arrow_down")
-        textLabel.text = PullToRefreshKitHeaderString.downToRefersh
+        textLabel.text = textDic[.pullToRefresh]
+        self.hidden = true
     }
     func willBeginRefreshing() {
-        textLabel.text = PullToRefreshKitHeaderString.refreshing
+        textLabel.text = textDic[.refreshing]
         spinner.startAnimating()
         imageView.hidden = true
     }
@@ -130,7 +153,6 @@ class RefreshHeaderContainer:UIView{
                         let top = (self.originalInset?.top)! + CGRectGetHeight(self.frame)
                         var oldInset = self.attachedScrollView.contentInset
                         oldInset.top = top
-                        print(top)
                         self.attachedScrollView.contentInset = oldInset
                         self.attachedScrollView.contentOffset = CGPointMake(0, -1.0 * top)
                         }, completion: { (finsihed) in
@@ -197,7 +219,6 @@ class RefreshHeaderContainer:UIView{
             var oldInset = attachedScrollView.contentInset
             oldInset.top = insetT
             attachedScrollView.contentInset = oldInset
-            print(attachedScrollView.contentInset)
             insetTDelta = inset.top - insetT
             return;
         }

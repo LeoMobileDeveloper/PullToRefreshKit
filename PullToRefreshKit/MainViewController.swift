@@ -14,12 +14,12 @@ class MainViewController: UITableViewController {
     override func viewDidLoad() {
         let section0 = SectionModel(rowsCount: 4,
                                     sectionTitle:"默认",
-                                    rowsTitles: ["默认header","默认Footer","默认left","默认Right"],
-                                    rowsTargetControlerNames:["DefaultHeaderController","DefaultFooterController","DefaultLeftController","DefaultRightController"])
-        let section1 = SectionModel(rowsCount: 4,
+                                    rowsTitles: ["Tableview","CollectionView","ScrollView","Banners"],
+                                    rowsTargetControlerNames:["DefaultTableViewController","DefaultLeftController","DefaultRightController","DefaultBannerController",])
+        let section1 = SectionModel(rowsCount: 2,
                                     sectionTitle:"属性配置",
-                                    rowsTitles: ["设置默认header","设置默认Footer","设置默认left","设置默认Right"],
-                                    rowsTargetControlerNames:["DefaultHeaderController","DefaultFooterController","DefaultLeftController","DefaultRightController"])
+                                    rowsTitles: ["配置Header/Footer属性","配置Left/Right属性"],
+                                    rowsTargetControlerNames:["ConfigDefaultHeaderFooterController","DefaultFooterController"])
         let section2 = SectionModel(rowsCount: 4,
                                     sectionTitle:"自定义",
                                     rowsTitles: ["自定义header","自定义Footer","自定义left","自定义Right"],
@@ -33,6 +33,7 @@ class MainViewController: UITableViewController {
                 self?.tableView.endHeaderRefreshing(.Success)
             }
         }
+        self.tableView.tableFooterView = UIView(frame: CGRectZero)
     }
     
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
@@ -60,6 +61,14 @@ class MainViewController: UITableViewController {
     }
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         tableView.deselectRowAtIndexPath(indexPath, animated: true)
+        let sectionModel = models[indexPath.section]
+        var className = sectionModel.rowsTargetControlerNames[indexPath.row]
+        className = "PullToRefreshKit.\(className)"
+        if let cls = NSClassFromString(className) as? UIViewController.Type{
+            let dvc = cls.init()
+            self.navigationController?.pushViewController(dvc, animated: true)
+        }
+
     }
 }
 

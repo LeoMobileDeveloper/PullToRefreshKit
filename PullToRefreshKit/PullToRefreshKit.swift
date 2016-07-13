@@ -51,7 +51,7 @@ extension NSObject: SetUp {}
 
 //Header
 extension UIScrollView{
-    func setUpHeaderRefresh(action:()->()){
+    func setUpHeaderRefresh(action:()->())->DefaultRefreshHeader{
         let oldContain = self.viewWithTag(PullToRefreshKitConst.headerTag)
         oldContain?.removeFromSuperview()
         let frame = CGRectMake(0,-1 * PullToRefreshKitConst.defaultHeaderHeight,CGRectGetWidth(self.frame), PullToRefreshKitConst.defaultHeaderHeight)
@@ -64,6 +64,7 @@ extension UIScrollView{
         containComponent.delegate = header
         header.autoresizingMask = [.FlexibleWidth,.FlexibleHeight]
         containComponent.addSubview(header)
+        return header
     }
     
     func setUpHeaderRefresh<T:UIView where T:RefreshableHeader>(componnet:T,action:()->()){
@@ -81,7 +82,7 @@ extension UIScrollView{
 }
 //Footer
 extension UIScrollView{
-    func setUpFooterRefresh(action:()->()){
+    func setUpFooterRefresh(action:()->())->DefaultRefreshFooter{
         let oldContain = self.viewWithTag(PullToRefreshKitConst.footerTag)
         oldContain?.removeFromSuperview()
         let frame = CGRectMake(0,0,CGRectGetWidth(self.frame), PullToRefreshKitConst.defaultFooterHeight)
@@ -95,6 +96,7 @@ extension UIScrollView{
         containComponent.delegate = footer
         footer.autoresizingMask = [.FlexibleWidth,.FlexibleHeight]
         containComponent.addSubview(footer)
+        return footer
     }
     func setUpFooterRefresh<T:UIView where T:RefreshableFooter>(component:T,action:()->()){
      
