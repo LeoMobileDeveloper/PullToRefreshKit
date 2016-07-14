@@ -51,43 +51,46 @@ extension NSObject: SetUp {}
 
 //Header
 extension UIScrollView{
-    func setUpHeaderRefresh(action:()->()){
-        let oldContain = self.viewWithTag(headerTag)
+    func setUpHeaderRefresh(action:()->())->DefaultRefreshHeader{
+        let header = DefaultRefreshHeader(frame:CGRectMake(0,0,CGRectGetWidth(self.frame),PullToRefreshKitConst.defaultHeaderHeight))
+        return setUpHeaderRefresh(header, action: action)
+    }
+    
+    func setUpHeaderRefresh<T:UIView where T:RefreshableHeader>(header:T,action:()->())->T{
+        let oldContain = self.viewWithTag(PullToRefreshKitConst.headerTag)
         oldContain?.removeFromSuperview()
-        let frame = CGRectMake(0,-1 * defaultHeaderHeight,CGRectGetWidth(self.frame), defaultHeaderHeight)
+        let height = header.distanceToRefresh()
+        let frame = CGRectMake(0,-1 * height,CGRectGetWidth(self.frame),height)
         let containComponent = RefreshHeaderContainer(frame: frame)
-        containComponent.tag = headerTag
+        containComponent.tag = PullToRefreshKitConst.headerTag
         containComponent.refreshAction = action
         self.addSubview(containComponent)
         
-        let header = DefaultRefreshHeader(frame: containComponent.bounds)
         containComponent.delegate = header
         header.autoresizingMask = [.FlexibleWidth,.FlexibleHeight]
+        header.frame = containComponent.bounds
         containComponent.addSubview(header)
-    }
-    
-    func setUpHeaderRefresh<T:UIView where T:RefreshableHeader>(componnet:T,action:()->()){
-        
+        return header
     }
     func beginHeaderRefreshing(){
-        let header = self.viewWithTag(headerTag) as? RefreshHeaderContainer
+        let header = self.viewWithTag(PullToRefreshKitConst.headerTag) as? RefreshHeaderContainer
         header?.beginRefreshing()
         
     }
     func endHeaderRefreshing(result:RefreshResult = .None){
-        let header = self.viewWithTag(headerTag) as? RefreshHeaderContainer
+        let header = self.viewWithTag(PullToRefreshKitConst.headerTag) as? RefreshHeaderContainer
         header?.endRefreshing(result)
     }
 }
 //Footer
 extension UIScrollView{
-    func setUpFooterRefresh(action:()->()){
-        let oldContain = self.viewWithTag(footerTag)
+    func setUpFooterRefresh(action:()->())->DefaultRefreshFooter{
+        let oldContain = self.viewWithTag(PullToRefreshKitConst.footerTag)
         oldContain?.removeFromSuperview()
-        let frame = CGRectMake(0,0,CGRectGetWidth(self.frame), defaultFooterHeight)
+        let frame = CGRectMake(0,0,CGRectGetWidth(self.frame), PullToRefreshKitConst.defaultFooterHeight)
         
         let containComponent = RefreshFooterContainer(frame: frame)
-        containComponent.tag = footerTag
+        containComponent.tag = PullToRefreshKitConst.footerTag
         containComponent.refreshAction = action
         self.insertSubview(containComponent, atIndex: 0)
         
@@ -95,28 +98,29 @@ extension UIScrollView{
         containComponent.delegate = footer
         footer.autoresizingMask = [.FlexibleWidth,.FlexibleHeight]
         containComponent.addSubview(footer)
+        return footer
     }
     func setUpFooterRefresh<T:UIView where T:RefreshableFooter>(component:T,action:()->()){
      
     }
     func beginFooterRefreshing(){
-        let footer = self.viewWithTag(footerTag) as? RefreshHeaderContainer
+        let footer = self.viewWithTag(PullToRefreshKitConst.footerTag) as? RefreshHeaderContainer
         footer?.beginRefreshing()
     }
     func endFooterRefreshing(){
-        let footer = self.viewWithTag(footerTag) as? RefreshFooterContainer
+        let footer = self.viewWithTag(PullToRefreshKitConst.footerTag) as? RefreshFooterContainer
         footer?.endRefreshing()
     }
     func setFooterNoMoreData(){
-        let footer = self.viewWithTag(footerTag) as? RefreshFooterContainer
+        let footer = self.viewWithTag(PullToRefreshKitConst.footerTag) as? RefreshFooterContainer
         footer?.endRefreshing()
     }
     func resetFooterToDefault(){
-        let footer = self.viewWithTag(footerTag) as? RefreshFooterContainer
+        let footer = self.viewWithTag(PullToRefreshKitConst.footerTag) as? RefreshFooterContainer
         footer?.resetToDefault()
     }
     func endFooterRefreshingWithNoMoreData(){
-        let footer = self.viewWithTag(footerTag) as? RefreshFooterContainer
+        let footer = self.viewWithTag(PullToRefreshKitConst.footerTag) as? RefreshFooterContainer
         footer?.endRefreshing()
         footer?.updateToNoMoreData()
     }
@@ -124,12 +128,12 @@ extension UIScrollView{
 
 //Left
 extension UIScrollView{
-    func setUpLeftRefresh(action:()->()){
-        let oldContain = self.viewWithTag(leftTag)
+    func setUpLeftRefresh(action:()->())->DefaultRefreshLeft{
+        let oldContain = self.viewWithTag(PullToRefreshKitConst.leftTag)
         oldContain?.removeFromSuperview()
-        let frame = CGRectMake( -1.0 * defaultLeftWidth,0,defaultLeftWidth, CGRectGetHeight(self.frame))
+        let frame = CGRectMake( -1.0 * PullToRefreshKitConst.defaultLeftWidth,0,PullToRefreshKitConst.defaultLeftWidth, CGRectGetHeight(self.frame))
         let containComponent = RefreshLeftContainer(frame: frame)
-        containComponent.tag = leftTag
+        containComponent.tag = PullToRefreshKitConst.leftTag
         containComponent.refreshAction = action
         self.insertSubview(containComponent, atIndex: 0)
         
@@ -137,6 +141,7 @@ extension UIScrollView{
         containComponent.delegate = left
         left.autoresizingMask = [.FlexibleWidth,.FlexibleHeight]
         containComponent.addSubview(left)
+        return left
     }
     func setUpLeftRefresh<T:UIView where T:RefreshableLeftRight>(component:T,action:()->()){
         
@@ -144,12 +149,12 @@ extension UIScrollView{
 }
 //Right
 extension UIScrollView{
-    func setUpRightRefresh(action:()->()){
-        let oldContain = self.viewWithTag(rightTag)
+    func setUpRightRefresh(action:()->())->DefaultRefreshRight{
+        let oldContain = self.viewWithTag(PullToRefreshKitConst.rightTag)
         oldContain?.removeFromSuperview()
-        let frame = CGRectMake(0 ,0 ,defaultLeftWidth ,CGRectGetHeight(self.frame) )
+        let frame = CGRectMake(0 ,0 ,PullToRefreshKitConst.defaultLeftWidth ,CGRectGetHeight(self.frame) )
         let containComponent = RefreshRightContainer(frame: frame)
-        containComponent.tag = rightTag
+        containComponent.tag = PullToRefreshKitConst.rightTag
         containComponent.refreshAction = action
         self.insertSubview(containComponent, atIndex: 0)
         
@@ -157,6 +162,7 @@ extension UIScrollView{
         containComponent.delegate = right
         right.autoresizingMask = [.FlexibleWidth,.FlexibleHeight]
         containComponent.addSubview(right)
+        return right
     }
     func setUpRightRefresh<T:UIView where T:RefreshableLeftRight>(component:T,action:()->()){
         

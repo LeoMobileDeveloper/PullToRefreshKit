@@ -22,7 +22,6 @@ class CustomHeaderTableViewController:UITableViewController{
                 self?.tableView.endHeaderRefreshing(.Success)
             })
         }
-        self.tableView.beginHeaderRefreshing()
     }
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return models.count

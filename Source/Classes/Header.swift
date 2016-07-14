@@ -10,10 +10,21 @@
 import Foundation
 import UIKit
 
+
+enum RefreshKitHeaderText{
+    case pullToRefresh
+    case releaseToRefresh
+    case refreshSuccess
+    case refreshError
+    case refreshFailure
+    case refreshing
+}
+
 class DefaultRefreshHeader:UIView,RefreshableHeader{
     let spinner:UIActivityIndicatorView = UIActivityIndicatorView(activityIndicatorStyle: .Gray)
-    let textLabel:UILabel = UILabel(frame: CGRectMake(0,0,100,40))
+    let textLabel:UILabel = UILabel(frame: CGRectMake(0,0,120,40))
     let imageView:UIImageView = UIImageView(frame: CGRectZero)
+    private var textDic = [RefreshKitHeaderText:String]()
     override init(frame: CGRect) {
         super.init(frame: frame)
         addSubview(spinner)
@@ -22,36 +33,48 @@ class DefaultRefreshHeader:UIView,RefreshableHeader{
         imageView.image = UIImage(named: "arrow_down");
         imageView.sizeToFit()
         imageView.frame = CGRectMake(0, 0, 24, 24)
-        imageView.center = CGPointMake(frame.width/2 - 50 - 20, frame.size.height/2)
+        imageView.center = CGPointMake(frame.width/2 - 60 - 20, frame.size.height/2)
         spinner.center = imageView.center
         
         textLabel.center = CGPointMake(frame.size.width/2, frame.size.height/2);
         textLabel.font = UIFont.systemFontOfSize(14)
         textLabel.textAlignment = .Center
-        textLabel.text = "下拉可以刷新"
+        self.hidden = true
+        //Default text
+        textDic[.pullToRefresh] = PullToRefreshKitHeaderString.pullToRefresh
+        textDic[.releaseToRefresh] = PullToRefreshKitHeaderString.releaseToRefresh
+        textDic[.refreshSuccess] = PullToRefreshKitHeaderString.refreshSuccess
+        textDic[.refreshError] = PullToRefreshKitHeaderString.refreshError
+        textDic[.refreshFailure] = PullToRefreshKitHeaderString.refreshFailure
+        textDic[.refreshing] = PullToRefreshKitHeaderString.refreshing
+        textLabel.text = textDic[.pullToRefresh]
     }
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    func setText(text:String,mode:RefreshKitHeaderText){
+        textDic[mode] = text
+    }
     // MARK: - Refreshable  -
     func distanceToRefresh() -> CGFloat {
-        return defaultHeaderHeight
+        return PullToRefreshKitConst.defaultHeaderHeight
     }
     func percentageChangedDuringDragging(percent:CGFloat){
+        self.hidden = !(percent > 0.0)
         if percent > 1.0{
+            textLabel.text = textDic[.releaseToRefresh]
             guard CGAffineTransformEqualToTransform(self.imageView.transform, CGAffineTransformIdentity)  else{
                 return
             }
             UIView.animateWithDuration(0.4, animations: {
                 self.imageView.transform = CGAffineTransformMakeRotation(CGFloat(-M_PI+0.000001))
             })
-            textLabel.text = "松开立即刷新"
         }
         if percent <= 1.0{
+            textLabel.text = textDic[.pullToRefresh]
             guard CGAffineTransformEqualToTransform(self.imageView.transform, CGAffineTransformMakeRotation(CGFloat(-M_PI+0.000001)))  else{
                 return
             }
-            textLabel.text = "下拉可以刷新"
             UIView.animateWithDuration(0.4, animations: {
                 self.imageView.transform = CGAffineTransformIdentity
             })
@@ -63,21 +86,22 @@ class DefaultRefreshHeader:UIView,RefreshableHeader{
         imageView.hidden = false
         switch result {
         case .Success:
-            textLabel.text = "刷新成功"
+            textLabel.text = textDic[.refreshSuccess]
         case .Error:
-            textLabel.text = "刷新出错"
+            textLabel.text = textDic[.refreshError]
         case .Failure:
-            textLabel.text = "刷新失败"
+            textLabel.text = textDic[.refreshFailure]
         case .None:
-            textLabel.text = "下拉可以刷新"
+            textLabel.text = textDic[.pullToRefresh]
         }
     }
     func didEndRefreshing(result:RefreshResult) {
-        imageView.image = UIImage(named: "arrow_down")
-        textLabel.text = "下拉可以刷新"
+        textLabel.text = textDic[.pullToRefresh]
+        self.hidden = true
     }
     func willBeginRefreshing() {
-        textLabel.text = "正在刷新数据中..."
+        self.hidden = false
+        textLabel.text = textDic[.refreshing]
         spinner.startAnimating()
         imageView.hidden = true
     }
@@ -96,16 +120,12 @@ class RefreshHeaderContainer:UIView{
     }
     var refreshAction:(()->())?
     var attachedScrollView:UIScrollView!
-    var originalInset:UIEdgeInsets?{
-        didSet{
-            print(originalInset)
-        }
-    }
+    var originalInset:UIEdgeInsets?
     weak var delegate:RefreshableHeader?
     private var currentResult:RefreshResult = .None
     private var _state:RefreshHeaderState = .Idle
     private var insetTDelta:CGFloat = 0.0
-    var state:RefreshHeaderState{
+    private var state:RefreshHeaderState{
         get{
             return _state
         }
@@ -182,10 +202,10 @@ class RefreshHeaderContainer:UIView{
     }
     // MARK: - Private -
     private func addObservers(){
-        attachedScrollView?.addObserver(self, forKeyPath:KPathOffSet, options: [.Old,.New], context: nil)
+        attachedScrollView?.addObserver(self, forKeyPath:PullToRefreshKitConst.KPathOffSet, options: [.Old,.New], context: nil)
     }
     private func removeObservers(){
-        attachedScrollView?.removeObserver(self, forKeyPath: KPathOffSet,context: nil)
+        attachedScrollView?.removeObserver(self, forKeyPath: PullToRefreshKitConst.KPathOffSet,context: nil)
     }
     func handleScrollOffSetChange(change: [String : AnyObject]?){
         if state == .Refreshing {
@@ -196,7 +216,10 @@ class RefreshHeaderContainer:UIView{
             let offset = attachedScrollView.contentOffset
             let inset = originalInset!
             var insetT = -1 * offset.y > inset.top ? (-1 * offset.y):inset.top
-            insetT = insetT > CGRectGetHeight(self.frame) + inset.top ? CGRectGetHeight(self.frame) + CGRectGetHeight(self.frame) + inset.top:insetT
+            insetT = insetT > CGRectGetHeight(self.frame) + inset.top ? CGRectGetHeight(self.frame) + inset.top:insetT
+            var oldInset = attachedScrollView.contentInset
+            oldInset.top = insetT
+            attachedScrollView.contentInset = oldInset
             insetTDelta = inset.top - insetT
             return;
         }
@@ -224,7 +247,7 @@ class RefreshHeaderContainer:UIView{
         guard self.userInteractionEnabled else{
             return;
         }
-        if keyPath == KPathOffSet {
+        if keyPath == PullToRefreshKitConst.KPathOffSet {
             handleScrollOffSetChange(change)
         }
     }

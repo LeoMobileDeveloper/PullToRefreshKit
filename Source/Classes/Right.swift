@@ -8,13 +8,22 @@
 import Foundation
 import UIKit
 
+
 class DefaultRefreshRight:UIView,RefreshableLeftRight{
     let imageView:UIImageView = UIImageView().SetUp {
         $0.image = UIImage(named: "arrow_left")
     }
     let textLabel:UILabel  = UILabel().SetUp {
         $0.font = UIFont.systemFontOfSize(14)
-        $0.text = "滑动浏览更多"
+    }
+    private var textDic = [RefreshKitLeftRightText:String]()
+    
+    /**
+     You can only call this function before pull
+     */
+    func setText(text:String,mode:RefreshKitLeftRightText){
+        textDic[mode] = text
+        textLabel.text = textDic[.scrollToAction]
     }
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -25,6 +34,9 @@ class DefaultRefreshRight:UIView,RefreshableLeftRight{
         textLabel.numberOfLines = 0
         imageView.frame = CGRectMake(0, 0,20, 20)
         imageView.center = CGPointMake(10,frame.size.height/2)
+        textDic[.scrollToAction] = PullToRefreshKitRightString.scrollToAction
+        textDic[.releaseToAction] = PullToRefreshKitRightString.releaseToAction
+        textLabel.text = textDic[.scrollToAction]
     }
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
@@ -32,7 +44,7 @@ class DefaultRefreshRight:UIView,RefreshableLeftRight{
     
     // MARK: - RefreshableLeftRight Protocol  -
     func distanceToRefresh() -> CGFloat {
-        return defaultLeftWidth
+        return PullToRefreshKitConst.defaultLeftWidth
     }
     func percentageChangedDuringDragging(percent:CGFloat){
         if percent > 1.0{
@@ -42,13 +54,13 @@ class DefaultRefreshRight:UIView,RefreshableLeftRight{
             UIView.animateWithDuration(0.4, animations: {
                 self.imageView.transform = CGAffineTransformMakeRotation(CGFloat(-M_PI+0.000001))
             })
-            textLabel.text = "松开浏览更多"
+            textLabel.text = textDic[.releaseToAction]
         }
         if percent <= 1.0{
             guard CGAffineTransformEqualToTransform(self.imageView.transform, CGAffineTransformMakeRotation(CGFloat(-M_PI+0.000001)))  else{
                 return
             }
-            textLabel.text = "滑动浏览更多"
+            textLabel.text = textDic[.scrollToAction]
             UIView.animateWithDuration(0.4, animations: {
                 self.imageView.transform = CGAffineTransformIdentity
             })
@@ -56,7 +68,7 @@ class DefaultRefreshRight:UIView,RefreshableLeftRight{
     }
     func didEndRefreshing() {
         imageView.transform = CGAffineTransformIdentity
-        textLabel.text = "滑动浏览更多"
+        textLabel.text = textDic[.scrollToAction]
     }
     func didBeginRefreshing() {
         
@@ -131,12 +143,12 @@ class RefreshRightContainer:UIView{
     }
     // MARK: - Private -
     private func addObservers(){
-        attachedScrollView?.addObserver(self, forKeyPath:KPathOffSet, options: [.Old,.New], context: nil)
-        attachedScrollView?.addObserver(self, forKeyPath:KPathContentSize, options:[.Old,.New] , context: nil)
+        attachedScrollView?.addObserver(self, forKeyPath:PullToRefreshKitConst.KPathOffSet, options: [.Old,.New], context: nil)
+        attachedScrollView?.addObserver(self, forKeyPath:PullToRefreshKitConst.KPathContentSize, options:[.Old,.New] , context: nil)
     }
     private func removeObservers(){
-        attachedScrollView?.removeObserver(self, forKeyPath: KPathOffSet,context: nil)
-        attachedScrollView?.removeObserver(self, forKeyPath: KPathOffSet,context: nil)
+        attachedScrollView?.removeObserver(self, forKeyPath: PullToRefreshKitConst.KPathOffSet,context: nil)
+        attachedScrollView?.removeObserver(self, forKeyPath: PullToRefreshKitConst.KPathOffSet,context: nil)
     }
 
     func handleScrollOffSetChange(change: [String : AnyObject]?){
@@ -168,13 +180,13 @@ class RefreshRightContainer:UIView{
         guard self.userInteractionEnabled else{
             return;
         }
-        if keyPath == KPathOffSet {
+        if keyPath == PullToRefreshKitConst.KPathOffSet {
             handleScrollOffSetChange(change)
         }
         guard !self.hidden else{
             return;
         }
-        if keyPath == KPathContentSize {
+        if keyPath == PullToRefreshKitConst.KPathContentSize {
             handleContentSizeChange(change)
         }
     }

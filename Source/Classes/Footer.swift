@@ -9,40 +9,56 @@
 import Foundation
 import UIKit
 
+enum RefreshKitFooterText{
+    case pullToRefresh
+    case refreshing
+    case noMoreData
+}
 class DefaultRefreshFooter:UIView,RefreshableFooter{
     let spinner:UIActivityIndicatorView = UIActivityIndicatorView(activityIndicatorStyle: .Gray)
-    let textLabel:UILabel = UILabel(frame: CGRectMake(0,0,100,40)).SetUp {
+    let textLabel:UILabel = UILabel(frame: CGRectMake(0,0,120,40)).SetUp {
         $0.font = UIFont.systemFontOfSize(14)
         $0.textAlignment = .Center
-        $0.text = "上拉加载更多数据"
+    }
+    private var textDic = [RefreshKitFooterText:String]()
+    /**
+     This function can only be called before refreshing
+     */
+    func setText(text:String,mode:RefreshKitFooterText){
+        textDic[mode] = text
+        textLabel.text = textDic[.pullToRefresh]
     }
     override init(frame: CGRect) {
         super.init(frame: frame)
         addSubview(spinner)
         addSubview(textLabel)
         textLabel.center = CGPointMake(frame.size.width/2, frame.size.height/2);
-        spinner.center = CGPointMake(frame.width/2 - 50 - 20, frame.size.height/2)
+        spinner.center = CGPointMake(frame.width/2 - 60 - 20, frame.size.height/2)
+        textDic[.pullToRefresh] = PullToRefreshKitFooterString.pullToRefresh
+        textDic[.refreshing] = PullToRefreshKitFooterString.refreshing
+        textDic[.noMoreData] = PullToRefreshKitFooterString.noMoreData
+        textLabel.text = textDic[.pullToRefresh]
     }
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     // MARK: - Refreshable  -
     func distanceToRefresh() -> CGFloat {
-        return defaultFooterHeight
+        return PullToRefreshKitConst.defaultFooterHeight
     }
     func didBeginRefreshing() {
-        textLabel.text = "正在加载中...";
+        textLabel.text = textDic[.refreshing];
         spinner.startAnimating()
     }
     func didEndRefreshing() {
-        textLabel.text = "上拉加载更多数据"
+        textLabel.text = textDic[.pullToRefresh]
         spinner.stopAnimating()
     }
     func didUpdateToNoMoreData(){
-        textLabel.text = "数据加载完毕"
+        textLabel.text = textDic[.noMoreData]
     }
     func didResetToDefault() {
-        textLabel.text = "上拉加载更多数据"
+        textLabel.text = textDic[.pullToRefresh]
     }
 }
 class RefreshFooterContainer:UIView{
@@ -127,14 +143,14 @@ class RefreshFooterContainer:UIView{
     
 // MARK: - Private -
     private func addObservers(){
-        attachedScrollView?.addObserver(self, forKeyPath:KPathOffSet, options: [.Old,.New], context: nil)
-        attachedScrollView?.addObserver(self, forKeyPath:KPathContentSize, options:[.Old,.New] , context: nil)
-        attachedScrollView?.panGestureRecognizer.addObserver(self, forKeyPath:KPathPanState, options:[.Old,.New] , context: nil)
+        attachedScrollView?.addObserver(self, forKeyPath:PullToRefreshKitConst.KPathOffSet, options: [.Old,.New], context: nil)
+        attachedScrollView?.addObserver(self, forKeyPath:PullToRefreshKitConst.KPathContentSize, options:[.Old,.New] , context: nil)
+        attachedScrollView?.panGestureRecognizer.addObserver(self, forKeyPath:PullToRefreshKitConst.KPathPanState, options:[.Old,.New] , context: nil)
     }
     private func removeObservers(){
-        attachedScrollView?.removeObserver(self, forKeyPath: KPathContentSize,context: nil)
-        attachedScrollView?.removeObserver(self, forKeyPath: KPathOffSet,context: nil)
-        attachedScrollView?.panGestureRecognizer.removeObserver(self, forKeyPath: KPathPanState,context: nil)
+        attachedScrollView?.removeObserver(self, forKeyPath: PullToRefreshKitConst.KPathContentSize,context: nil)
+        attachedScrollView?.removeObserver(self, forKeyPath: PullToRefreshKitConst.KPathOffSet,context: nil)
+        attachedScrollView?.panGestureRecognizer.removeObserver(self, forKeyPath: PullToRefreshKitConst.KPathPanState,context: nil)
     }
     func handleScrollOffSetChange(change: [String : AnyObject]?){
         if state != .Idle && self.frame.origin.y != 0{
@@ -182,16 +198,16 @@ class RefreshFooterContainer:UIView{
         guard self.userInteractionEnabled else{
             return;
         }
-        if keyPath == KPathOffSet {
+        if keyPath == PullToRefreshKitConst.KPathOffSet {
             handleScrollOffSetChange(change)
         }
         guard !self.hidden else{
             return;
         }
-        if keyPath == KPathPanState{
+        if keyPath == PullToRefreshKitConst.KPathPanState{
             handlePanStateChange(change)
         }
-        if keyPath == KPathContentSize {
+        if keyPath == PullToRefreshKitConst.KPathContentSize {
             handleContentSizeChange(change)
         }
     }

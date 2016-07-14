@@ -9,14 +9,27 @@
 import Foundation
 import UIKit
 
+enum RefreshKitLeftRightText{
+    case scrollToAction
+    case releaseToAction
+}
 class DefaultRefreshLeft:UIView,RefreshableLeftRight{
     let imageView:UIImageView = UIImageView().SetUp {
         $0.image = UIImage(named: "arrow_right")
     }
     let textLabel:UILabel  = UILabel().SetUp {
         $0.font = UIFont.systemFontOfSize(14)
-        $0.text = "滑动结束浏览"
     }
+    private var textDic = [RefreshKitLeftRightText:String]()
+    
+    /**
+     You can only call this function before pull
+     */
+    func setText(text:String,mode:RefreshKitLeftRightText){
+        textDic[mode] = text
+        textLabel.text = textDic[.scrollToAction]
+    }
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         addSubview(imageView)
@@ -26,6 +39,9 @@ class DefaultRefreshLeft:UIView,RefreshableLeftRight{
         textLabel.numberOfLines = 0
         imageView.frame = CGRectMake(0, 0,20, 20)
         imageView.center = CGPointMake(40,frame.size.height/2)
+        textDic[.scrollToAction] = PullToRefreshKitLeftString.scrollToAction
+        textDic[.releaseToAction] = PullToRefreshKitLeftString.releaseToAction
+        textLabel.text = textDic[.scrollToAction]
     }
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
@@ -33,7 +49,7 @@ class DefaultRefreshLeft:UIView,RefreshableLeftRight{
 
 // MARK: - RefreshableLeftRight Protocol  -
     func distanceToRefresh() -> CGFloat {
-        return defaultHeaderHeight
+        return PullToRefreshKitConst.defaultHeaderHeight
     }
     func percentageChangedDuringDragging(percent:CGFloat){
         if percent > 1.0{
@@ -43,13 +59,13 @@ class DefaultRefreshLeft:UIView,RefreshableLeftRight{
             UIView.animateWithDuration(0.4, animations: {
                 self.imageView.transform = CGAffineTransformMakeRotation(CGFloat(-M_PI+0.000001))
             })
-            textLabel.text = "松开结束浏览"
+            textLabel.text = textDic[.releaseToAction]
         }
         if percent <= 1.0{
             guard CGAffineTransformEqualToTransform(self.imageView.transform, CGAffineTransformMakeRotation(CGFloat(-M_PI+0.000001)))  else{
                 return
             }
-            textLabel.text = "滑动结束浏览"
+            textLabel.text = textDic[.scrollToAction]
             UIView.animateWithDuration(0.4, animations: {
                 self.imageView.transform = CGAffineTransformIdentity
             })
@@ -59,7 +75,7 @@ class DefaultRefreshLeft:UIView,RefreshableLeftRight{
 
     }
     func didEndRefreshing() {
-        textLabel.text = "滑动结束浏览"
+        textLabel.text = textDic[.scrollToAction]
     }
 }
 
@@ -131,10 +147,10 @@ class RefreshLeftContainer:UIView{
     }
     // MARK: - Private -
     private func addObservers(){
-        attachedScrollView?.addObserver(self, forKeyPath:KPathOffSet, options: [.Old,.New], context: nil)
+        attachedScrollView?.addObserver(self, forKeyPath:PullToRefreshKitConst.KPathOffSet, options: [.Old,.New], context: nil)
     }
     private func removeObservers(){
-        attachedScrollView?.removeObserver(self, forKeyPath: KPathOffSet,context: nil)
+        attachedScrollView?.removeObserver(self, forKeyPath: PullToRefreshKitConst.KPathOffSet,context: nil)
     }
     func handleScrollOffSetChange(change: [String : AnyObject]?){
         if state == .Refreshing {
@@ -163,7 +179,7 @@ class RefreshLeftContainer:UIView{
         guard self.userInteractionEnabled else{
             return;
         }
-        if keyPath == KPathOffSet {
+        if keyPath == PullToRefreshKitConst.KPathOffSet {
             handleScrollOffSetChange(change)
         }
     }
