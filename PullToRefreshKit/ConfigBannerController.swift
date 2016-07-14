@@ -1,26 +1,35 @@
 //
-//  DefaultBannerController.swift
+//  ConfigDefaultBannerController.swift
 //  PullToRefreshKit
 //
-//  Created by huangwenchen on 16/7/13.
+//  Created by huangwenchen on 16/7/14.
 //  Copyright © 2016年 Leo. All rights reserved.
 //
 
 import Foundation
 import UIKit
-class DefaultBannerController: UIViewController {
+
+class ConfigBannerController: UIViewController {
     let scrollView = UIScrollView()
     override func viewDidLoad() {
         super.viewDidLoad()
         self.navigationItem.title = "Banners"
         self.automaticallyAdjustsScrollViewInsets = false
         setUpViews()
+        
         scrollView.setUpLeftRefresh { [weak self] in
             self?.navigationController?.popViewControllerAnimated(true)
+        }.SetUp { (left) in
+            left.setText("👉滑动关闭", mode: RefreshKitLeftRightText.scrollToAction)
+            left.setText("松开关闭", mode: RefreshKitLeftRightText.releaseToAction)
+            left.textLabel.textColor = UIColor.orangeColor()
         }
         scrollView.setUpRightRefresh { [weak self] in
-            let nvc = DefaultBannerController()
-            self?.navigationController?.pushViewController(nvc, animated: true)
+            self?.navigationController?.popViewControllerAnimated(true)
+        }.SetUp { (right) in
+            right.setText("👈滑动关闭", mode: RefreshKitLeftRightText.scrollToAction)
+            right.setText("松开关闭", mode: RefreshKitLeftRightText.releaseToAction)
+            right.textLabel.textColor = UIColor.orangeColor()
         }
     }
     

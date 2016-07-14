@@ -25,10 +25,10 @@ class ConfigDefaultHeaderFooterController: UITableViewController {
         }.SetUp { (header) in
             header.setText("Pull to refresh", mode: .pullToRefresh)
             header.setText("Release to refresh", mode: .releaseToRefresh)
-            header.setText("Refresh successfully", mode: .refreshSuccess)
+            header.setText("Success", mode: .refreshSuccess)
             header.setText("Refreshing...", mode: .refreshing)
-            header.setText("Refresh failed", mode: .refreshFailure)
-            header.setText("Refresh error", mode: .refreshError)
+            header.setText("Failed", mode: .refreshFailure)
+            header.setText("Error", mode: .refreshError)
             header.textLabel.textColor = UIColor.orangeColor()
             header.imageView.image = nil
         }
@@ -41,7 +41,10 @@ class ConfigDefaultHeaderFooterController: UITableViewController {
                 self?.tableView.endFooterRefreshing()
             })
         }.SetUp { (footer) in
-            
+            footer.setText("Pull up to refresh", mode: RefreshKitFooterText.pullToRefresh)
+            footer.setText("No data any more", mode: RefreshKitFooterText.noMoreData)
+            footer.setText("Refreshing...", mode: RefreshKitFooterText.refreshing)
+            footer.textLabel.textColor  = UIColor.orangeColor()
         }
     }
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {

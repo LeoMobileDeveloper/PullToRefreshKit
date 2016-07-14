@@ -39,7 +39,7 @@ struct PullToRefreshKitHeaderString{
 }
 
 struct PullToRefreshKitFooterString{
-    static let upToRefresh = "上拉加载更多数据"
+    static let pullToRefresh = "上拉加载更多数据"
     static let refreshing = "正在加载中..."
     static let noMoreData = "数据加载完毕"
 }

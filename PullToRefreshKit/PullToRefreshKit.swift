@@ -126,7 +126,7 @@ extension UIScrollView{
 
 //Left
 extension UIScrollView{
-    func setUpLeftRefresh(action:()->()){
+    func setUpLeftRefresh(action:()->())->DefaultRefreshLeft{
         let oldContain = self.viewWithTag(PullToRefreshKitConst.leftTag)
         oldContain?.removeFromSuperview()
         let frame = CGRectMake( -1.0 * PullToRefreshKitConst.defaultLeftWidth,0,PullToRefreshKitConst.defaultLeftWidth, CGRectGetHeight(self.frame))
@@ -139,6 +139,7 @@ extension UIScrollView{
         containComponent.delegate = left
         left.autoresizingMask = [.FlexibleWidth,.FlexibleHeight]
         containComponent.addSubview(left)
+        return left
     }
     func setUpLeftRefresh<T:UIView where T:RefreshableLeftRight>(component:T,action:()->()){
         
@@ -146,7 +147,7 @@ extension UIScrollView{
 }
 //Right
 extension UIScrollView{
-    func setUpRightRefresh(action:()->()){
+    func setUpRightRefresh(action:()->())->DefaultRefreshRight{
         let oldContain = self.viewWithTag(PullToRefreshKitConst.rightTag)
         oldContain?.removeFromSuperview()
         let frame = CGRectMake(0 ,0 ,PullToRefreshKitConst.defaultLeftWidth ,CGRectGetHeight(self.frame) )
@@ -159,6 +160,7 @@ extension UIScrollView{
         containComponent.delegate = right
         right.autoresizingMask = [.FlexibleWidth,.FlexibleHeight]
         containComponent.addSubview(right)
+        return right
     }
     func setUpRightRefresh<T:UIView where T:RefreshableLeftRight>(component:T,action:()->()){
         

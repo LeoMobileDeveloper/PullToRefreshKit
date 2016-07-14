@@ -10,7 +10,6 @@ import Foundation
 import UIKit
 class DefaultTableViewController:UITableViewController{
     var models = [1,2,3,4,5,6,7,8,9,10]
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.tableView.tableFooterView = UIView(frame: CGRectZero)
@@ -28,6 +27,7 @@ class DefaultTableViewController:UITableViewController{
                 self?.tableView.endFooterRefreshing()
             })
         }
+        self.tableView.beginHeaderRefreshing()
     }
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return models.count

@@ -9,19 +9,35 @@
 import Foundation
 import UIKit
 
+enum RefreshKitFooterText{
+    case pullToRefresh
+    case refreshing
+    case noMoreData
+}
 class DefaultRefreshFooter:UIView,RefreshableFooter{
     let spinner:UIActivityIndicatorView = UIActivityIndicatorView(activityIndicatorStyle: .Gray)
-    let textLabel:UILabel = UILabel(frame: CGRectMake(0,0,100,40)).SetUp {
+    let textLabel:UILabel = UILabel(frame: CGRectMake(0,0,120,40)).SetUp {
         $0.font = UIFont.systemFontOfSize(14)
         $0.textAlignment = .Center
-        $0.text = PullToRefreshKitFooterString.upToRefresh
+    }
+    private var textDic = [RefreshKitFooterText:String]()
+    /**
+     This function can only be called before refreshing
+     */
+    func setText(text:String,mode:RefreshKitFooterText){
+        textDic[mode] = text
+        textLabel.text = textDic[.pullToRefresh]
     }
     override init(frame: CGRect) {
         super.init(frame: frame)
         addSubview(spinner)
         addSubview(textLabel)
         textLabel.center = CGPointMake(frame.size.width/2, frame.size.height/2);
-        spinner.center = CGPointMake(frame.width/2 - 50 - 20, frame.size.height/2)
+        spinner.center = CGPointMake(frame.width/2 - 60 - 20, frame.size.height/2)
+        textDic[.pullToRefresh] = PullToRefreshKitFooterString.pullToRefresh
+        textDic[.refreshing] = PullToRefreshKitFooterString.refreshing
+        textDic[.noMoreData] = PullToRefreshKitFooterString.noMoreData
+        textLabel.text = textDic[.pullToRefresh]
     }
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
@@ -31,18 +47,18 @@ class DefaultRefreshFooter:UIView,RefreshableFooter{
         return PullToRefreshKitConst.defaultFooterHeight
     }
     func didBeginRefreshing() {
-        textLabel.text = PullToRefreshKitFooterString.refreshing;
+        textLabel.text = textDic[.refreshing];
         spinner.startAnimating()
     }
     func didEndRefreshing() {
-        textLabel.text = PullToRefreshKitFooterString.upToRefresh
+        textLabel.text = textDic[.pullToRefresh]
         spinner.stopAnimating()
     }
     func didUpdateToNoMoreData(){
-        textLabel.text = PullToRefreshKitFooterString.noMoreData
+        textLabel.text = textDic[.noMoreData]
     }
     func didResetToDefault() {
-        textLabel.text = PullToRefreshKitFooterString.upToRefresh
+        textLabel.text = textDic[.pullToRefresh]
     }
 }
 class RefreshFooterContainer:UIView{

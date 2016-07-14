@@ -100,6 +100,7 @@ class DefaultRefreshHeader:UIView,RefreshableHeader{
         self.hidden = true
     }
     func willBeginRefreshing() {
+        self.hidden = false
         textLabel.text = textDic[.refreshing]
         spinner.startAnimating()
         imageView.hidden = true
@@ -124,7 +125,7 @@ class RefreshHeaderContainer:UIView{
     private var currentResult:RefreshResult = .None
     private var _state:RefreshHeaderState = .Idle
     private var insetTDelta:CGFloat = 0.0
-    var state:RefreshHeaderState{
+    private var state:RefreshHeaderState{
         get{
             return _state
         }

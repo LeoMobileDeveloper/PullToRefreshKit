@@ -19,7 +19,7 @@ class MainViewController: UITableViewController {
         let section1 = SectionModel(rowsCount: 2,
                                     sectionTitle:"属性配置",
                                     rowsTitles: ["配置Header/Footer属性","配置Left/Right属性"],
-                                    rowsTargetControlerNames:["ConfigDefaultHeaderFooterController","DefaultFooterController"])
+                                    rowsTargetControlerNames:["ConfigDefaultHeaderFooterController","ConfigBannerController"])
         let section2 = SectionModel(rowsCount: 4,
                                     sectionTitle:"自定义",
                                     rowsTitles: ["自定义header","自定义Footer","自定义left","自定义Right"],
