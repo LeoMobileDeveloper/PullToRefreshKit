@@ -52,23 +52,25 @@ extension NSObject: SetUp {}
 //Header
 extension UIScrollView{
     func setUpHeaderRefresh(action:()->())->DefaultRefreshHeader{
+        let header = DefaultRefreshHeader(frame:CGRectMake(0,0,CGRectGetWidth(self.frame),PullToRefreshKitConst.defaultHeaderHeight))
+        return setUpHeaderRefresh(header, action: action)
+    }
+    
+    func setUpHeaderRefresh<T:UIView where T:RefreshableHeader>(header:T,action:()->())->T{
         let oldContain = self.viewWithTag(PullToRefreshKitConst.headerTag)
         oldContain?.removeFromSuperview()
-        let frame = CGRectMake(0,-1 * PullToRefreshKitConst.defaultHeaderHeight,CGRectGetWidth(self.frame), PullToRefreshKitConst.defaultHeaderHeight)
+        let height = header.distanceToRefresh()
+        let frame = CGRectMake(0,-1 * height,CGRectGetWidth(self.frame),height)
         let containComponent = RefreshHeaderContainer(frame: frame)
         containComponent.tag = PullToRefreshKitConst.headerTag
         containComponent.refreshAction = action
         self.addSubview(containComponent)
         
-        let header = DefaultRefreshHeader(frame: containComponent.bounds)
         containComponent.delegate = header
         header.autoresizingMask = [.FlexibleWidth,.FlexibleHeight]
+        header.frame = containComponent.bounds
         containComponent.addSubview(header)
         return header
-    }
-    
-    func setUpHeaderRefresh<T:UIView where T:RefreshableHeader>(componnet:T,action:()->()){
-        
     }
     func beginHeaderRefreshing(){
         let header = self.viewWithTag(PullToRefreshKitConst.headerTag) as? RefreshHeaderContainer

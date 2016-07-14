@@ -15,15 +15,15 @@ class MainViewController: UITableViewController {
         let section0 = SectionModel(rowsCount: 4,
                                     sectionTitle:"默认",
                                     rowsTitles: ["Tableview","CollectionView","ScrollView","Banners"],
-                                    rowsTargetControlerNames:["DefaultTableViewController","DefaultLeftController","DefaultRightController","DefaultBannerController",])
+                                    rowsTargetControlerNames:["DefaultTableViewController","DefaultCollectionViewController","DefaultScrollViewController","DefaultBannerController",])
         let section1 = SectionModel(rowsCount: 2,
                                     sectionTitle:"属性配置",
                                     rowsTitles: ["配置Header/Footer属性","配置Left/Right属性"],
                                     rowsTargetControlerNames:["ConfigDefaultHeaderFooterController","ConfigBannerController"])
-        let section2 = SectionModel(rowsCount: 4,
+        let section2 = SectionModel(rowsCount: 1,
                                     sectionTitle:"自定义",
-                                    rowsTitles: ["自定义header","自定义Footer","自定义left","自定义Right"],
-                                    rowsTargetControlerNames:["DefaultHeaderController","DefaultFooterController","DefaultLeftController","DefaultRightController"])
+                                    rowsTitles: ["淘宝下拉刷新",],
+                                    rowsTargetControlerNames:["CustomHeaderTableViewController"])
         models.append(section0)
         models.append(section1)
         models.append(section2)

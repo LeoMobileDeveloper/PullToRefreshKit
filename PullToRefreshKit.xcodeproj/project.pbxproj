@@ -12,6 +12,10 @@
 		52261F101D36878A00161ADF /* banner1.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 52261F0E1D36878A00161ADF /* banner1.jpg */; };
 		52261F111D36878A00161ADF /* banner2.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 52261F0F1D36878A00161ADF /* banner2.jpg */; };
 		52261F131D36879C00161ADF /* DefaultBannerController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52261F121D36879C00161ADF /* DefaultBannerController.swift */; };
+		5238C7D11D373B3300B3B4FE /* DefaultScrollViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5238C7D01D373B3300B3B4FE /* DefaultScrollViewController.swift */; };
+		5238C7D31D37427C00B3B4FE /* TaoBaoRefreshHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5238C7D21D37427C00B3B4FE /* TaoBaoRefreshHeader.swift */; };
+		5238C7D51D37449800B3B4FE /* CustomHeaderTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5238C7D41D37449800B3B4FE /* CustomHeaderTableViewController.swift */; };
+		5238C7F51D3758A900B3B4FE /* CustomFooterTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5238C7F41D3758A900B3B4FE /* CustomFooterTableViewController.swift */; };
 		52BB29171D3639500091F36B /* arrow_down@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 52BB290E1D3639500091F36B /* arrow_down@3x.png */; };
 		52BB29181D3639500091F36B /* arrow_left@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 52BB290F1D3639500091F36B /* arrow_left@3x.png */; };
 		52BB29191D3639500091F36B /* arrow_right@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 52BB29101D3639500091F36B /* arrow_right@3x.png */; };
@@ -41,6 +45,10 @@
 		52261F0E1D36878A00161ADF /* banner1.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = banner1.jpg; sourceTree = "<group>"; };
 		52261F0F1D36878A00161ADF /* banner2.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = banner2.jpg; sourceTree = "<group>"; };
 		52261F121D36879C00161ADF /* DefaultBannerController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DefaultBannerController.swift; sourceTree = "<group>"; };
+		5238C7D01D373B3300B3B4FE /* DefaultScrollViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DefaultScrollViewController.swift; sourceTree = "<group>"; };
+		5238C7D21D37427C00B3B4FE /* TaoBaoRefreshHeader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TaoBaoRefreshHeader.swift; sourceTree = "<group>"; };
+		5238C7D41D37449800B3B4FE /* CustomHeaderTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomHeaderTableViewController.swift; sourceTree = "<group>"; };
+		5238C7F41D3758A900B3B4FE /* CustomFooterTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomFooterTableViewController.swift; sourceTree = "<group>"; };
 		52BB290E1D3639500091F36B /* arrow_down@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "arrow_down@3x.png"; sourceTree = "<group>"; };
 		52BB290F1D3639500091F36B /* arrow_left@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "arrow_left@3x.png"; sourceTree = "<group>"; };
 		52BB29101D3639500091F36B /* arrow_right@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "arrow_right@3x.png"; sourceTree = "<group>"; };
@@ -119,6 +127,7 @@
 			children = (
 				52BB29311D364E490091F36B /* DefaultTableViewController.swift */,
 				52261F0A1D36730F00161ADF /* DefaultCollectionViewController.swift */,
+				5238C7D01D373B3300B3B4FE /* DefaultScrollViewController.swift */,
 				52261F121D36879C00161ADF /* DefaultBannerController.swift */,
 				52261F0C1D36832600161ADF /* ConfigHeaderFooterController.swift */,
 				52C0E4871D3726EB00618231 /* ConfigBannerController.swift */,
@@ -129,6 +138,9 @@
 		52BB292C1D364C390091F36B /* Custom */ = {
 			isa = PBXGroup;
 			children = (
+				5238C7D21D37427C00B3B4FE /* TaoBaoRefreshHeader.swift */,
+				5238C7D41D37449800B3B4FE /* CustomHeaderTableViewController.swift */,
+				5238C7F41D3758A900B3B4FE /* CustomFooterTableViewController.swift */,
 			);
 			name = Custom;
 			sourceTree = "<group>";
@@ -256,19 +268,23 @@
 			buildActionMask = 2147483647;
 			files = (
 				52BB291E1D3639500091F36B /* PullToRefreshKit.swift in Sources */,
+				5238C7F51D3758A900B3B4FE /* CustomFooterTableViewController.swift in Sources */,
 				52BB291D1D3639500091F36B /* Left.swift in Sources */,
 				52BB29281D3644D00091F36B /* SectionModel.swift in Sources */,
 				52BB291F1D3639500091F36B /* Right.swift in Sources */,
 				52BB291A1D3639500091F36B /* Const.swift in Sources */,
 				52261F131D36879C00161ADF /* DefaultBannerController.swift in Sources */,
+				5238C7D31D37427C00B3B4FE /* TaoBaoRefreshHeader.swift in Sources */,
 				52E8FB421D336E26000D0BF1 /* MainViewController.swift in Sources */,
 				52E8FB401D336E26000D0BF1 /* AppDelegate.swift in Sources */,
 				52BB29341D3655B90091F36B /* Util.swift in Sources */,
+				5238C7D51D37449800B3B4FE /* CustomHeaderTableViewController.swift in Sources */,
 				52261F0B1D36730F00161ADF /* DefaultCollectionViewController.swift in Sources */,
 				52261F0D1D36832600161ADF /* ConfigHeaderFooterController.swift in Sources */,
 				52C0E4881D3726EB00618231 /* ConfigBannerController.swift in Sources */,
 				52BB291C1D3639500091F36B /* Header.swift in Sources */,
 				52BB29321D364E490091F36B /* DefaultTableViewController.swift in Sources */,
+				5238C7D11D373B3300B3B4FE /* DefaultScrollViewController.swift in Sources */,
 				52BB292E1D364C6D0091F36B /* RowModel.swift in Sources */,
 				52BB291B1D3639500091F36B /* Footer.swift in Sources */,
 			);
