@@ -50,8 +50,7 @@ pod "PullToRefreshKit"
  }
 ```
 
-<img src="https://raw.github.com/LeoMobileDeveloper/PullToRefreshKit/master/
-Screenshot/gif2.gif" width="320">
+<img src="https://raw.github.com/LeoMobileDeveloper/PullToRefreshKit/master/Screenshot/gif2.gif" width="320">
 
 
 ###左拉退出当前界面
@@ -75,6 +74,26 @@ Screenshot/gif2.gif" width="320">
 
 <img src="https://raw.github.com/LeoMobileDeveloper/PullToRefreshKit/master/Screenshot/gif4.gif" width="200">
 
+###配置默认的属性
+PullToRefershKit提供操作符`SetUp`来实现配置，例如,配置默认header
+
+```
+self.tableView.setUpHeaderRefresh { [weak self] in
+    delay(1.5, closure: {
+        self?.tableView.endHeaderRefreshing(.Success)
+    })
+}.SetUp { (header) in
+    header.setText("Pull to refresh", mode: .pullToRefresh)
+    header.setText("Release to refresh", mode: .releaseToRefresh)
+    header.setText("Success", mode: .refreshSuccess)
+    header.setText("Refreshing...", mode: .refreshing)
+    header.setText("Failed", mode: .refreshFailure)
+    header.setText("Error", mode: .refreshError)
+    header.textLabel.textColor = UIColor.orangeColor()
+    header.imageView.image = nil
+}
+```
+
 ###自定义下刷新界面
 对于自定义界面，你唯一要做的就是写一个UIView的子类，然后实现以下协议中的一个
 
@@ -85,6 +104,24 @@ Screenshot/gif2.gif" width="320">
 例如，Demo工程[TaoBaoRefreshHeader.swift](https://github.com/LeoMobileDeveloper/PullToRefreshKit/blob/master/PullToRefreshKit/TaoBaoRefreshHeader.swift)中实现了淘宝App的下拉刷新例子。
 
 你只需要根据协议提供的回调来更新时图的状态
+
+这个协议提供的方法如下
+
+```
+//触发刷新的距离，也是header的高度
+func distanceToRefresh()->CGFloat
+//已经开始刷新的回调
+func didBeginRefreshing()
+//拖拽过程中，拖拽百分比的回调
+func percentageChangedDuringDragging(percent:CGFloat)
+//将要开始刷新
+func willBeginRefreshing()
+//将要结束刷新，result是刷新的结果,对应着界面header将要隐藏
+func willEndRefreshing(result:RefreshResult)
+//已经结束刷新，result是刷新的结果,对应着界面header完全隐藏
+func didEndRefreshing(result:RefreshResult)
+```
+
 
 ## Author
 
