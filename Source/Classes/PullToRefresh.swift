@@ -92,7 +92,7 @@ public protocol RefreshableLeftRight:RefreshAble{
 
 
 public protocol SetUp {}
-extension SetUp where Self: AnyObject {
+public extension SetUp where Self: AnyObject {
     //Add @noescape to make sure that closure is sync and can not be stored
     public func SetUp(@noescape closure: Self -> Void) -> Self {
         closure(self)
