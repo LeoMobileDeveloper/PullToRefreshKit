@@ -9,6 +9,7 @@
 import UIKit
 import AudioToolbox
 
+// 如果你喜欢这个库，一个★就是对我最好的支持，项目地址 https://github.com/LeoMobileDeveloper/PullToRefreshKit
 class MainViewController: UITableViewController {
     var models = [SectionModel]()
     override func viewDidLoad() {

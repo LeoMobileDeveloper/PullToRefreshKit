@@ -14,9 +14,7 @@ public enum RefreshKitLeftRightText{
     case releaseToAction
 }
 public class DefaultRefreshLeft:UIView,RefreshableLeftRight{
-    public let imageView:UIImageView = UIImageView().SetUp {
-        $0.image = UIImage(named: "arrow_right")
-    }
+    public let imageView:UIImageView = UIImageView()
     public let textLabel:UILabel  = UILabel().SetUp {
         $0.font = UIFont.systemFontOfSize(14)
     }
@@ -39,6 +37,8 @@ public class DefaultRefreshLeft:UIView,RefreshableLeftRight{
         textLabel.numberOfLines = 0
         imageView.frame = CGRectMake(0, 0,20, 20)
         imageView.center = CGPointMake(40,frame.size.height/2)
+        let image = UIImage(named: "arrow_right", inBundle: NSBundle(forClass: self.dynamicType), compatibleWithTraitCollection: nil)
+        imageView.image = image
         textDic[.scrollToAction] = PullToRefreshKitLeftString.scrollToAction
         textDic[.releaseToAction] = PullToRefreshKitLeftString.releaseToAction
         textLabel.text = textDic[.scrollToAction]

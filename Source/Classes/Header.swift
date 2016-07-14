@@ -30,7 +30,8 @@ public class DefaultRefreshHeader:UIView,RefreshableHeader{
         addSubview(spinner)
         addSubview(textLabel)
         addSubview(imageView);
-        imageView.image = UIImage(named: "arrow_down");
+        let image = UIImage(named: "arrow_down", inBundle: NSBundle(forClass: self.dynamicType), compatibleWithTraitCollection: nil)
+        imageView.image = image
         imageView.sizeToFit()
         imageView.frame = CGRectMake(0, 0, 24, 24)
         imageView.center = CGPointMake(frame.width/2 - 60 - 20, frame.size.height/2)
