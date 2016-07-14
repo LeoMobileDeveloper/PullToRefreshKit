@@ -1,15 +1,29 @@
 # PullToRefreshKit
+PullToRefreshKit 是用纯Swift写的，支持下拉刷新，上拉加载，左/右滑动进行额外的操作的库
 
-[![CI Status](http://img.shields.io/travis/Leo/PullToRefreshKit.svg?style=flat)](https://travis-ci.org/Leo/PullToRefreshKit)
-[![Version](https://img.shields.io/cocoapods/v/PullToRefreshKit.svg?style=flat)](http://cocoapods.org/pods/PullToRefreshKit)
-[![License](https://img.shields.io/cocoapods/l/PullToRefreshKit.svg?style=flat)](http://cocoapods.org/pods/PullToRefreshKit)
-[![Platform](https://img.shields.io/cocoapods/p/PullToRefreshKit.svg?style=flat)](http://cocoapods.org/pods/PullToRefreshKit)
+下拉刷新
 
-## Example
+<img src="https://raw.github.com/LeoMobileDeveloper/PullToRefreshKit/master/Screenshot/gif1.gif" width="200">
 
-To run the example project, clone the repo, and run `pod install` from the Example directory first.
+上拉加载
+
+<img src="https://raw.github.com/LeoMobileDeveloper/PullToRefreshKit/master/Screenshot/gif2.gif" width="200">
+
+左拉退出当前界面
+
+<img src="https://raw.github.com/LeoMobileDeveloper/PullToRefreshKit/master/Screenshot/gif3.gif" width="200">
+
+右拉进入下一个界面
+
+<img src="https://raw.github.com/LeoMobileDeveloper/PullToRefreshKit/master/Screenshot/gif4.gif" width="200">
+
 
 ## Requirements
+
+- iOS 8
+- Swift 2
+
+
 
 ## Installation
 
