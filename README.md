@@ -1,7 +1,13 @@
 # PullToRefreshKit
-PullToRefreshKit 是用纯Swift写的，支持下拉刷新，上拉加载，左/右滑动进行额外的操作的库。
 
-并且你只需要一行代码即可
+[![License: MIT](https://img.shields.io/cocoapods/l/PullToRefreshKit.svg?style=flat)](http://opensource.org/licenses/MIT) [![Platform](http://img.shields.io/badge/platform-ios-blue.svg?style=flat
+)](https://developer.apple.com/iphone/index.action)
+ [![Language](http://img.shields.io/badge/language-swift-brightgreen.svg?style=flat
+)](https://developer.apple.com/swift)
+ [![License](http://img.shields.io/badge/license-MIT-lightgrey.svg?style=flat
+)](http://mit-license.org)
+
+一行代码实现下拉刷新
 
 ```
 self.tableView.setUpHeaderRefresh { [weak self] in

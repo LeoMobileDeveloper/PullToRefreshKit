@@ -188,7 +188,7 @@ extension UIScrollView{
     func setUpLeftRefresh<T:UIView where T:RefreshableLeftRight>(left:T,action:()->())->T{
         let oldContain = self.viewWithTag(PullToRefreshKitConst.leftTag)
         oldContain?.removeFromSuperview()
-        let frame = CGRectMake( -1.0 * PullToRefreshKitConst.defaultLeftWidth,0,PullToRefreshKitConst.defaultLeftWidth, CGRectGetHeight(self.frame))
+        let frame = CGRectMake(-1.0 * PullToRefreshKitConst.defaultLeftWidth,0,PullToRefreshKitConst.defaultLeftWidth, CGRectGetHeight(self.frame))
         let containComponent = RefreshLeftContainer(frame: frame)
         containComponent.tag = PullToRefreshKitConst.leftTag
         containComponent.refreshAction = action
