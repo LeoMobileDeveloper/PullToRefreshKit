@@ -10,34 +10,86 @@ import Foundation
 import UIKit
 
 enum RefreshResult{
+    /**
+     *  刷新成功
+     */
     case Success
+    /**
+     *  刷新失败
+     */
     case Failure
+    /**
+     *  刷新出错
+     */
     case Error
+    /**
+     *  默认状态
+     */
     case None
 }
 protocol RefreshAble:class{
+    /**
+     触发动作的距离，对于header/footer来讲，就是视图的高度；对于left/right来讲，就是视图的宽度
+    */
     func distanceToRefresh()->CGFloat
+    /**
+     已经开始执行刷新逻辑，在一次刷新中，只会调用一次
+     */
     func didBeginRefreshing()
 }
 protocol RefreshableHeader:RefreshAble{
+    /**
+     拖拽的过程中,拖拽的百分比
+     
+     - parameter percent: 拖拽的百分比，比如一共距离是100，那么拖拽10的时候，percent就是0.1
+     */
     func percentageChangedDuringDragging(percent:CGFloat)
+    /**
+     将要开始刷洗
+     */
     func willBeginRefreshing()
+    /**
+     将要结束刷新，对应刷新的Header将要隐藏
+     
+     - parameter result: 刷新结果
+     */
     func willEndRefreshing(result:RefreshResult)
+    /**
+    已经结束刷新，对应刷新的Header完全隐藏
+     
+     - parameter result: 刷新结果
+     */
     func didEndRefreshing(result:RefreshResult)
 }
 
 protocol RefreshableFooter:RefreshAble{
+    /**
+     不需要下拉加载更多的回调
+     */
     func didUpdateToNoMoreData()
+    /**
+     重新设置到常态的回调
+     */
     func didResetToDefault()
+    /**
+     结束刷新的回调
+     */
     func didEndRefreshing()
 }
 
 protocol RefreshableLeftRight:RefreshAble{
+    /**
+     结束刷新的回调
+     */
     func didEndRefreshing()
+    /**
+     拖动百分比变化的回调
+     
+     - parameter percent: 拖动百分比，大于0
+     */
     func percentageChangedDuringDragging(percent:CGFloat)
 }
 
-//Easy to setup
 
 public protocol SetUp {}
 extension SetUp where Self: AnyObject {
@@ -85,6 +137,10 @@ extension UIScrollView{
 //Footer
 extension UIScrollView{
     func setUpFooterRefresh(action:()->())->DefaultRefreshFooter{
+        let footer = DefaultRefreshFooter(frame: CGRectMake(0,0,CGRectGetWidth(self.frame),PullToRefreshKitConst.defaultFooterHeight))
+        return setUpFooterRefresh(footer, action: action)
+    }
+    func setUpFooterRefresh<T:UIView where T:RefreshableFooter>(footer:T,action:()->())->T{
         let oldContain = self.viewWithTag(PullToRefreshKitConst.footerTag)
         oldContain?.removeFromSuperview()
         let frame = CGRectMake(0,0,CGRectGetWidth(self.frame), PullToRefreshKitConst.defaultFooterHeight)
@@ -94,14 +150,11 @@ extension UIScrollView{
         containComponent.refreshAction = action
         self.insertSubview(containComponent, atIndex: 0)
         
-        let footer = DefaultRefreshFooter(frame: containComponent.bounds)
         containComponent.delegate = footer
         footer.autoresizingMask = [.FlexibleWidth,.FlexibleHeight]
+        footer.frame = containComponent.bounds
         containComponent.addSubview(footer)
         return footer
-    }
-    func setUpFooterRefresh<T:UIView where T:RefreshableFooter>(component:T,action:()->()){
-     
     }
     func beginFooterRefreshing(){
         let footer = self.viewWithTag(PullToRefreshKitConst.footerTag) as? RefreshHeaderContainer
@@ -129,6 +182,10 @@ extension UIScrollView{
 //Left
 extension UIScrollView{
     func setUpLeftRefresh(action:()->())->DefaultRefreshLeft{
+        let left = DefaultRefreshLeft(frame: CGRectMake(0,0,PullToRefreshKitConst.defaultLeftWidth, CGRectGetHeight(self.frame)))
+        return setUpLeftRefresh(left, action: action)
+    }
+    func setUpLeftRefresh<T:UIView where T:RefreshableLeftRight>(left:T,action:()->())->T{
         let oldContain = self.viewWithTag(PullToRefreshKitConst.leftTag)
         oldContain?.removeFromSuperview()
         let frame = CGRectMake( -1.0 * PullToRefreshKitConst.defaultLeftWidth,0,PullToRefreshKitConst.defaultLeftWidth, CGRectGetHeight(self.frame))
@@ -137,19 +194,20 @@ extension UIScrollView{
         containComponent.refreshAction = action
         self.insertSubview(containComponent, atIndex: 0)
         
-        let left = DefaultRefreshLeft(frame: containComponent.bounds)
         containComponent.delegate = left
         left.autoresizingMask = [.FlexibleWidth,.FlexibleHeight]
+        left.frame = containComponent.bounds
         containComponent.addSubview(left)
         return left
-    }
-    func setUpLeftRefresh<T:UIView where T:RefreshableLeftRight>(component:T,action:()->()){
-        
     }
 }
 //Right
 extension UIScrollView{
     func setUpRightRefresh(action:()->())->DefaultRefreshRight{
+        let right = DefaultRefreshRight(frame: CGRectMake(0 ,0 ,PullToRefreshKitConst.defaultLeftWidth ,CGRectGetHeight(self.frame) ))
+        return setUpRightRefresh(right, action: action)
+    }
+    func setUpRightRefresh<T:UIView where T:RefreshableLeftRight>(right:T,action:()->())->T{
         let oldContain = self.viewWithTag(PullToRefreshKitConst.rightTag)
         oldContain?.removeFromSuperview()
         let frame = CGRectMake(0 ,0 ,PullToRefreshKitConst.defaultLeftWidth ,CGRectGetHeight(self.frame) )
@@ -158,13 +216,10 @@ extension UIScrollView{
         containComponent.refreshAction = action
         self.insertSubview(containComponent, atIndex: 0)
         
-        let right = DefaultRefreshRight(frame: containComponent.bounds)
         containComponent.delegate = right
         right.autoresizingMask = [.FlexibleWidth,.FlexibleHeight]
+        right.frame = containComponent.bounds
         containComponent.addSubview(right)
         return right
-    }
-    func setUpRightRefresh<T:UIView where T:RefreshableLeftRight>(component:T,action:()->()){
-        
     }
 }

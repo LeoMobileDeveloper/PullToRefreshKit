@@ -44,9 +44,9 @@ pod "PullToRefreshKit"
 ###上拉加载
 ```
  self.tableView.setUpFooterRefresh {  [weak self] in
-         delay(1.5, closure: {
-             self?.tableView.endFooterRefreshing()
-         })
+     delay(1.5, closure: {
+         self?.tableView.endFooterRefreshing()
+     })
  }
 ```
 
@@ -84,8 +84,7 @@ Screenshot/gif2.gif" width="320">
 
 例如，Demo工程[TaoBaoRefreshHeader.swift](https://github.com/LeoMobileDeveloper/PullToRefreshKit/blob/master/PullToRefreshKit/TaoBaoRefreshHeader.swift)中实现了淘宝App的下拉刷新例子。
 
-
-
+你只需要根据协议提供的回调来更新时图的状态
 
 ## Author
 
