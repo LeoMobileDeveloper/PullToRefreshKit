@@ -13,13 +13,6 @@ To run the example project, clone the repo, and run `pod install` from the Examp
 
 ## Installation
 
-PullToRefreshKit is available through [CocoaPods](http://cocoapods.org). To install
-it, simply add the following line to your Podfile:
-
-```ruby
-pod "PullToRefreshKit"
-```
-
 ## Author
 
 Leo, leomobiledeveloper@gmail.com
