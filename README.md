@@ -1,6 +1,6 @@
 # PullToRefreshKit
 
- [![Version](https://img.shields.io/cocoapods/v/PullToRefreshKit.svg?style=flat)](http://cocoapods.org/pods/PullToRefreshKit)[![Platform](http://img.shields.io/badge/platform-ios-blue.svg?style=flat
+ [![Version](https://img.shields.io/cocoapods/v/PullToRefreshKit.svg?style=flat)](http://cocoapods.org/pods/PullToRefreshKit) [![Platform](http://img.shields.io/badge/platform-ios-blue.svg?style=flat
 )](https://developer.apple.com/iphone/index.action)
  [![Language](http://img.shields.io/badge/language-swift-brightgreen.svg?style=flat
 )](https://developer.apple.com/swift)
@@ -100,7 +100,8 @@ self.tableView.setUpHeaderRefresh { [weak self] in
 }
 ```
 
-###自定义下刷新界面
+###自定义刷新界面
+
 对于自定义界面，你唯一要做的就是写一个UIView的子类，然后实现以下协议中的一个
 
 - RefreshableHeader 自定义下拉刷新要实现的协议
@@ -136,3 +137,6 @@ Leo, leomobiledeveloper@gmail.com
 ## License
 
 PullToRefreshKit is available under the MIT license. See the LICENSE file for more info.
+
+## Thanks
+感谢[SVPullToRefresh](https://github.com/samvermette/SVPullToRefresh)和[MJRefresh](https://github.com/CoderMJLee/MJRefresh)，让我少走了很多弯路
