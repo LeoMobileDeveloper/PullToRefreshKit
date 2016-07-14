@@ -9,14 +9,14 @@
 import Foundation
 import UIKit
 
-enum RefreshKitFooterText{
+public enum RefreshKitFooterText{
     case pullToRefresh
     case refreshing
     case noMoreData
 }
-class DefaultRefreshFooter:UIView,RefreshableFooter{
-    let spinner:UIActivityIndicatorView = UIActivityIndicatorView(activityIndicatorStyle: .Gray)
-    let textLabel:UILabel = UILabel(frame: CGRectMake(0,0,120,40)).SetUp {
+public class DefaultRefreshFooter:UIView,RefreshableFooter{
+    public let spinner:UIActivityIndicatorView = UIActivityIndicatorView(activityIndicatorStyle: .Gray)
+    public  let textLabel:UILabel = UILabel(frame: CGRectMake(0,0,120,40)).SetUp {
         $0.font = UIFont.systemFontOfSize(14)
         $0.textAlignment = .Center
     }
@@ -24,7 +24,7 @@ class DefaultRefreshFooter:UIView,RefreshableFooter{
     /**
      This function can only be called before refreshing
      */
-    func setText(text:String,mode:RefreshKitFooterText){
+    public  func setText(text:String,mode:RefreshKitFooterText){
         textDic[mode] = text
         textLabel.text = textDic[.pullToRefresh]
     }
@@ -39,25 +39,25 @@ class DefaultRefreshFooter:UIView,RefreshableFooter{
         textDic[.noMoreData] = PullToRefreshKitFooterString.noMoreData
         textLabel.text = textDic[.pullToRefresh]
     }
-    required init?(coder aDecoder: NSCoder) {
+   public required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     // MARK: - Refreshable  -
-    func distanceToRefresh() -> CGFloat {
+   public func distanceToRefresh() -> CGFloat {
         return PullToRefreshKitConst.defaultFooterHeight
     }
-    func didBeginRefreshing() {
+   public func didBeginRefreshing() {
         textLabel.text = textDic[.refreshing];
         spinner.startAnimating()
     }
-    func didEndRefreshing() {
+   public func didEndRefreshing() {
         textLabel.text = textDic[.pullToRefresh]
         spinner.stopAnimating()
     }
-    func didUpdateToNoMoreData(){
+   public func didUpdateToNoMoreData(){
         textLabel.text = textDic[.noMoreData]
     }
-    func didResetToDefault() {
+   public func didResetToDefault() {
         textLabel.text = textDic[.pullToRefresh]
     }
 }

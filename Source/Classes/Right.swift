@@ -9,11 +9,11 @@ import Foundation
 import UIKit
 
 
-class DefaultRefreshRight:UIView,RefreshableLeftRight{
-    let imageView:UIImageView = UIImageView().SetUp {
+public class DefaultRefreshRight:UIView,RefreshableLeftRight{
+    public let imageView:UIImageView = UIImageView().SetUp {
         $0.image = UIImage(named: "arrow_left")
     }
-    let textLabel:UILabel  = UILabel().SetUp {
+    public  let textLabel:UILabel  = UILabel().SetUp {
         $0.font = UIFont.systemFontOfSize(14)
     }
     private var textDic = [RefreshKitLeftRightText:String]()
@@ -21,7 +21,7 @@ class DefaultRefreshRight:UIView,RefreshableLeftRight{
     /**
      You can only call this function before pull
      */
-    func setText(text:String,mode:RefreshKitLeftRightText){
+    public func setText(text:String,mode:RefreshKitLeftRightText){
         textDic[mode] = text
         textLabel.text = textDic[.scrollToAction]
     }
@@ -38,15 +38,15 @@ class DefaultRefreshRight:UIView,RefreshableLeftRight{
         textDic[.releaseToAction] = PullToRefreshKitRightString.releaseToAction
         textLabel.text = textDic[.scrollToAction]
     }
-    required init?(coder aDecoder: NSCoder) {
+   public  required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
     // MARK: - RefreshableLeftRight Protocol  -
-    func distanceToRefresh() -> CGFloat {
+   public func distanceToRefresh() -> CGFloat {
         return PullToRefreshKitConst.defaultLeftWidth
     }
-    func percentageChangedDuringDragging(percent:CGFloat){
+   public func percentageChangedDuringDragging(percent:CGFloat){
         if percent > 1.0{
             guard CGAffineTransformEqualToTransform(self.imageView.transform, CGAffineTransformIdentity)  else{
                 return
@@ -66,11 +66,11 @@ class DefaultRefreshRight:UIView,RefreshableLeftRight{
             })
         }
     }
-    func didEndRefreshing() {
+   public func didEndRefreshing() {
         imageView.transform = CGAffineTransformIdentity
         textLabel.text = textDic[.scrollToAction]
     }
-    func didBeginRefreshing() {
+   public  func didBeginRefreshing() {
         
     }
 }

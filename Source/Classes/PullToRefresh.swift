@@ -9,7 +9,7 @@
 import Foundation
 import UIKit
 
-enum RefreshResult{
+public enum RefreshResult{
     /**
      *  刷新成功
      */
@@ -27,7 +27,7 @@ enum RefreshResult{
      */
     case None
 }
-protocol RefreshAble:class{
+public protocol RefreshAble:class{
     /**
      触发动作的距离，对于header/footer来讲，就是视图的高度；对于left/right来讲，就是视图的宽度
     */
@@ -37,7 +37,7 @@ protocol RefreshAble:class{
      */
     func didBeginRefreshing()
 }
-protocol RefreshableHeader:RefreshAble{
+public protocol RefreshableHeader:RefreshAble{
     /**
      拖拽的过程中,拖拽的百分比
      
@@ -62,7 +62,7 @@ protocol RefreshableHeader:RefreshAble{
     func didEndRefreshing(result:RefreshResult)
 }
 
-protocol RefreshableFooter:RefreshAble{
+public protocol RefreshableFooter:RefreshAble{
     /**
      不需要下拉加载更多的回调
      */
@@ -77,7 +77,7 @@ protocol RefreshableFooter:RefreshAble{
     func didEndRefreshing()
 }
 
-protocol RefreshableLeftRight:RefreshAble{
+public protocol RefreshableLeftRight:RefreshAble{
     /**
      结束刷新的回调
      */
@@ -102,13 +102,13 @@ extension SetUp where Self: AnyObject {
 extension NSObject: SetUp {}
 
 //Header
-extension UIScrollView{
-    func setUpHeaderRefresh(action:()->())->DefaultRefreshHeader{
+public extension UIScrollView{
+    public func setUpHeaderRefresh(action:()->())->DefaultRefreshHeader{
         let header = DefaultRefreshHeader(frame:CGRectMake(0,0,CGRectGetWidth(self.frame),PullToRefreshKitConst.defaultHeaderHeight))
         return setUpHeaderRefresh(header, action: action)
     }
     
-    func setUpHeaderRefresh<T:UIView where T:RefreshableHeader>(header:T,action:()->())->T{
+   public  func setUpHeaderRefresh<T:UIView where T:RefreshableHeader>(header:T,action:()->())->T{
         let oldContain = self.viewWithTag(PullToRefreshKitConst.headerTag)
         oldContain?.removeFromSuperview()
         let height = header.distanceToRefresh()
@@ -124,23 +124,23 @@ extension UIScrollView{
         containComponent.addSubview(header)
         return header
     }
-    func beginHeaderRefreshing(){
+   public func beginHeaderRefreshing(){
         let header = self.viewWithTag(PullToRefreshKitConst.headerTag) as? RefreshHeaderContainer
         header?.beginRefreshing()
         
     }
-    func endHeaderRefreshing(result:RefreshResult = .None){
+   public  func endHeaderRefreshing(result:RefreshResult = .None){
         let header = self.viewWithTag(PullToRefreshKitConst.headerTag) as? RefreshHeaderContainer
         header?.endRefreshing(result)
     }
 }
 //Footer
-extension UIScrollView{
-    func setUpFooterRefresh(action:()->())->DefaultRefreshFooter{
+public extension UIScrollView{
+   public func setUpFooterRefresh(action:()->())->DefaultRefreshFooter{
         let footer = DefaultRefreshFooter(frame: CGRectMake(0,0,CGRectGetWidth(self.frame),PullToRefreshKitConst.defaultFooterHeight))
         return setUpFooterRefresh(footer, action: action)
     }
-    func setUpFooterRefresh<T:UIView where T:RefreshableFooter>(footer:T,action:()->())->T{
+   public func setUpFooterRefresh<T:UIView where T:RefreshableFooter>(footer:T,action:()->())->T{
         let oldContain = self.viewWithTag(PullToRefreshKitConst.footerTag)
         oldContain?.removeFromSuperview()
         let frame = CGRectMake(0,0,CGRectGetWidth(self.frame), PullToRefreshKitConst.defaultFooterHeight)
@@ -156,23 +156,23 @@ extension UIScrollView{
         containComponent.addSubview(footer)
         return footer
     }
-    func beginFooterRefreshing(){
+   public func beginFooterRefreshing(){
         let footer = self.viewWithTag(PullToRefreshKitConst.footerTag) as? RefreshHeaderContainer
         footer?.beginRefreshing()
     }
-    func endFooterRefreshing(){
+   public func endFooterRefreshing(){
         let footer = self.viewWithTag(PullToRefreshKitConst.footerTag) as? RefreshFooterContainer
         footer?.endRefreshing()
     }
-    func setFooterNoMoreData(){
+   public func setFooterNoMoreData(){
         let footer = self.viewWithTag(PullToRefreshKitConst.footerTag) as? RefreshFooterContainer
         footer?.endRefreshing()
     }
-    func resetFooterToDefault(){
+   public func resetFooterToDefault(){
         let footer = self.viewWithTag(PullToRefreshKitConst.footerTag) as? RefreshFooterContainer
         footer?.resetToDefault()
     }
-    func endFooterRefreshingWithNoMoreData(){
+   public  func endFooterRefreshingWithNoMoreData(){
         let footer = self.viewWithTag(PullToRefreshKitConst.footerTag) as? RefreshFooterContainer
         footer?.endRefreshing()
         footer?.updateToNoMoreData()
@@ -181,11 +181,11 @@ extension UIScrollView{
 
 //Left
 extension UIScrollView{
-    func setUpLeftRefresh(action:()->())->DefaultRefreshLeft{
+   public func setUpLeftRefresh(action:()->())->DefaultRefreshLeft{
         let left = DefaultRefreshLeft(frame: CGRectMake(0,0,PullToRefreshKitConst.defaultLeftWidth, CGRectGetHeight(self.frame)))
         return setUpLeftRefresh(left, action: action)
     }
-    func setUpLeftRefresh<T:UIView where T:RefreshableLeftRight>(left:T,action:()->())->T{
+   public func setUpLeftRefresh<T:UIView where T:RefreshableLeftRight>(left:T,action:()->())->T{
         let oldContain = self.viewWithTag(PullToRefreshKitConst.leftTag)
         oldContain?.removeFromSuperview()
         let frame = CGRectMake(-1.0 * PullToRefreshKitConst.defaultLeftWidth,0,PullToRefreshKitConst.defaultLeftWidth, CGRectGetHeight(self.frame))
@@ -203,11 +203,11 @@ extension UIScrollView{
 }
 //Right
 extension UIScrollView{
-    func setUpRightRefresh(action:()->())->DefaultRefreshRight{
+   public  func setUpRightRefresh(action:()->())->DefaultRefreshRight{
         let right = DefaultRefreshRight(frame: CGRectMake(0 ,0 ,PullToRefreshKitConst.defaultLeftWidth ,CGRectGetHeight(self.frame) ))
         return setUpRightRefresh(right, action: action)
     }
-    func setUpRightRefresh<T:UIView where T:RefreshableLeftRight>(right:T,action:()->())->T{
+   public func setUpRightRefresh<T:UIView where T:RefreshableLeftRight>(right:T,action:()->())->T{
         let oldContain = self.viewWithTag(PullToRefreshKitConst.rightTag)
         oldContain?.removeFromSuperview()
         let frame = CGRectMake(0 ,0 ,PullToRefreshKitConst.defaultLeftWidth ,CGRectGetHeight(self.frame) )

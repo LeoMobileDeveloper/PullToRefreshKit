@@ -11,7 +11,7 @@ import Foundation
 import UIKit
 
 
-enum RefreshKitHeaderText{
+public enum RefreshKitHeaderText{
     case pullToRefresh
     case releaseToRefresh
     case refreshSuccess
@@ -20,10 +20,10 @@ enum RefreshKitHeaderText{
     case refreshing
 }
 
-class DefaultRefreshHeader:UIView,RefreshableHeader{
-    let spinner:UIActivityIndicatorView = UIActivityIndicatorView(activityIndicatorStyle: .Gray)
-    let textLabel:UILabel = UILabel(frame: CGRectMake(0,0,120,40))
-    let imageView:UIImageView = UIImageView(frame: CGRectZero)
+public class DefaultRefreshHeader:UIView,RefreshableHeader{
+    public let spinner:UIActivityIndicatorView = UIActivityIndicatorView(activityIndicatorStyle: .Gray)
+    public let textLabel:UILabel = UILabel(frame: CGRectMake(0,0,120,40))
+    public let imageView:UIImageView = UIImageView(frame: CGRectZero)
     private var textDic = [RefreshKitHeaderText:String]()
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -49,17 +49,17 @@ class DefaultRefreshHeader:UIView,RefreshableHeader{
         textDic[.refreshing] = PullToRefreshKitHeaderString.refreshing
         textLabel.text = textDic[.pullToRefresh]
     }
-    required init?(coder aDecoder: NSCoder) {
+    required public init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    func setText(text:String,mode:RefreshKitHeaderText){
+    public func setText(text:String,mode:RefreshKitHeaderText){
         textDic[mode] = text
     }
     // MARK: - Refreshable  -
-    func distanceToRefresh() -> CGFloat {
+    public func distanceToRefresh() -> CGFloat {
         return PullToRefreshKitConst.defaultHeaderHeight
     }
-    func percentageChangedDuringDragging(percent:CGFloat){
+    public func percentageChangedDuringDragging(percent:CGFloat){
         self.hidden = !(percent > 0.0)
         if percent > 1.0{
             textLabel.text = textDic[.releaseToRefresh]
@@ -80,7 +80,7 @@ class DefaultRefreshHeader:UIView,RefreshableHeader{
             })
         }
     }
-    func willEndRefreshing(result:RefreshResult) {
+    public func willEndRefreshing(result:RefreshResult) {
         spinner.stopAnimating()
         imageView.transform = CGAffineTransformIdentity
         imageView.hidden = false
@@ -95,22 +95,22 @@ class DefaultRefreshHeader:UIView,RefreshableHeader{
             textLabel.text = textDic[.pullToRefresh]
         }
     }
-    func didEndRefreshing(result:RefreshResult) {
+    public func didEndRefreshing(result:RefreshResult) {
         textLabel.text = textDic[.pullToRefresh]
         self.hidden = true
     }
-    func willBeginRefreshing() {
+    public func willBeginRefreshing() {
         self.hidden = false
         textLabel.text = textDic[.refreshing]
         spinner.startAnimating()
         imageView.hidden = true
     }
-    func didBeginRefreshing() {
+    public  func didBeginRefreshing() {
         
     }
 }
 
-class RefreshHeaderContainer:UIView{
+public class RefreshHeaderContainer:UIView{
     // MARK: - Propertys -
     enum RefreshHeaderState {
         case Idle
@@ -176,18 +176,18 @@ class RefreshHeaderContainer:UIView{
         self.backgroundColor = UIColor.clearColor()
         self.autoresizingMask = .FlexibleWidth
     }
-    required init?(coder aDecoder: NSCoder) {
+    required public init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
     // MARK: - Life circle -
-    override func drawRect(rect: CGRect) {
+    public override func drawRect(rect: CGRect) {
         super.drawRect(rect)
         if self.state == .WillRefresh {
             self.state = .Refreshing
         }
     }
-    override func willMoveToSuperview(newSuperview: UIView?) {
+    public override func willMoveToSuperview(newSuperview: UIView?) {
         super.willMoveToSuperview(newSuperview)
         guard newSuperview is UIScrollView else{
             return;
@@ -243,7 +243,7 @@ class RefreshHeaderContainer:UIView{
         }
     }
     // MARK: - KVO -
-    override func observeValueForKeyPath(keyPath: String?, ofObject object: AnyObject?, change: [String : AnyObject]?, context: UnsafeMutablePointer<Void>) {
+    override public func observeValueForKeyPath(keyPath: String?, ofObject object: AnyObject?, change: [String : AnyObject]?, context: UnsafeMutablePointer<Void>) {
         guard self.userInteractionEnabled else{
             return;
         }
