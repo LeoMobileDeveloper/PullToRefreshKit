@@ -9,7 +9,9 @@
 import UIKit
 import AudioToolbox
 
-// 如果你喜欢这个库，一个★就是对我最好的支持，项目地址 https://github.com/LeoMobileDeveloper/PullToRefreshKit
+/* 
+    如果你喜欢这个库，一个★就是对我最好的支持，项目地址 https://github.com/LeoMobileDeveloper/PullToRefreshKit
+ */
 class MainViewController: UITableViewController {
     var models = [SectionModel]()
     override func viewDidLoad() {
@@ -24,7 +26,7 @@ class MainViewController: UITableViewController {
         let section2 = SectionModel(rowsCount: 1,
                                     sectionTitle:"自定义",
                                     rowsTitles: ["淘宝下拉刷新",],
-                                    rowsTargetControlerNames:["CustomHeaderTableViewController"])
+                                    rowsTargetControlerNames:["TaobaoTableViewController"])
         models.append(section0)
         models.append(section1)
         models.append(section2)

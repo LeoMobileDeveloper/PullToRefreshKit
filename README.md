@@ -22,6 +22,12 @@ self.tableView.setUpHeaderRefresh { [weak self] in
 - iOS 8
 - Swift 2
 
+支持
+
+- UITableView
+- UICollectionView
+- UIScrollView
+- UIWebView(TODO)
 
 
 ## 安装

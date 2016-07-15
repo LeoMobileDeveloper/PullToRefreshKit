@@ -13,26 +13,27 @@ class TaoBaoRefreshHeader:UIView,RefreshableHeader{
     private let circleLayer = CAShapeLayer()
     private let arrowLayer = CAShapeLayer()
     private let textLabel = UILabel()
-    
+    private let strokeColor = UIColor(red: 135.0/255.0, green: 136.0/255.0, blue: 137.0/255.0, alpha: 1.0)
     override init(frame: CGRect) {
         super.init(frame: frame)
         setUpCircleLayer()
         setUpArrowLayer()
         textLabel.frame = CGRectMake(CGRectGetWidth(self.bounds)/2 - 30, CGRectGetHeight(self.bounds)/2 - 20,120, 40)
         textLabel.textAlignment = .Center
+        textLabel.textColor = UIColor.lightGrayColor()
         textLabel.font = UIFont.systemFontOfSize(14)
         textLabel.text = "下拉即可刷新..."
         self.addSubview(textLabel)
     }
     func setUpArrowLayer(){
         let bezierPath = UIBezierPath()
-        bezierPath.moveToPoint(CGPointMake(20, 10))
-        bezierPath.addLineToPoint(CGPointMake(20, 30))
-        bezierPath.addLineToPoint(CGPointMake(25,25))
-        bezierPath.moveToPoint(CGPointMake(20, 30))
-        bezierPath.addLineToPoint(CGPointMake(15, 25))
+        bezierPath.moveToPoint(CGPointMake(20, 15))
+        bezierPath.addLineToPoint(CGPointMake(20, 25))
+        bezierPath.addLineToPoint(CGPointMake(25,20))
+        bezierPath.moveToPoint(CGPointMake(20, 25))
+        bezierPath.addLineToPoint(CGPointMake(15, 20))
         self.arrowLayer.path = bezierPath.CGPath
-        self.arrowLayer.strokeColor = UIColor.blackColor().CGColor
+        self.arrowLayer.strokeColor = UIColor.lightGrayColor().CGColor
         self.arrowLayer.fillColor = UIColor.clearColor().CGColor
         self.arrowLayer.lineWidth = 1.0
         self.arrowLayer.lineCap = kCALineCapRound
@@ -43,12 +44,12 @@ class TaoBaoRefreshHeader:UIView,RefreshableHeader{
     }
     func setUpCircleLayer(){
         let bezierPath = UIBezierPath(arcCenter: CGPointMake(20, 20),
-                                      radius: 15.0,
+                                      radius: 12.0,
                                       startAngle:CGFloat(-M_PI/2),
                                       endAngle: CGFloat(M_PI_2 * 3),
                                       clockwise: true)
         self.circleLayer.path = bezierPath.CGPath
-        self.circleLayer.strokeColor = UIColor.blackColor().CGColor
+        self.circleLayer.strokeColor = UIColor.lightGrayColor().CGColor
         self.circleLayer.fillColor = UIColor.clearColor().CGColor
         self.circleLayer.strokeStart = 0.05
         self.circleLayer.strokeEnd = 0.05
