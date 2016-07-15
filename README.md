@@ -18,6 +18,9 @@ self.tableView.setUpHeaderRefresh { [weak self] in
 ```
 这个库的设计初衷，是为了能够方便地实现自定义的下拉刷新，上拉加载等。比如，Demo中，我用了不到60行，就实现了大众点评的下拉刷新。实例代码：[DianpingRefreshHeader.swift](https://github.com/LeoMobileDeveloper/PullToRefreshKit/blob/master/PullToRefreshKit/DianpingRefreshHeader.swift)
 
+效果
+<img src="https://raw.github.com/LeoMobileDeveloper/PullToRefreshKit/master/Screenshot/dianping.gif" width="320">
+
 ## 要求
 
 - iOS 8
