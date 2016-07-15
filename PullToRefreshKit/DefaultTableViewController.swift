@@ -24,7 +24,11 @@ class DefaultTableViewController:UITableViewController{
             delay(1.5, closure: {
                 self?.models.append(random100())
                 self?.tableView.reloadData()
-                self?.tableView.endFooterRefreshing()
+                if self?.models.count < 15{
+                    self?.tableView.endFooterRefreshing()
+                }else{
+                    self?.tableView.endFooterRefreshingWithNoMoreData()
+                }
             })
         }
         self.tableView.beginHeaderRefreshing()

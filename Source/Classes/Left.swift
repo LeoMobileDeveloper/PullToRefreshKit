@@ -13,6 +13,7 @@ public enum RefreshKitLeftRightText{
     case scrollToAction
     case releaseToAction
 }
+
 public class DefaultRefreshLeft:UIView,RefreshableLeftRight{
     public let imageView:UIImageView = UIImageView()
     public let textLabel:UILabel  = UILabel().SetUp {
@@ -37,7 +38,7 @@ public class DefaultRefreshLeft:UIView,RefreshableLeftRight{
         textLabel.numberOfLines = 0
         imageView.frame = CGRectMake(0, 0,20, 20)
         imageView.center = CGPointMake(40,frame.size.height/2)
-        let image = UIImage(named: "arrow_right", inBundle: NSBundle(forClass: self.dynamicType), compatibleWithTraitCollection: nil)
+        let image = UIImage(named: "arrow_right", inBundle: NSBundle(forClass: DefaultRefreshLeft.self), compatibleWithTraitCollection: nil)
         imageView.image = image
         textDic[.scrollToAction] = PullToRefreshKitLeftString.scrollToAction
         textDic[.releaseToAction] = PullToRefreshKitLeftString.releaseToAction
@@ -51,7 +52,7 @@ public class DefaultRefreshLeft:UIView,RefreshableLeftRight{
    public func distanceToRefresh() -> CGFloat {
         return PullToRefreshKitConst.defaultHeaderHeight
     }
-   public func percentageChangedDuringDragging(percent:CGFloat){
+   public func percentUpdateWhenNotRefreshing(percent:CGFloat){
         if percent > 1.0{
             guard CGAffineTransformEqualToTransform(self.imageView.transform, CGAffineTransformIdentity)  else{
                 return
@@ -74,7 +75,7 @@ public class DefaultRefreshLeft:UIView,RefreshableLeftRight{
    public func didBeginRefreshing() {
 
     }
-   public func didEndRefreshing() {
+   public func didCompleteEndRefershingAnimation() {
         textLabel.text = textDic[.scrollToAction]
     }
 }
@@ -106,7 +107,7 @@ class RefreshLeftContainer:UIView{
                     self.delegate?.didBeginRefreshing()
                     self.refreshAction?()
                     self.endRefreshing()
-                    self.delegate?.didEndRefreshing()
+                    self.delegate?.didCompleteEndRefershingAnimation()
                 })
             default:
                 break
@@ -164,7 +165,7 @@ class RefreshLeftContainer:UIView{
         let normal2pullingOffsetX = topShowOffsetX - self.frame.size.width
         let percent = (topShowOffsetX - offSetX)/self.frame.size.width
         if attachedScrollView.dragging {
-            self.delegate?.percentageChangedDuringDragging(percent)
+            self.delegate?.percentUpdateWhenNotRefreshing(percent)
             if state == .Idle && offSetX < normal2pullingOffsetX {
                 self.state = .Pulling
             }else if state == .Pulling && offSetX >= normal2pullingOffsetX{

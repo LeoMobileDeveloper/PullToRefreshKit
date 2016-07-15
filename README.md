@@ -16,6 +16,7 @@ self.tableView.setUpHeaderRefresh { [weak self] in
    })
 }
 ```
+这个库的设计初衷，是为了能够方便地实现自定义的下拉刷新，上拉加载等。比如，Demo中，我用了不到60行，就实现了大众点评的下拉刷新。实例代码：[DianpingRefreshHeader.swift](https://github.com/LeoMobileDeveloper/PullToRefreshKit/blob/master/PullToRefreshKit/DianpingRefreshHeader.swift)
 
 ## 要求
 
@@ -116,23 +117,26 @@ self.tableView.setUpHeaderRefresh { [weak self] in
 
 例如，Demo工程[TaoBaoRefreshHeader.swift](https://github.com/LeoMobileDeveloper/PullToRefreshKit/blob/master/PullToRefreshKit/TaoBaoRefreshHeader.swift)中实现了淘宝App的下拉刷新例子。
 
-你只需要根据协议提供的回调来更新时图的状态
+你只需要根据协议提供的回调来更新Header的状态
 
 这个协议提供的方法如下
 
 ```
-//触发刷新的距离，也是header的高度
+//触发刷新的距离，对于header/footer来讲，就是视图的高度；对于left/right来讲，就是视图的宽度
 func distanceToRefresh()->CGFloat
-//已经开始刷新的回调
-func didBeginRefreshing()
-//拖拽过程中，拖拽百分比的回调
-func percentageChangedDuringDragging(percent:CGFloat)
-//将要开始刷新
-func willBeginRefreshing()
-//将要结束刷新，result是刷新的结果,对应着界面header将要隐藏
-func willEndRefreshing(result:RefreshResult)
-//已经结束刷新，result是刷新的结果,对应着界面header完全隐藏
-func didEndRefreshing(result:RefreshResult)
+
+//百分比回调，在这里你根据百分比来动态的调整你的刷新视图
+func percentUpdateWhenNotRefreshing(percent:CGFloat)
+
+//松手就会刷新的回调,在这个回调里，将视图切换到动画的状态
+func releaseWithRefreshingState()
+
+//刷新结束，将要进行隐藏的动画，一般在这里告诉用户刷新的结果
+func didBeginEndRefershingAnimation(result:RefreshResult)
+
+//刷新结束，隐藏的动画结束，一般在这里把视图隐藏，各个参数恢复到最初状态
+func didCompleteEndRefershingAnimation(result:RefreshResult)
+    
 ```
 
 

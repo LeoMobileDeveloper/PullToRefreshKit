@@ -32,34 +32,31 @@ public protocol RefreshAble:class{
      触发动作的距离，对于header/footer来讲，就是视图的高度；对于left/right来讲，就是视图的宽度
     */
     func distanceToRefresh()->CGFloat
-    /**
-     已经开始执行刷新逻辑，在一次刷新中，只会调用一次
-     */
-    func didBeginRefreshing()
 }
 public protocol RefreshableHeader:RefreshAble{
     /**
-     拖拽的过程中,拖拽的百分比
-     
+      不在刷新状态的时候，百分比回调，在这里你根据百分比来动态的调整你的刷新视图
      - parameter percent: 拖拽的百分比，比如一共距离是100，那么拖拽10的时候，percent就是0.1
      */
-    func percentageChangedDuringDragging(percent:CGFloat)
+    func percentUpdateWhenNotRefreshing(percent:CGFloat)
+    
     /**
-     将要开始刷洗
+     松手就会刷新的回调,在这个回调里，将视图切换到动画的状态
      */
-    func willBeginRefreshing()
+    func releaseWithRefreshingState()
+    
     /**
-     将要结束刷新，对应刷新的Header将要隐藏
+       刷新结束，将要进行隐藏的动画，一般在这里告诉用户刷新的结果
+     - parameter result: 刷新结果
+     */
+    func didBeginEndRefershingAnimation(result:RefreshResult)
+    /**
+       刷新结束，隐藏的动画结束，一般在这里把视图隐藏，各个参数恢复到最初状态
      
      - parameter result: 刷新结果
      */
-    func willEndRefreshing(result:RefreshResult)
-    /**
-    已经结束刷新，对应刷新的Header完全隐藏
-     
-     - parameter result: 刷新结果
-     */
-    func didEndRefreshing(result:RefreshResult)
+    func didCompleteEndRefershingAnimation(result:RefreshResult)
+    
 }
 
 public protocol RefreshableFooter:RefreshAble{
@@ -75,19 +72,28 @@ public protocol RefreshableFooter:RefreshAble{
      结束刷新的回调
      */
     func didEndRefreshing()
+    /**
+     已经开始执行刷新逻辑，在一次刷新中，只会调用一次
+     */
+    func didBeginRefreshing()
 }
 
 public protocol RefreshableLeftRight:RefreshAble{
     /**
+     已经开始执行刷新逻辑，在一次刷新中，只会调用一次
+     */
+    func didBeginRefreshing()
+
+    /**
      结束刷新的回调
      */
-    func didEndRefreshing()
+    func didCompleteEndRefershingAnimation()
     /**
      拖动百分比变化的回调
      
      - parameter percent: 拖动百分比，大于0
      */
-    func percentageChangedDuringDragging(percent:CGFloat)
+    func percentUpdateWhenNotRefreshing(percent:CGFloat)
 }
 
 

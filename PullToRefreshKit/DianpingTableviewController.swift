@@ -22,5 +22,6 @@ class DianpingTableviewController:CustomBaseTableViewController{
                 self?.tableView.endHeaderRefreshing(.Success)
             })
         }
+        self.tableView.beginHeaderRefreshing()
     }
 }

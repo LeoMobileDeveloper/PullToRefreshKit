@@ -9,7 +9,6 @@
 import Foundation
 import UIKit
 class DianpingRefreshHeader:UIView,RefreshableHeader{
- 
     let imageView = UIImageView()
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -25,18 +24,19 @@ class DianpingRefreshHeader:UIView,RefreshableHeader{
     func distanceToRefresh()->CGFloat{
         return 70
     }
-    func percentageChangedDuringDragging(percent:CGFloat){
-        imageView.hidden = false
+    //监听百分比变化
+    func percentUpdateWhenNotRefreshing(percent:CGFloat){
+        imageView.hidden = (percent == 0)
         let adjustPercent = max(min(1.0, percent),0.0)
         let scale = 0.2 + (1.0 - 0.2) * adjustPercent;
         imageView.transform = CGAffineTransformMakeScale(scale, scale)
         let mappedIndex = Int(adjustPercent * 60)
         let imageName = "dropdown_anim__000\(mappedIndex)"
-        print(imageName)
         let image = UIImage(named: imageName)
         imageView.image = image
     }
-    func willBeginRefreshing(){
+    //松手即将刷新的状态
+    func releaseWithRefreshingState(){
         let images = ["dropdown_loading_01","dropdown_loading_02","dropdown_loading_03"].map { (name) -> UIImage in
             return UIImage(named:name)!
         }
@@ -44,9 +44,14 @@ class DianpingRefreshHeader:UIView,RefreshableHeader{
         imageView.animationDuration = 0.6
         imageView.startAnimating()
     }
-    func willEndRefreshing(result:RefreshResult){}
-    func didEndRefreshing(result:RefreshResult){
+    //刷新结束，将要隐藏header
+    func didBeginEndRefershingAnimation(result:RefreshResult){
+        
+    }
+    //刷新结束，完全隐藏header
+    func didCompleteEndRefershingAnimation(result:RefreshResult){
+        imageView.animationImages = nil
+        imageView.stopAnimating()
         imageView.hidden = true
     }
-    func didBeginRefreshing(){}
 }

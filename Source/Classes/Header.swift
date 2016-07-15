@@ -30,7 +30,7 @@ public class DefaultRefreshHeader:UIView,RefreshableHeader{
         addSubview(spinner)
         addSubview(textLabel)
         addSubview(imageView);
-        let image = UIImage(named: "arrow_down", inBundle: NSBundle(forClass: self.dynamicType), compatibleWithTraitCollection: nil)
+        let image = UIImage(named: "arrow_down", inBundle: NSBundle(forClass: DefaultRefreshHeader.self), compatibleWithTraitCollection: nil)
         imageView.image = image
         imageView.sizeToFit()
         imageView.frame = CGRectMake(0, 0, 24, 24)
@@ -60,7 +60,8 @@ public class DefaultRefreshHeader:UIView,RefreshableHeader{
     public func distanceToRefresh() -> CGFloat {
         return PullToRefreshKitConst.defaultHeaderHeight
     }
-    public func percentageChangedDuringDragging(percent:CGFloat){
+    public func percentUpdateWhenNotRefreshing(percent:CGFloat){
+        
         self.hidden = !(percent > 0.0)
         if percent > 1.0{
             textLabel.text = textDic[.releaseToRefresh]
@@ -81,7 +82,11 @@ public class DefaultRefreshHeader:UIView,RefreshableHeader{
             })
         }
     }
-    public func willEndRefreshing(result:RefreshResult) {
+    
+    public func percentageChangedDuringReleaseing(percent:CGFloat){
+    
+    }
+    public func didBeginEndRefershingAnimation(result:RefreshResult) {
         spinner.stopAnimating()
         imageView.transform = CGAffineTransformIdentity
         imageView.hidden = false
@@ -96,18 +101,15 @@ public class DefaultRefreshHeader:UIView,RefreshableHeader{
             textLabel.text = textDic[.pullToRefresh]
         }
     }
-    public func didEndRefreshing(result:RefreshResult) {
+    public func didCompleteEndRefershingAnimation(result:RefreshResult) {
         textLabel.text = textDic[.pullToRefresh]
         self.hidden = true
     }
-    public func willBeginRefreshing() {
+    public func releaseWithRefreshingState() {
         self.hidden = false
         textLabel.text = textDic[.refreshing]
         spinner.startAnimating()
         imageView.hidden = true
-    }
-    public  func didBeginRefreshing() {
-        
     }
 }
 
@@ -147,7 +149,7 @@ public class RefreshHeaderContainer:UIView{
                     self.attachedScrollView.contentInset = oldInset
                     
                     }, completion: { (finished) in
-                        self.delegate?.didEndRefreshing(self.currentResult)
+                        self.delegate?.didCompleteEndRefershingAnimation(self.currentResult)
                 })
             case .Refreshing:
                 dispatch_async(dispatch_get_main_queue(), {
@@ -158,9 +160,10 @@ public class RefreshHeaderContainer:UIView{
                         self.attachedScrollView.contentInset = oldInset
                         self.attachedScrollView.contentOffset = CGPointMake(0, -1.0 * top)
                         }, completion: { (finsihed) in
-                            self.delegate?.didBeginRefreshing()
                             self.refreshAction?()
                     })
+                    self.delegate?.percentUpdateWhenNotRefreshing(1.0)
+                    self.delegate?.releaseWithRefreshingState()
                 })
             default:
                 break
@@ -210,7 +213,7 @@ public class RefreshHeaderContainer:UIView{
     }
     func handleScrollOffSetChange(change: [String : AnyObject]?){
         if state == .Refreshing {
-//Refre from here https://github.com/CoderMJLee/MJRefresh/blob/master/MJRefresh/Base/MJRefreshHeader.m, thanks to this lib again
+//Refer from here https://github.com/CoderMJLee/MJRefresh/blob/master/MJRefresh/Base/MJRefreshHeader.m, thanks to this lib again
             guard self.window != nil else{
                 return
             }
@@ -231,16 +234,27 @@ public class RefreshHeaderContainer:UIView{
             return
         }
         let normal2pullingOffsetY = topShowOffsetY - self.frame.size.height
-        let percent = (topShowOffsetY - offSetY)/self.frame.size.height
         if attachedScrollView.dragging {
             if state == .Idle && offSetY < normal2pullingOffsetY {
                 self.state = .Pulling
             }else if state == .Pulling && offSetY >= normal2pullingOffsetY{
                 state = .Idle
             }
-            self.delegate?.percentageChangedDuringDragging(percent)
         }else if state == .Pulling{
             beginRefreshing()
+            return
+        }
+        let percent = (topShowOffsetY - offSetY)/self.frame.size.height
+        //防止在结束刷新的时候，percent的跳跃
+        if let oldOffset = change?[NSKeyValueChangeOldKey]?.CGPointValue(){
+            let oldPercent = (topShowOffsetY - oldOffset.y)/self.frame.size.height
+            if oldPercent >= 1.0 && percent == 0.0{
+                return
+            }else{
+                self.delegate?.percentUpdateWhenNotRefreshing(percent)
+            }
+        }else{
+            self.delegate?.percentUpdateWhenNotRefreshing(percent)
         }
     }
     // MARK: - KVO -
@@ -254,7 +268,6 @@ public class RefreshHeaderContainer:UIView{
     }
     // MARK: - API -
     func beginRefreshing(){
-        self.delegate?.willBeginRefreshing()
         if self.window != nil {
             self.state = .Refreshing
         }else{
@@ -264,7 +277,7 @@ public class RefreshHeaderContainer:UIView{
         }
     }
     func endRefreshing(result:RefreshResult){
-        self.delegate?.willEndRefreshing(result)
+        self.delegate?.didBeginEndRefershingAnimation(result)
         self.state = .Idle
     }
 }

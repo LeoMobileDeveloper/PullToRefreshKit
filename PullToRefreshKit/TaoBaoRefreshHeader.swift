@@ -68,10 +68,7 @@ class TaoBaoRefreshHeader:UIView,RefreshableHeader{
     func distanceToRefresh()->CGFloat{
         return 60
     }
-    func didBeginRefreshing(){
-        
-    }
-    func percentageChangedDuringDragging(percent:CGFloat){
+    func percentUpdateWhenNotRefreshing(percent:CGFloat){
         let adjustPercent = max(min(1.0, percent),0.0)
         self.circleLayer.strokeEnd = 0.05 + (0.95 - 0.05) * adjustPercent
         if adjustPercent  == 1.0{
@@ -80,7 +77,7 @@ class TaoBaoRefreshHeader:UIView,RefreshableHeader{
             textLabel.text = "下拉即可刷新..."
         }
     }
-    func willBeginRefreshing(){
+    func releaseWithRefreshingState(){
         self.circleLayer.strokeEnd = 0.95
         let rotateAnimation = CABasicAnimation(keyPath: "transform.rotation.z")
         rotateAnimation.toValue = NSNumber(double: M_PI * 2.0)
@@ -91,11 +88,11 @@ class TaoBaoRefreshHeader:UIView,RefreshableHeader{
         self.arrowLayer.hidden = true
         textLabel.text = "刷新中..."
     }
-    func willEndRefreshing(result:RefreshResult){
+    func didBeginEndRefershingAnimation(result:RefreshResult){
         self.circleLayer.strokeEnd = 0.05
         self.circleLayer.removeAllAnimations()
     }
-    func didEndRefreshing(result:RefreshResult){
+    func didCompleteEndRefershingAnimation(result:RefreshResult){
         self.circleLayer.strokeEnd = 0.05
         self.arrowLayer.hidden = false
         textLabel.text = "下拉即可刷新"

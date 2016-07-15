@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
   s.name             = 'PullToRefreshKit'
-  s.version          = '0.1.1'
+  s.version          = '0.2.0'
   s.summary          = 'A refresh library written with pure Swift'
   s.description      = <<-DESC
 This is a pull to refresh library written by pure Swift. Using it you can add pull to refresh,pull to load more,pull left/right to view details within one line. Besides,it is quite easy to write a custom refresh view when using this lib.

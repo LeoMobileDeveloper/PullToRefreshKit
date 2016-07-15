@@ -32,7 +32,7 @@ public class DefaultRefreshRight:UIView,RefreshableLeftRight{
         textLabel.numberOfLines = 0
         imageView.frame = CGRectMake(0, 0,20, 20)
         imageView.center = CGPointMake(10,frame.size.height/2)
-        let image = UIImage(named: "arrow_left", inBundle: NSBundle(forClass: self.dynamicType), compatibleWithTraitCollection: nil)
+        let image = UIImage(named: "arrow_left", inBundle: NSBundle(forClass: DefaultRefreshRight.self), compatibleWithTraitCollection: nil)
         imageView.image = image
         textDic[.scrollToAction] = PullToRefreshKitRightString.scrollToAction
         textDic[.releaseToAction] = PullToRefreshKitRightString.releaseToAction
@@ -46,7 +46,7 @@ public class DefaultRefreshRight:UIView,RefreshableLeftRight{
    public func distanceToRefresh() -> CGFloat {
         return PullToRefreshKitConst.defaultLeftWidth
     }
-   public func percentageChangedDuringDragging(percent:CGFloat){
+   public func percentUpdateWhenNotRefreshing(percent:CGFloat){
         if percent > 1.0{
             guard CGAffineTransformEqualToTransform(self.imageView.transform, CGAffineTransformIdentity)  else{
                 return
@@ -66,7 +66,7 @@ public class DefaultRefreshRight:UIView,RefreshableLeftRight{
             })
         }
     }
-   public func didEndRefreshing() {
+   public func didCompleteEndRefershingAnimation() {
         imageView.transform = CGAffineTransformIdentity
         textLabel.text = textDic[.scrollToAction]
     }
@@ -102,7 +102,7 @@ class RefreshRightContainer:UIView{
                     self.delegate?.didBeginRefreshing()
                     self.refreshAction?()
                     self.endRefreshing()
-                    self.delegate?.didEndRefreshing()
+                    self.delegate?.didCompleteEndRefershingAnimation()
                 })
             default:
                 break
@@ -161,7 +161,7 @@ class RefreshRightContainer:UIView{
         let scrollViewWidth = CGRectGetWidth(attachedScrollView.bounds)
         if attachedScrollView.dragging {
             let percent = (offSetX + scrollViewWidth - contentInset.left - contentWidth)/CGRectGetWidth(self.frame)
-            self.delegate?.percentageChangedDuringDragging(percent)
+            self.delegate?.percentUpdateWhenNotRefreshing(percent)
             if state == .Idle && percent > 1.0 {
                 self.state = .Pulling
             }else if state == .Pulling && percent <= 1.0{
