@@ -138,6 +138,12 @@ func didBeginEndRefershingAnimation(result:RefreshResult)
 func didCompleteEndRefershingAnimation(result:RefreshResult)
     
 ```
+##已知问题
+
+如果下拉刷新不显示图片，选择PullToRefreshKit的三张图，然后,勾选target
+
+<img src="https://raw.github.com/LeoMobileDeveloper/PullToRefreshKit/master/Screenshot/issue1.png">
+
 
 
 ## Author
