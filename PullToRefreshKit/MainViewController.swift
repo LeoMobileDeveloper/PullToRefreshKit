@@ -23,10 +23,10 @@ class MainViewController: UITableViewController {
                                     sectionTitle:"属性配置",
                                     rowsTitles: ["配置Header/Footer属性","配置Left/Right属性"],
                                     rowsTargetControlerNames:["ConfigDefaultHeaderFooterController","ConfigBannerController"])
-        let section2 = SectionModel(rowsCount: 1,
+        let section2 = SectionModel(rowsCount: 2,
                                     sectionTitle:"自定义",
-                                    rowsTitles: ["淘宝下拉刷新",],
-                                    rowsTargetControlerNames:["TaobaoTableViewController"])
+                                    rowsTitles: ["淘宝下拉刷新","大众点评下拉刷新"],
+                                    rowsTargetControlerNames:["TaobaoTableViewController","DianpingTableviewController"])
         models.append(section0)
         models.append(section1)
         models.append(section2)

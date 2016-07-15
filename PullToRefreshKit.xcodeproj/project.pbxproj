@@ -15,7 +15,6 @@
 		5238C7D11D373B3300B3B4FE /* DefaultScrollViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5238C7D01D373B3300B3B4FE /* DefaultScrollViewController.swift */; };
 		5238C7D31D37427C00B3B4FE /* TaoBaoRefreshHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5238C7D21D37427C00B3B4FE /* TaoBaoRefreshHeader.swift */; };
 		5238C7D51D37449800B3B4FE /* TaobaoTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5238C7D41D37449800B3B4FE /* TaobaoTableViewController.swift */; };
-		5238C7F51D3758A900B3B4FE /* WeiBoRefreshHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5238C7F41D3758A900B3B4FE /* WeiBoRefreshHeader.swift */; };
 		5238C7FE1D3763BA00B3B4FE /* Const.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5238C7F81D3763BA00B3B4FE /* Const.swift */; };
 		5238C7FF1D3763BA00B3B4FE /* Footer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5238C7F91D3763BA00B3B4FE /* Footer.swift */; };
 		5238C8001D3763BA00B3B4FE /* Header.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5238C7FA1D3763BA00B3B4FE /* Header.swift */; };
@@ -36,6 +35,8 @@
 		52E8FB471D336E26000D0BF1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 52E8FB461D336E26000D0BF1 /* Assets.xcassets */; };
 		52E8FB4A1D336E26000D0BF1 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 52E8FB481D336E26000D0BF1 /* LaunchScreen.storyboard */; };
 		52FA97A41D3882190021D77F /* CustomBaseTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52FA97A31D3882190021D77F /* CustomBaseTableViewController.swift */; };
+		52FA97AB1D3898770021D77F /* DianpingRefreshHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52FA97AA1D3898770021D77F /* DianpingRefreshHeader.swift */; };
+		52FA97AD1D389A640021D77F /* DianpingTableviewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52FA97AC1D389A640021D77F /* DianpingTableviewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -47,7 +48,6 @@
 		5238C7D01D373B3300B3B4FE /* DefaultScrollViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DefaultScrollViewController.swift; sourceTree = "<group>"; };
 		5238C7D21D37427C00B3B4FE /* TaoBaoRefreshHeader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TaoBaoRefreshHeader.swift; sourceTree = "<group>"; };
 		5238C7D41D37449800B3B4FE /* TaobaoTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TaobaoTableViewController.swift; sourceTree = "<group>"; };
-		5238C7F41D3758A900B3B4FE /* WeiBoRefreshHeader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WeiBoRefreshHeader.swift; sourceTree = "<group>"; };
 		5238C7F81D3763BA00B3B4FE /* Const.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Const.swift; path = Source/Classes/Const.swift; sourceTree = SOURCE_ROOT; };
 		5238C7F91D3763BA00B3B4FE /* Footer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Footer.swift; path = Source/Classes/Footer.swift; sourceTree = SOURCE_ROOT; };
 		5238C7FA1D3763BA00B3B4FE /* Header.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Header.swift; path = Source/Classes/Header.swift; sourceTree = SOURCE_ROOT; };
@@ -70,6 +70,8 @@
 		52E8FB491D336E26000D0BF1 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		52E8FB4B1D336E26000D0BF1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		52FA97A31D3882190021D77F /* CustomBaseTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomBaseTableViewController.swift; sourceTree = "<group>"; };
+		52FA97AA1D3898770021D77F /* DianpingRefreshHeader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DianpingRefreshHeader.swift; sourceTree = "<group>"; };
+		52FA97AC1D389A640021D77F /* DianpingTableviewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DianpingTableviewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -135,10 +137,9 @@
 		52BB292C1D364C390091F36B /* Custom */ = {
 			isa = PBXGroup;
 			children = (
+				52FA97A91D3888990021D77F /* dianping */,
+				52FA97A71D3888660021D77F /* taobao */,
 				52FA97A31D3882190021D77F /* CustomBaseTableViewController.swift */,
-				5238C7D21D37427C00B3B4FE /* TaoBaoRefreshHeader.swift */,
-				5238C7D41D37449800B3B4FE /* TaobaoTableViewController.swift */,
-				5238C7F41D3758A900B3B4FE /* WeiBoRefreshHeader.swift */,
 			);
 			name = Custom;
 			sourceTree = "<group>";
@@ -182,6 +183,24 @@
 				52BB29291D364C1C0091F36B /* Images */,
 			);
 			name = Sources;
+			sourceTree = "<group>";
+		};
+		52FA97A71D3888660021D77F /* taobao */ = {
+			isa = PBXGroup;
+			children = (
+				5238C7D21D37427C00B3B4FE /* TaoBaoRefreshHeader.swift */,
+				5238C7D41D37449800B3B4FE /* TaobaoTableViewController.swift */,
+			);
+			name = taobao;
+			sourceTree = "<group>";
+		};
+		52FA97A91D3888990021D77F /* dianping */ = {
+			isa = PBXGroup;
+			children = (
+				52FA97AA1D3898770021D77F /* DianpingRefreshHeader.swift */,
+				52FA97AC1D389A640021D77F /* DianpingTableviewController.swift */,
+			);
+			name = dianping;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -261,7 +280,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				5238C8011D3763BA00B3B4FE /* Left.swift in Sources */,
-				5238C7F51D3758A900B3B4FE /* WeiBoRefreshHeader.swift in Sources */,
 				52BB29281D3644D00091F36B /* SectionModel.swift in Sources */,
 				5238C8021D3763BA00B3B4FE /* PullToRefresh.swift in Sources */,
 				52261F131D36879C00161ADF /* DefaultBannerController.swift in Sources */,
@@ -278,7 +296,9 @@
 				52C0E4881D3726EB00618231 /* ConfigBannerController.swift in Sources */,
 				52BB29321D364E490091F36B /* DefaultTableViewController.swift in Sources */,
 				5238C8031D3763BA00B3B4FE /* Right.swift in Sources */,
+				52FA97AB1D3898770021D77F /* DianpingRefreshHeader.swift in Sources */,
 				5238C7D11D373B3300B3B4FE /* DefaultScrollViewController.swift in Sources */,
+				52FA97AD1D389A640021D77F /* DianpingTableviewController.swift in Sources */,
 				52BB292E1D364C6D0091F36B /* RowModel.swift in Sources */,
 				5238C7FE1D3763BA00B3B4FE /* Const.swift in Sources */,
 			);
