@@ -1,13 +1,19 @@
-# PullToRefreshKit
 
- [![Version](https://img.shields.io/cocoapods/v/PullToRefreshKit.svg?style=flat)](http://cocoapods.org/pods/PullToRefreshKit) [![Platform](http://img.shields.io/badge/platform-ios-blue.svg?style=flat
+<p align="center">
+
+<img src="https://raw.github.com/LeoMobileDeveloper/PullToRefreshKit/master/Screenshot/logo.png" alt="PullToRefreshKit" title="PullToRefreshKit"/>
+
+</p>
+
+
+ [![Version](https://img.shields.io/cocoapods/v/PullToRefreshKit.svg?style=flat)](http://cocoapods.org/pods/PullToRefreshKit)  [![Platform](http://img.shields.io/badge/platform-ios-blue.svg?style=flat
 )](https://developer.apple.com/iphone/index.action)
  [![Language](http://img.shields.io/badge/language-swift-brightgreen.svg?style=flat
 )](https://developer.apple.com/swift)
  [![License](http://img.shields.io/badge/license-MIT-lightgrey.svg?style=flat
 )](http://mit-license.org)
 
-一行代码实现下拉刷新
+支持一行代码实现下拉刷新
 
 ```
 self.tableView.setUpHeaderRefresh { [weak self] in
@@ -19,7 +25,8 @@ self.tableView.setUpHeaderRefresh { [weak self] in
 这个库的设计初衷，是为了能够方便地实现自定义的下拉刷新，上拉加载等。比如，Demo中，我用了不到60行，就实现了大众点评的下拉刷新。实例代码：[DianpingRefreshHeader.swift](https://github.com/LeoMobileDeveloper/PullToRefreshKit/blob/master/PullToRefreshKit/DianpingRefreshHeader.swift)
 
 效果
-<img src="https://raw.github.com/LeoMobileDeveloper/PullToRefreshKit/master/Screenshot/dianping.gif" width="320">
+
+<img src="https://raw.github.com/LeoMobileDeveloper/PullToRefreshKit/master/Screenshot/dianping.gif" width="200">
 
 ## 要求
 
