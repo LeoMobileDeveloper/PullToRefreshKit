@@ -13,13 +13,26 @@ public enum RefreshKitFooterText{
     case pullToRefresh
     case refreshing
     case noMoreData
+    case tapToRefresh
 }
+
 public class DefaultRefreshFooter:UIView,RefreshableFooter{
     public let spinner:UIActivityIndicatorView = UIActivityIndicatorView(activityIndicatorStyle: .Gray)
     public  let textLabel:UILabel = UILabel(frame: CGRectMake(0,0,120,40)).SetUp {
         $0.font = UIFont.systemFontOfSize(14)
         $0.textAlignment = .Center
     }
+    public var needTapToLoadMore = false{
+        didSet{
+            tap.enabled = needTapToLoadMore
+            if needTapToLoadMore{
+                textLabel.text = textDic[.tapToRefresh]
+            }else{
+                textLabel.text = textDic[.pullToRefresh]
+            }
+        }
+    }
+    private var tap:UITapGestureRecognizer!
     private var textDic = [RefreshKitFooterText:String]()
     /**
      This function can only be called before refreshing
@@ -37,28 +50,69 @@ public class DefaultRefreshFooter:UIView,RefreshableFooter{
         textDic[.pullToRefresh] = PullToRefreshKitFooterString.pullToRefresh
         textDic[.refreshing] = PullToRefreshKitFooterString.refreshing
         textDic[.noMoreData] = PullToRefreshKitFooterString.noMoreData
+        textDic[.tapToRefresh] = PullToRefreshKitFooterString.tapToRefresh
         textLabel.text = textDic[.pullToRefresh]
+        tap = UITapGestureRecognizer(target: self, action: #selector(DefaultRefreshFooter.catchTap(_:)))
+        tap.enabled = needTapToLoadMore
+        self.addGestureRecognizer(tap)
     }
-   public required init?(coder aDecoder: NSCoder) {
+    public required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    func catchTap(tap:UITapGestureRecognizer){
+        let scrollView = self.superview?.superview as? UIScrollView
+        scrollView?.beginFooterRefreshing()
+    }
     // MARK: - Refreshable  -
-   public func distanceToRefresh() -> CGFloat {
+    public func distanceToRefresh() -> CGFloat {
         return PullToRefreshKitConst.defaultFooterHeight
     }
-   public func didBeginRefreshing() {
+    public func didBeginRefreshing() {
         textLabel.text = textDic[.refreshing];
         spinner.startAnimating()
     }
-   public func didEndRefreshing() {
-        textLabel.text = textDic[.pullToRefresh]
+    public func didEndRefreshing() {
+        if needTapToLoadMore{
+            textLabel.text = textDic[.tapToRefresh]
+        }else{
+            textLabel.text = textDic[.pullToRefresh]
+        }
         spinner.stopAnimating()
     }
-   public func didUpdateToNoMoreData(){
+    public func didUpdateToNoMoreData(){
         textLabel.text = textDic[.noMoreData]
     }
-   public func didResetToDefault() {
-        textLabel.text = textDic[.pullToRefresh]
+    public func didResetToDefault() {
+        if needTapToLoadMore{
+            textLabel.text = textDic[.tapToRefresh]
+        }else{
+            textLabel.text = textDic[.pullToRefresh]
+        }
+    }
+    public func shouldBeginRefreshingWhenScroll()->Bool {
+        return !needTapToLoadMore
+    }
+// MARK: - Handle touch -
+    public override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
+        super.touchesBegan(touches, withEvent: event)
+        guard needTapToLoadMore else{
+            return
+        }
+        self.backgroundColor = UIColor.lightGrayColor().colorWithAlphaComponent(0.5)
+    }
+    public override func touchesEnded(touches: Set<UITouch>, withEvent event: UIEvent?) {
+        super.touchesEnded(touches, withEvent: event)
+        guard needTapToLoadMore else{
+            return
+        }
+        self.backgroundColor = UIColor.whiteColor()
+    }
+    public override func touchesCancelled(touches: Set<UITouch>?, withEvent event: UIEvent?) {
+        super.touchesCancelled(touches, withEvent: event)
+        guard needTapToLoadMore else{
+            return
+        }
+        self.backgroundColor = UIColor.whiteColor()
     }
 }
 class RefreshFooterContainer:UIView{
@@ -107,6 +161,7 @@ class RefreshFooterContainer:UIView{
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+
 // MARK: - Life circle -
     override func drawRect(rect: CGRect) {
         super.drawRect(rect)
@@ -167,6 +222,10 @@ class RefreshFooterContainer:UIView{
                 guard newOffset?.y > oldOffset?.y else{
                     return
                 }
+                let shouldStart = self.delegate?.shouldBeginRefreshingWhenScroll()
+                guard shouldStart! else{
+                    return
+                }
                 beginRefreshing()
             }
         }
@@ -181,10 +240,18 @@ class RefreshFooterContainer:UIView{
             let contentSize = attachedScrollView.contentSize
             if scrollInset.top + contentSize.height <= CGRectGetHeight(attachedScrollView.frame){
                 if scrollOffset.y >= -1 * scrollInset.top {
+                    let shouldStart = self.delegate?.shouldBeginRefreshingWhenScroll()
+                    guard shouldStart! else{
+                        return
+                    }
                     beginRefreshing()
                 }
             }else{
                 if scrollOffset.y > contentSize.height + scrollInset.bottom - CGRectGetHeight(attachedScrollView.frame) {
+                    let shouldStart = self.delegate?.shouldBeginRefreshingWhenScroll()
+                    guard shouldStart! else{
+                        return
+                    }
                     beginRefreshing()
                 }
             }

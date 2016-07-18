@@ -44,7 +44,9 @@ class ConfigDefaultHeaderFooterController: UITableViewController {
             footer.setText("Pull up to refresh", mode: RefreshKitFooterText.pullToRefresh)
             footer.setText("No data any more", mode: RefreshKitFooterText.noMoreData)
             footer.setText("Refreshing...", mode: RefreshKitFooterText.refreshing)
+            footer.setText("Tap to load more", mode: RefreshKitFooterText.tapToRefresh)
             footer.textLabel.textColor  = UIColor.orangeColor()
+            footer.needTapToLoadMore = true
         }
     }
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {

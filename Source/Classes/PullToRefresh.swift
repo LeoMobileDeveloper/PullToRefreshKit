@@ -76,6 +76,11 @@ public protocol RefreshableFooter:RefreshAble{
      已经开始执行刷新逻辑，在一次刷新中，只会调用一次
      */
     func didBeginRefreshing()
+    
+    /**
+     当Scroll触发刷新，这个方法返回是否需要刷新
+     */
+    func shouldBeginRefreshingWhenScroll()->Bool
 }
 
 public protocol RefreshableLeftRight:RefreshAble{
@@ -140,6 +145,7 @@ public extension UIScrollView{
         header?.endRefreshing(result)
     }
 }
+
 //Footer
 public extension UIScrollView{
    public func setUpFooterRefresh(action:()->())->DefaultRefreshFooter{
@@ -163,7 +169,7 @@ public extension UIScrollView{
         return footer
     }
    public func beginFooterRefreshing(){
-        let footer = self.viewWithTag(PullToRefreshKitConst.footerTag) as? RefreshHeaderContainer
+        let footer = self.viewWithTag(PullToRefreshKitConst.footerTag) as? RefreshFooterContainer
         footer?.beginRefreshing()
     }
    public func endFooterRefreshing(){
