@@ -1,0 +1,25 @@
+/* 
+  PullToRefreshkit.strings
+  PullToRefreshKit
+
+  Created by huangwenchen on 16/7/19.
+  Copyright © 2016年 Leo. All rights reserved.
+*/
+
+"pullDownToRefresh" = "Pull to refresh";
+"releaseToRefresh" = "Release to refresh";
+"refreshSuccess" = "Update successfully";
+"refreshFailure" = "Update failed";
+"refreshError" = "Error occurred";
+"refreshing" = "Refreshing...";
+
+"pullUpToRefresh" = "Pull to refresh";
+"noMoreData" = "No more data";
+"tapToRefresh" = "Tap to load more";
+
+"scrollToClose" = "Scroll to close";
+"releaseToClose" = "Release to close";
+
+
+"scrollToViewMore" = "Scroll to view more";
+"releaseToViewMore" = "Release to view more";

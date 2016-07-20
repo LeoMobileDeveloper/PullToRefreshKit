@@ -10,50 +10,63 @@ import Foundation
 import UIKit
 
 public enum RefreshKitFooterText{
-    case pullToRefresh
-    case refreshing
-    case noMoreData
-    case tapToRefresh
+    case PullToRefresh
+    case TapToRefresh
+    case ScrollAndTapToRefresh
+    case Refreshing
+    case NoMoreData
 }
 
+public enum RefreshMode{
+    case Scroll
+    case Tap
+    case ScrollAndTap
+}
 public class DefaultRefreshFooter:UIView,RefreshableFooter{
     public let spinner:UIActivityIndicatorView = UIActivityIndicatorView(activityIndicatorStyle: .Gray)
-    public  let textLabel:UILabel = UILabel(frame: CGRectMake(0,0,120,40)).SetUp {
+    public  let textLabel:UILabel = UILabel(frame: CGRectMake(0,0,140,40)).SetUp {
         $0.font = UIFont.systemFontOfSize(14)
         $0.textAlignment = .Center
     }
-    public var needTapToLoadMore = false{
+    /// 是否需要点击来触发刷新,如果需要点击，则在上拉的时候，不会触发刷新
+    public var refreshMode = RefreshMode.ScrollAndTap{
         didSet{
-            tap.enabled = needTapToLoadMore
-            if needTapToLoadMore{
-                textLabel.text = textDic[.tapToRefresh]
-            }else{
-                textLabel.text = textDic[.pullToRefresh]
-            }
+            tap.enabled = (refreshMode != .Scroll)
+            udpateTextLabelWithMode(refreshMode)
+        }
+    }
+    private func udpateTextLabelWithMode(refreshMode:RefreshMode){
+        switch refreshMode {
+        case .Scroll:
+            textLabel.text = textDic[.PullToRefresh]
+        case .Tap:
+            textLabel.text = textDic[.TapToRefresh]
+        case .ScrollAndTap:
+            textLabel.text = textDic[.ScrollAndTapToRefresh]
         }
     }
     private var tap:UITapGestureRecognizer!
     private var textDic = [RefreshKitFooterText:String]()
     /**
-     This function can only be called before refreshing
+     This function can only be called before Refreshing
      */
     public  func setText(text:String,mode:RefreshKitFooterText){
         textDic[mode] = text
-        textLabel.text = textDic[.pullToRefresh]
+        textLabel.text = textDic[.PullToRefresh]
     }
     override init(frame: CGRect) {
         super.init(frame: frame)
         addSubview(spinner)
         addSubview(textLabel)
         textLabel.center = CGPointMake(frame.size.width/2, frame.size.height/2);
-        spinner.center = CGPointMake(frame.width/2 - 60 - 20, frame.size.height/2)
-        textDic[.pullToRefresh] = PullToRefreshKitFooterString.pullToRefresh
-        textDic[.refreshing] = PullToRefreshKitFooterString.refreshing
-        textDic[.noMoreData] = PullToRefreshKitFooterString.noMoreData
-        textDic[.tapToRefresh] = PullToRefreshKitFooterString.tapToRefresh
-        textLabel.text = textDic[.pullToRefresh]
+        spinner.center = CGPointMake(frame.width/2 - 70 - 20, frame.size.height/2)
+        textDic[.PullToRefresh] = PullToRefreshKitFooterString.pullUpToRefresh
+        textDic[.Refreshing] = PullToRefreshKitFooterString.refreshing
+        textDic[.NoMoreData] = PullToRefreshKitFooterString.noMoreData
+        textDic[.TapToRefresh] = PullToRefreshKitFooterString.tapToRefresh
+        textDic[.ScrollAndTapToRefresh] = PullToRefreshKitFooterString.scrollAndTapToRefresh
+        udpateTextLabelWithMode(refreshMode)
         tap = UITapGestureRecognizer(target: self, action: #selector(DefaultRefreshFooter.catchTap(_:)))
-        tap.enabled = needTapToLoadMore
         self.addGestureRecognizer(tap)
     }
     public required init?(coder aDecoder: NSCoder) {
@@ -63,66 +76,59 @@ public class DefaultRefreshFooter:UIView,RefreshableFooter{
         let scrollView = self.superview?.superview as? UIScrollView
         scrollView?.beginFooterRefreshing()
     }
-    // MARK: - Refreshable  -
+// MARK: - Refreshable  -
     public func distanceToRefresh() -> CGFloat {
         return PullToRefreshKitConst.defaultFooterHeight
     }
     public func didBeginRefreshing() {
-        textLabel.text = textDic[.refreshing];
+        textLabel.text = textDic[.Refreshing];
         spinner.startAnimating()
     }
     public func didEndRefreshing() {
-        if needTapToLoadMore{
-            textLabel.text = textDic[.tapToRefresh]
-        }else{
-            textLabel.text = textDic[.pullToRefresh]
-        }
+        udpateTextLabelWithMode(refreshMode)
         spinner.stopAnimating()
     }
     public func didUpdateToNoMoreData(){
-        textLabel.text = textDic[.noMoreData]
+        textLabel.text = textDic[.NoMoreData]
     }
     public func didResetToDefault() {
-        if needTapToLoadMore{
-            textLabel.text = textDic[.tapToRefresh]
-        }else{
-            textLabel.text = textDic[.pullToRefresh]
-        }
+        udpateTextLabelWithMode(refreshMode)
     }
     public func shouldBeginRefreshingWhenScroll()->Bool {
-        return !needTapToLoadMore
+        return refreshMode != .Tap
     }
 // MARK: - Handle touch -
     public override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
         super.touchesBegan(touches, withEvent: event)
-        guard needTapToLoadMore else{
+        guard refreshMode != .Scroll else{
             return
         }
         self.backgroundColor = UIColor.lightGrayColor().colorWithAlphaComponent(0.5)
     }
     public override func touchesEnded(touches: Set<UITouch>, withEvent event: UIEvent?) {
         super.touchesEnded(touches, withEvent: event)
-        guard needTapToLoadMore else{
+        guard refreshMode != .Scroll else{
             return
         }
         self.backgroundColor = UIColor.whiteColor()
     }
     public override func touchesCancelled(touches: Set<UITouch>?, withEvent event: UIEvent?) {
         super.touchesCancelled(touches, withEvent: event)
-        guard needTapToLoadMore else{
+        guard refreshMode != .Scroll else{
             return
         }
         self.backgroundColor = UIColor.whiteColor()
     }
 }
+
 class RefreshFooterContainer:UIView{
-// MARK: - Propertys -
     enum RefreshFooterState {
         case Idle
         case Refreshing
         case WillRefresh
         case NoMoreData
     }
+// MARK: - Propertys -
     var refreshAction:(()->())?
     var attachedScrollView:UIScrollView!
     weak var delegate:RefreshableFooter?

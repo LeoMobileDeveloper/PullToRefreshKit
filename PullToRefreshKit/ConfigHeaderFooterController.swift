@@ -41,12 +41,12 @@ class ConfigDefaultHeaderFooterController: UITableViewController {
                 self?.tableView.endFooterRefreshing()
             })
         }.SetUp { (footer) in
-            footer.setText("Pull up to refresh", mode: RefreshKitFooterText.pullToRefresh)
-            footer.setText("No data any more", mode: RefreshKitFooterText.noMoreData)
-            footer.setText("Refreshing...", mode: RefreshKitFooterText.refreshing)
-            footer.setText("Tap to load more", mode: RefreshKitFooterText.tapToRefresh)
+            footer.setText("Pull up to refresh", mode: RefreshKitFooterText.PullToRefresh)
+            footer.setText("No data any more", mode: RefreshKitFooterText.NoMoreData)
+            footer.setText("Refreshing...", mode: RefreshKitFooterText.Refreshing)
+            footer.setText("Tap to load more", mode: RefreshKitFooterText.TapToRefresh)
             footer.textLabel.textColor  = UIColor.orangeColor()
-            footer.needTapToLoadMore = true
+            footer.refreshMode = .Tap
         }
     }
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {

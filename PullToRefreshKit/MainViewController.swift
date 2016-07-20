@@ -8,7 +8,6 @@
 
 import UIKit
 import AudioToolbox
-
 /* 
     如果你喜欢这个库，一个★就是对我最好的支持，项目地址 https://github.com/LeoMobileDeveloper/PullToRefreshKit
  */
@@ -25,7 +24,7 @@ class MainViewController: UITableViewController {
                                     rowsTargetControlerNames:["ConfigDefaultHeaderFooterController","ConfigBannerController"])
         let section2 = SectionModel(rowsCount: 2,
                                     sectionTitle:"自定义",
-                                    rowsTitles: ["淘宝下拉刷新","大众点评下拉刷新"],
+                                    rowsTitles: ["淘宝","大众点评"],
                                     rowsTargetControlerNames:["TaobaoTableViewController","DianpingTableviewController"])
         models.append(section0)
         models.append(section1)

@@ -10,7 +10,6 @@
 import Foundation
 import UIKit
 
-
 public enum RefreshKitHeaderText{
     case pullToRefresh
     case releaseToRefresh
@@ -42,7 +41,7 @@ public class DefaultRefreshHeader:UIView,RefreshableHeader{
         textLabel.textAlignment = .Center
         self.hidden = true
         //Default text
-        textDic[.pullToRefresh] = PullToRefreshKitHeaderString.pullToRefresh
+        textDic[.pullToRefresh] = PullToRefreshKitHeaderString.pullDownToRefresh
         textDic[.releaseToRefresh] = PullToRefreshKitHeaderString.releaseToRefresh
         textDic[.refreshSuccess] = PullToRefreshKitHeaderString.refreshSuccess
         textDic[.refreshError] = PullToRefreshKitHeaderString.refreshError

@@ -30,7 +30,7 @@ struct PullToRefreshKitConst{
 }
 
 struct PullToRefreshKitHeaderString{
-    static let pullToRefresh = "下拉可以刷新"
+    static let pullDownToRefresh = "下拉可以刷新"
     static let releaseToRefresh = "松开立即刷新"
     static let refreshSuccess = "刷新成功"
     static let refreshError = "刷新出错"
@@ -39,20 +39,20 @@ struct PullToRefreshKitHeaderString{
 }
 
 struct PullToRefreshKitFooterString{
-    static let pullToRefresh = "上拉加载更多数据"
+    static let pullUpToRefresh = "上拉加载更多数据"
     static let refreshing = "正在加载中..."
     static let noMoreData = "数据加载完毕"
-    static let tapToRefresh = "数据加载完毕"
-
+    static let tapToRefresh = "点击加载更多"
+    static let scrollAndTapToRefresh = "上拉或者点击加载更多"
 }
 
 struct PullToRefreshKitLeftString{
-    static let scrollToAction = "滑动结束浏览"
-    static let releaseToAction = "松开结束浏览"
+    static let scrollToClose = "滑动结束浏览"
+    static let releaseToClose = "松开结束浏览"
 }
 
 struct PullToRefreshKitRightString{
-    static let scrollToAction = "滑动浏览更多"
-    static let releaseToAction = "松开浏览更多"
+    static let scrollToViewMore = "滑动浏览更多"
+    static let releaseToViewMore = "滑动浏览更多"
 }
 

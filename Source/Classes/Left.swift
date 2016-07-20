@@ -40,8 +40,8 @@ public class DefaultRefreshLeft:UIView,RefreshableLeftRight{
         imageView.center = CGPointMake(40,frame.size.height/2)
         let image = UIImage(named: "arrow_right", inBundle: NSBundle(forClass: DefaultRefreshLeft.self), compatibleWithTraitCollection: nil)
         imageView.image = image
-        textDic[.scrollToAction] = PullToRefreshKitLeftString.scrollToAction
-        textDic[.releaseToAction] = PullToRefreshKitLeftString.releaseToAction
+        textDic[.scrollToAction] = PullToRefreshKitLeftString.scrollToClose
+        textDic[.releaseToAction] = PullToRefreshKitLeftString.releaseToClose
         textLabel.text = textDic[.scrollToAction]
     }
    public required init?(coder aDecoder: NSCoder) {
