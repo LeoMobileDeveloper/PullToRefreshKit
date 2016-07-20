@@ -22,11 +22,10 @@ self.tableView.setUpHeaderRefresh { [weak self] in
    })
 }
 ```
-这个库的设计初衷，是为了能够方便地实现自定义的下拉刷新，上拉加载等。比如，Demo中，我用了不到60行，就实现了大众点评的下拉刷新。实例代码：[DianpingRefreshHeader.swift](https://github.com/LeoMobileDeveloper/PullToRefreshKit/blob/master/PullToRefreshKit/DianpingRefreshHeader.swift)
+这个库的设计初衷，是为了能够方便地实现自定义的下拉刷新，上拉加载等。比如，Demo中，我列举了用这个框架如何实现[淘宝](https://github.com/LeoMobileDeveloper/PullToRefreshKit/blob/master/PullToRefreshKit/TaoBaoRefreshHeader.swift)和[大众点评](https://github.com/LeoMobileDeveloper/PullToRefreshKit/blob/master/PullToRefreshKit/DianpingRefreshHeader.swift)的下拉刷新。
 
-效果
 
-<img src="https://raw.github.com/LeoMobileDeveloper/PullToRefreshKit/master/Screenshot/dianping.gif" width="200">
+<img src="https://raw.github.com/LeoMobileDeveloper/PullToRefreshKit/master/Screenshot/taobao.gif" width="200"><img src="https://raw.github.com/LeoMobileDeveloper/PullToRefreshKit/master/Screenshot/dianping.gif" width="200">
 
 ## 要求
 
