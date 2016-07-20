@@ -152,8 +152,9 @@ public class RefreshHeaderContainer:UIView{
                 })
             case .Refreshing:
                 dispatch_async(dispatch_get_main_queue(), {
+                    let fireHeight = (self.delegate?.distanceToRefresh())!
                     UIView.animateWithDuration(0.4, animations: {
-                        let top = (self.originalInset?.top)! + CGRectGetHeight(self.frame)
+                        let top = (self.originalInset?.top)! + fireHeight
                         var oldInset = self.attachedScrollView.contentInset
                         oldInset.top = top
                         self.attachedScrollView.contentInset = oldInset
@@ -211,6 +212,7 @@ public class RefreshHeaderContainer:UIView{
         attachedScrollView?.removeObserver(self, forKeyPath: PullToRefreshKitConst.KPathOffSet,context: nil)
     }
     func handleScrollOffSetChange(change: [String : AnyObject]?){
+        let fireHeight = (self.delegate?.distanceToRefresh())!
         if state == .Refreshing {
 //Refer from here https://github.com/CoderMJLee/MJRefresh/blob/master/MJRefresh/Base/MJRefreshHeader.m, thanks to this lib again
             guard self.window != nil else{
@@ -219,7 +221,7 @@ public class RefreshHeaderContainer:UIView{
             let offset = attachedScrollView.contentOffset
             let inset = originalInset!
             var insetT = -1 * offset.y > inset.top ? (-1 * offset.y):inset.top
-            insetT = insetT > CGRectGetHeight(self.frame) + inset.top ? CGRectGetHeight(self.frame) + inset.top:insetT
+            insetT = insetT > fireHeight + inset.top ? fireHeight + inset.top:insetT
             var oldInset = attachedScrollView.contentInset
             oldInset.top = insetT
             attachedScrollView.contentInset = oldInset
@@ -232,7 +234,7 @@ public class RefreshHeaderContainer:UIView{
         guard offSetY <= topShowOffsetY else{
             return
         }
-        let normal2pullingOffsetY = topShowOffsetY - self.frame.size.height
+        let normal2pullingOffsetY = topShowOffsetY - fireHeight
         if attachedScrollView.dragging {
             if state == .Idle && offSetY < normal2pullingOffsetY {
                 self.state = .Pulling
@@ -243,10 +245,10 @@ public class RefreshHeaderContainer:UIView{
             beginRefreshing()
             return
         }
-        let percent = (topShowOffsetY - offSetY)/self.frame.size.height
+        let percent = (topShowOffsetY - offSetY)/fireHeight
         //防止在结束刷新的时候，percent的跳跃
         if let oldOffset = change?[NSKeyValueChangeOldKey]?.CGPointValue(){
-            let oldPercent = (topShowOffsetY - oldOffset.y)/self.frame.size.height
+            let oldPercent = (topShowOffsetY - oldOffset.y)/fireHeight
             if oldPercent >= 1.0 && percent == 0.0{
                 return
             }else{

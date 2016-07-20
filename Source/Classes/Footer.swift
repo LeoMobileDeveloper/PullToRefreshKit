@@ -18,17 +18,21 @@ public enum RefreshKitFooterText{
 }
 
 public enum RefreshMode{
+    /// 只有Scroll才会触发
     case Scroll
+    /// 只有Tap才会触发
     case Tap
+    /// Scroll和Tap都会触发
     case ScrollAndTap
 }
+
 public class DefaultRefreshFooter:UIView,RefreshableFooter{
     public let spinner:UIActivityIndicatorView = UIActivityIndicatorView(activityIndicatorStyle: .Gray)
     public  let textLabel:UILabel = UILabel(frame: CGRectMake(0,0,140,40)).SetUp {
         $0.font = UIFont.systemFontOfSize(14)
         $0.textAlignment = .Center
     }
-    /// 是否需要点击来触发刷新,如果需要点击，则在上拉的时候，不会触发刷新
+    /// 触发刷新的模式
     public var refreshMode = RefreshMode.ScrollAndTap{
         didSet{
             tap.enabled = (refreshMode != .Scroll)

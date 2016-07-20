@@ -43,7 +43,7 @@ struct PullToRefreshKitFooterString{
     static let refreshing = "正在加载中..."
     static let noMoreData = "数据加载完毕"
     static let tapToRefresh = "点击加载更多"
-    static let scrollAndTapToRefresh = "上拉或者点击加载更多"
+    static let scrollAndTapToRefresh = "上拉或点击加载更多"
 }
 
 struct PullToRefreshKitLeftString{

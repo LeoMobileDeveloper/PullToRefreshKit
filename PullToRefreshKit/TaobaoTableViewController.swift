@@ -12,8 +12,8 @@ class TaobaoTableViewController:CustomBaseTableViewController{
     override func viewDidLoad() {
         super.viewDidLoad()
         //Setup
-        self.tableView.backgroundColor = UIColor(red: 232.0/255.0, green: 234.0/255.0, blue: 235.0/255.0, alpha: 1.0)
-        let taobaoHeader = TaoBaoRefreshHeader(frame: CGRectMake(0,0,CGRectGetWidth(self.view.bounds),60))
+//        self.tableView.backgroundColor = UIColor(red: 232.0/255.0, green: 234.0/255.0, blue: 235.0/255.0, alpha: 1.0)
+        let taobaoHeader = TaoBaoRefreshHeader(frame: CGRectMake(0,0,CGRectGetWidth(self.view.bounds),100))
         self.tableView.setUpHeaderRefresh(taobaoHeader) { [weak self] in
             delay(1.5, closure: {
                 self?.models = (self?.models.map({_ in random100()}))!

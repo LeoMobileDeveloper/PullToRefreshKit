@@ -41,7 +41,7 @@ class DianpingRefreshHeader:UIView,RefreshableHeader{
             return UIImage(named:name)!
         }
         imageView.animationImages = images
-        imageView.animationDuration = 0.6
+        imageView.animationDuration = Double(images.count) * 0.15
         imageView.startAnimating()
     }
     //刷新结束，将要隐藏header

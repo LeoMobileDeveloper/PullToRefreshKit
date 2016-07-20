@@ -29,6 +29,7 @@
 		52BB29321D364E490091F36B /* DefaultTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52BB29311D364E490091F36B /* DefaultTableViewController.swift */; };
 		52BB29341D3655B90091F36B /* Util.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52BB29331D3655B90091F36B /* Util.swift */; };
 		52C0E4881D3726EB00618231 /* ConfigBannerController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52C0E4871D3726EB00618231 /* ConfigBannerController.swift */; };
+		52D61D701D3F56A900A5B4E0 /* taobaoLogo.png in Resources */ = {isa = PBXBuildFile; fileRef = 52D61D6F1D3F56A900A5B4E0 /* taobaoLogo.png */; };
 		52E8FB401D336E26000D0BF1 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52E8FB3F1D336E26000D0BF1 /* AppDelegate.swift */; };
 		52E8FB421D336E26000D0BF1 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52E8FB411D336E26000D0BF1 /* MainViewController.swift */; };
 		52E8FB451D336E26000D0BF1 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 52E8FB431D336E26000D0BF1 /* Main.storyboard */; };
@@ -64,6 +65,7 @@
 		52BB29311D364E490091F36B /* DefaultTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DefaultTableViewController.swift; sourceTree = "<group>"; };
 		52BB29331D3655B90091F36B /* Util.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Util.swift; sourceTree = "<group>"; };
 		52C0E4871D3726EB00618231 /* ConfigBannerController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConfigBannerController.swift; sourceTree = "<group>"; };
+		52D61D6F1D3F56A900A5B4E0 /* taobaoLogo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = taobaoLogo.png; sourceTree = "<group>"; };
 		52E8FB3C1D336E26000D0BF1 /* PullToRefreshKit.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PullToRefreshKit.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		52E8FB3F1D336E26000D0BF1 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		52E8FB411D336E26000D0BF1 /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
@@ -203,6 +205,7 @@
 		52FA97A71D3888660021D77F /* taobao */ = {
 			isa = PBXGroup;
 			children = (
+				52D61D6F1D3F56A900A5B4E0 /* taobaoLogo.png */,
 				5238C7D21D37427C00B3B4FE /* TaoBaoRefreshHeader.swift */,
 				5238C7D41D37449800B3B4FE /* TaobaoTableViewController.swift */,
 			);
@@ -278,6 +281,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				5238C8091D3763CD00B3B4FE /* arrow_right@3x.png in Resources */,
+				52D61D701D3F56A900A5B4E0 /* taobaoLogo.png in Resources */,
 				52261F111D36878A00161ADF /* banner2.jpg in Resources */,
 				52F50E391D3E3E3800A9AB83 /* PullToRefreshkit.strings in Resources */,
 				5238C8071D3763CD00B3B4FE /* arrow_down@3x.png in Resources */,

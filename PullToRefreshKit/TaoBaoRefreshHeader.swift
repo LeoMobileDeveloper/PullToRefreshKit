@@ -9,6 +9,7 @@
 import Foundation
 import UIKit
 
+
 class TaoBaoRefreshHeader:UIView,RefreshableHeader{
     private let circleLayer = CAShapeLayer()
     private let arrowLayer = CAShapeLayer()
@@ -18,12 +19,20 @@ class TaoBaoRefreshHeader:UIView,RefreshableHeader{
         super.init(frame: frame)
         setUpCircleLayer()
         setUpArrowLayer()
-        textLabel.frame = CGRectMake(CGRectGetWidth(self.bounds)/2 - 30, CGRectGetHeight(self.bounds)/2 - 20,120, 40)
+        textLabel.frame = CGRectMake(0,0,120, 40)
         textLabel.textAlignment = .Center
         textLabel.textColor = UIColor.lightGrayColor()
         textLabel.font = UIFont.systemFontOfSize(14)
         textLabel.text = "下拉即可刷新..."
+        let imageView = UIImageView(frame: CGRectMake(0, 0, 230, 35))
+        imageView.image = UIImage(named: "taobaoLogo")
+        self.addSubview(imageView)
         self.addSubview(textLabel)
+        //放置Views和Layer
+        imageView.center = CGPointMake(CGRectGetWidth(frame)/2, CGRectGetHeight(frame) - 60 - 18)
+        textLabel.center = CGPointMake(CGRectGetWidth(frame)/2 + 20, CGRectGetHeight(frame) - 30)
+        self.arrowLayer.position = CGPointMake(CGRectGetWidth(frame)/2 - 60, CGRectGetHeight(frame) - 30)
+        self.circleLayer.position = CGPointMake(CGRectGetWidth(frame)/2 - 60, CGRectGetHeight(frame) - 30)
     }
     func setUpArrowLayer(){
         let bezierPath = UIBezierPath()
@@ -38,7 +47,6 @@ class TaoBaoRefreshHeader:UIView,RefreshableHeader{
         self.arrowLayer.lineWidth = 1.0
         self.arrowLayer.lineCap = kCALineCapRound
         self.arrowLayer.bounds = CGRectMake(0, 0,40, 40)
-        self.arrowLayer.position = CGPointMake(CGRectGetWidth(self.bounds)/2.0 - 60, CGRectGetHeight(self.bounds)/2.0)
         self.arrowLayer.anchorPoint = CGPointMake(0.5, 0.5)
         self.layer.addSublayer(self.arrowLayer)
     }
@@ -56,7 +64,6 @@ class TaoBaoRefreshHeader:UIView,RefreshableHeader{
         self.circleLayer.lineWidth = 1.0
         self.circleLayer.lineCap = kCALineCapRound
         self.circleLayer.bounds = CGRectMake(0, 0,40, 40)
-        self.circleLayer.position = CGPointMake(CGRectGetWidth(self.bounds)/2.0 - 60, CGRectGetHeight(self.bounds)/2.0)
         self.circleLayer.anchorPoint = CGPointMake(0.5, 0.5)
         self.layer.addSublayer(self.circleLayer)
     }
@@ -70,7 +77,9 @@ class TaoBaoRefreshHeader:UIView,RefreshableHeader{
     }
     func percentUpdateWhenNotRefreshing(percent:CGFloat){
         let adjustPercent = max(min(1.0, percent),0.0)
-        self.circleLayer.strokeEnd = 0.05 + (0.95 - 0.05) * adjustPercent
+        transitionWithOutAnimation {
+            self.circleLayer.strokeEnd = 0.05 + (0.95 - 0.05) * adjustPercent
+        };
         if adjustPercent  == 1.0{
             textLabel.text = "释放即可刷新..."
         }else{
@@ -89,12 +98,22 @@ class TaoBaoRefreshHeader:UIView,RefreshableHeader{
         textLabel.text = "刷新中..."
     }
     func didBeginEndRefershingAnimation(result:RefreshResult){
-        self.circleLayer.strokeEnd = 0.05
+        transitionWithOutAnimation {
+            self.circleLayer.strokeEnd = 0.05
+        };
         self.circleLayer.removeAllAnimations()
     }
     func didCompleteEndRefershingAnimation(result:RefreshResult){
-        self.circleLayer.strokeEnd = 0.05
+        transitionWithOutAnimation { 
+            self.circleLayer.strokeEnd = 0.05
+        };
         self.arrowLayer.hidden = false
         textLabel.text = "下拉即可刷新"
+    }
+    func transitionWithOutAnimation(clousre:()->()){
+        CATransaction.begin()
+        CATransaction.setDisableActions(true)
+        clousre()
+        CATransaction.commit()
     }
 }

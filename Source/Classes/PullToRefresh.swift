@@ -29,7 +29,7 @@ public enum RefreshResult{
 }
 public protocol RefreshableHeader:class{
     /**
-     触发动作的距离，对于header/footer来讲，就是视图的高度；对于left/right来讲，就是视图的宽度
+     触发动作的距离，注意，这个距离决定了在刷新状态显示header的视图的大小，这个距离要小于frame.height
      */
     func distanceToRefresh()->CGFloat
     
@@ -127,16 +127,17 @@ public extension UIScrollView{
     public  func setUpHeaderRefresh<T:UIView where T:RefreshableHeader>(header:T,action:()->())->T{
         let oldContain = self.viewWithTag(PullToRefreshKitConst.headerTag)
         oldContain?.removeFromSuperview()
-        let height = header.distanceToRefresh()
-        let frame = CGRectMake(0,-1 * height,CGRectGetWidth(self.frame),height)
-        let containComponent = RefreshHeaderContainer(frame: frame)
+        
+        let containFrame = CGRectMake(0, -CGRectGetHeight(self.frame), CGRectGetWidth(self.frame), CGRectGetHeight(self.frame))
+        let containComponent = RefreshHeaderContainer(frame: containFrame)
         containComponent.tag = PullToRefreshKitConst.headerTag
         containComponent.refreshAction = action
         self.addSubview(containComponent)
         
         containComponent.delegate = header
         header.autoresizingMask = [.FlexibleWidth,.FlexibleHeight]
-        header.frame = containComponent.bounds
+        let bounds = CGRectMake(0,CGRectGetHeight(containFrame) - CGRectGetHeight(header.frame),CGRectGetWidth(self.frame),CGRectGetHeight(header.frame))
+        header.frame = bounds
         containComponent.addSubview(header)
         return header
     }
