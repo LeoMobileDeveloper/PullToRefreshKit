@@ -42,15 +42,6 @@ self.tableView.setUpHeaderRefresh { [weak self] in
 
 ## 安装
 推荐使用CocoaPod安装
-在PodFile最上面，添加
-
-```
-use_frameworks!
-
-```
-
-然后，添加一行
-
 
 ```
 pod "PullToRefreshKit"
