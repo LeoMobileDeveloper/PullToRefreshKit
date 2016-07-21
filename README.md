@@ -42,8 +42,17 @@ self.tableView.setUpHeaderRefresh { [weak self] in
 
 ## 安装
 推荐使用CocoaPod安装
+在PodFile最上面，添加
 
-```ruby
+```
+use_frameworks!
+
+```
+
+然后，添加一行
+
+
+```
 pod "PullToRefreshKit"
 ```
 ## 使用
@@ -64,6 +73,8 @@ pod "PullToRefreshKit"
 
 
 ###上拉加载
+目前上拉加载支持三种模式：Tap，Scroll,TapAndScroll.通过设置footer的refreshMode来设置
+
 ```
  self.tableView.setUpFooterRefresh {  [weak self] in
      delay(1.5, closure: {
@@ -147,12 +158,6 @@ func didBeginEndRefershingAnimation(result:RefreshResult)
 func didCompleteEndRefershingAnimation(result:RefreshResult)
     
 ```
-##已知问题
-
-如果下拉刷新不显示图片，选择PullToRefreshKit的三张图，然后,勾选target
-
-<img src="https://raw.github.com/LeoMobileDeveloper/PullToRefreshKit/master/Screenshot/issue1.png">
-
 
 
 ## Author
