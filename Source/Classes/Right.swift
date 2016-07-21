@@ -32,7 +32,7 @@ public class DefaultRefreshRight:UIView,RefreshableLeftRight{
         textLabel.numberOfLines = 0
         imageView.frame = CGRectMake(0, 0,20, 20)
         imageView.center = CGPointMake(10,frame.size.height/2)
-        let image = UIImage(named: "arrow_left", inBundle: NSBundle(forClass: DefaultRefreshRight.self), compatibleWithTraitCollection: nil)
+        let image = UIImage(named: "arrow_left", inBundle: NSBundle(forClass: DefaultRefreshHeader.self), compatibleWithTraitCollection: nil)
         imageView.image = image
         textDic[.scrollToAction] = PullToRefreshKitRightString.scrollToViewMore
         textDic[.releaseToAction] = PullToRefreshKitRightString.releaseToViewMore
