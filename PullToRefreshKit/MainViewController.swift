@@ -14,10 +14,10 @@ import AudioToolbox
 class MainViewController: UITableViewController {
     var models = [SectionModel]()
     override func viewDidLoad() {
-        let section0 = SectionModel(rowsCount: 4,
+        let section0 = SectionModel(rowsCount: 5,
                                     sectionTitle:"默认",
-                                    rowsTitles: ["Tableview","CollectionView","ScrollView","Banners"],
-                                    rowsTargetControlerNames:["DefaultTableViewController","DefaultCollectionViewController","DefaultScrollViewController","DefaultBannerController",])
+                                    rowsTitles: ["Tableview","CollectionView","ScrollView","Banners","WebView"],
+                                    rowsTargetControlerNames:["DefaultTableViewController","DefaultCollectionViewController","DefaultScrollViewController","DefaultBannerController","DefaultWebViewController"])
         let section1 = SectionModel(rowsCount: 2,
                                     sectionTitle:"属性配置",
                                     rowsTitles: ["配置Header/Footer属性","配置Left/Right属性"],
