@@ -19,10 +19,6 @@ import UIKit
      */
     case Failure = 400
     /**
-     *  刷新出错
-     */
-    case Error = 500
-    /**
      *  默认状态
      */
     case None = 0
@@ -56,6 +52,11 @@ import UIKit
      */
     func didCompleteEndRefershingAnimation(result:RefreshResult)
     
+    /**
+     刷新结束，隐藏header的时间间隔，默认0.4s
+     
+     */
+    optional func durationWhenEndRefreshing()->Double
 }
 
 @objc public protocol RefreshableFooter:class{
@@ -130,6 +131,9 @@ public extension UIScrollView{
         
         let containFrame = CGRectMake(0, -CGRectGetHeight(self.frame), CGRectGetWidth(self.frame), CGRectGetHeight(self.frame))
         let containComponent = RefreshHeaderContainer(frame: containFrame)
+        if let endDuration = header.durationWhenEndRefreshing?(){
+            containComponent.durationOfEndRefreshing = endDuration
+        }
         containComponent.tag = PullToRefreshKitConst.headerTag
         containComponent.refreshAction = action
         self.addSubview(containComponent)

@@ -23,6 +23,7 @@ public class DefaultRefreshHeader:UIView,RefreshableHeader{
     public let spinner:UIActivityIndicatorView = UIActivityIndicatorView(activityIndicatorStyle: .Gray)
     public let textLabel:UILabel = UILabel(frame: CGRectMake(0,0,120,40))
     public let imageView:UIImageView = UIImageView(frame: CGRectZero)
+    public var durationWhenHide = 0.8
     private var textDic = [RefreshKitHeaderText:String]()
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -32,7 +33,7 @@ public class DefaultRefreshHeader:UIView,RefreshableHeader{
         let image = UIImage(named: "arrow_down", inBundle: NSBundle(forClass: DefaultRefreshHeader.self), compatibleWithTraitCollection: nil)
         imageView.image = image
         imageView.sizeToFit()
-        imageView.frame = CGRectMake(0, 0, 24, 24)
+        imageView.frame = CGRectMake(0, 0, 20, 20)
         imageView.center = CGPointMake(frame.width/2 - 60 - 20, frame.size.height/2)
         spinner.center = imageView.center
         
@@ -81,7 +82,9 @@ public class DefaultRefreshHeader:UIView,RefreshableHeader{
             })
         }
     }
-    
+    public func durationWhenEndRefreshing() -> Double {
+        return durationWhenHide
+    }
     public func percentageChangedDuringReleaseing(percent:CGFloat){
     
     }
@@ -92,17 +95,19 @@ public class DefaultRefreshHeader:UIView,RefreshableHeader{
         switch result {
         case .Success:
             textLabel.text = textDic[.refreshSuccess]
-        case .Error:
-            textLabel.text = textDic[.refreshError]
+            imageView.image = UIImage(named: "success", inBundle: NSBundle(forClass: DefaultRefreshHeader.self), compatibleWithTraitCollection: nil)
         case .Failure:
             textLabel.text = textDic[.refreshFailure]
+            imageView.image = UIImage(named: "failure", inBundle: NSBundle(forClass: DefaultRefreshHeader.self), compatibleWithTraitCollection: nil)
         case .None:
             textLabel.text = textDic[.pullToRefresh]
+            imageView.image = UIImage(named: "arrow_down", inBundle: NSBundle(forClass: DefaultRefreshHeader.self), compatibleWithTraitCollection: nil)
         }
     }
     public func didCompleteEndRefershingAnimation(result:RefreshResult) {
         textLabel.text = textDic[.pullToRefresh]
         self.hidden = true
+        imageView.image = UIImage(named: "arrow_down", inBundle: NSBundle(forClass: DefaultRefreshHeader.self), compatibleWithTraitCollection: nil)
     }
     public func releaseWithRefreshingState() {
         self.hidden = false
@@ -123,6 +128,7 @@ public class RefreshHeaderContainer:UIView{
     var refreshAction:(()->())?
     var attachedScrollView:UIScrollView!
     var originalInset:UIEdgeInsets?
+    var durationOfEndRefreshing = 0.4
     weak var delegate:RefreshableHeader?
     private var currentResult:RefreshResult = .None
     private var _state:RefreshHeaderState = .Idle
@@ -142,7 +148,7 @@ public class RefreshHeaderContainer:UIView{
                 guard oldValue == .Refreshing else{
                     return
                 }
-                UIView.animateWithDuration(0.4, animations: {
+                UIView.animateWithDuration(durationOfEndRefreshing, animations: {
                     var oldInset = self.attachedScrollView.contentInset
                     oldInset.top = oldInset.top + self.insetTDelta
                     self.attachedScrollView.contentInset = oldInset
