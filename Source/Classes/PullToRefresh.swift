@@ -9,25 +9,25 @@
 import Foundation
 import UIKit
 
-public enum RefreshResult{
+@objc public enum RefreshResult:Int{
     /**
      *  刷新成功
      */
-    case Success
+    case Success = 200
     /**
      *  刷新失败
      */
-    case Failure
+    case Failure = 400
     /**
      *  刷新出错
      */
-    case Error
+    case Error = 500
     /**
      *  默认状态
      */
-    case None
+    case None = 0
 }
-public protocol RefreshableHeader:class{
+@objc public protocol RefreshableHeader:class{
     /**
      触发动作的距离，注意，这个距离决定了在刷新状态显示header的视图的大小，这个距离要小于frame.height
      */
@@ -58,7 +58,7 @@ public protocol RefreshableHeader:class{
     
 }
 
-public protocol RefreshableFooter:class{
+@objc public protocol RefreshableFooter:class{
     /**
      触发动作的距离，对于header/footer来讲，就是视图的高度；对于left/right来讲，就是视图的宽度
      */

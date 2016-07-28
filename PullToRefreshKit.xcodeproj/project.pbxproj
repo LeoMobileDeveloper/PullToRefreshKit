@@ -36,7 +36,6 @@
 		52E8FB451D336E26000D0BF1 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 52E8FB431D336E26000D0BF1 /* Main.storyboard */; };
 		52E8FB471D336E26000D0BF1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 52E8FB461D336E26000D0BF1 /* Assets.xcassets */; };
 		52E8FB4A1D336E26000D0BF1 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 52E8FB481D336E26000D0BF1 /* LaunchScreen.storyboard */; };
-		52F50E2C1D3E374200A9AB83 /* NetEaseFooter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52F50E2B1D3E374200A9AB83 /* NetEaseFooter.swift */; };
 		52F50E391D3E3E3800A9AB83 /* PullToRefreshkit.strings in Resources */ = {isa = PBXBuildFile; fileRef = 52F50E3B1D3E3E3800A9AB83 /* PullToRefreshkit.strings */; };
 		52FA97A41D3882190021D77F /* CustomBaseTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52FA97A31D3882190021D77F /* CustomBaseTableViewController.swift */; };
 		52FA97AB1D3898770021D77F /* DianpingRefreshHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52FA97AA1D3898770021D77F /* DianpingRefreshHeader.swift */; };
@@ -75,7 +74,6 @@
 		52E8FB461D336E26000D0BF1 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		52E8FB491D336E26000D0BF1 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		52E8FB4B1D336E26000D0BF1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		52F50E2B1D3E374200A9AB83 /* NetEaseFooter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetEaseFooter.swift; sourceTree = "<group>"; };
 		52F50E3A1D3E3E3800A9AB83 /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = Base.lproj/PullToRefreshkit.strings; sourceTree = "<group>"; };
 		52F50E3C1D3E3E4400A9AB83 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/PullToRefreshkit.strings"; sourceTree = "<group>"; };
 		52FA97A31D3882190021D77F /* CustomBaseTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomBaseTableViewController.swift; sourceTree = "<group>"; };
@@ -94,6 +92,41 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		52879AA11D4A100000BBD76E /* QQ Video */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = "QQ Video";
+			sourceTree = "<group>";
+		};
+		52879AA21D4A101A00BBD76E /* YouKu */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = YouKu;
+			sourceTree = "<group>";
+		};
+		52879AA31D4A102200BBD76E /* QQ */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = QQ;
+			sourceTree = "<group>";
+		};
+		52879AA51D4A126D00BBD76E /* UC */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = UC;
+			sourceTree = "<group>";
+		};
+		52879AA61D4A130E00BBD76E /* MeiTuan */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = MeiTuan;
+			sourceTree = "<group>";
+		};
 		52BB29261D3640700091F36B /* Examples */ = {
 			isa = PBXGroup;
 			children = (
@@ -148,7 +181,11 @@
 		52BB292C1D364C390091F36B /* Custom */ = {
 			isa = PBXGroup;
 			children = (
-				52F50E2A1D3E371400A9AB83 /* 网易Fooer */,
+				52879AA61D4A130E00BBD76E /* MeiTuan */,
+				52879AA51D4A126D00BBD76E /* UC */,
+				52879AA31D4A102200BBD76E /* QQ */,
+				52879AA11D4A100000BBD76E /* QQ Video */,
+				52879AA21D4A101A00BBD76E /* YouKu */,
 				52FA97A91D3888990021D77F /* dianping */,
 				52FA97A71D3888660021D77F /* taobao */,
 				52FA97A31D3882190021D77F /* CustomBaseTableViewController.swift */,
@@ -195,14 +232,6 @@
 				52BB29291D364C1C0091F36B /* Resources */,
 			);
 			name = Sources;
-			sourceTree = "<group>";
-		};
-		52F50E2A1D3E371400A9AB83 /* 网易Fooer */ = {
-			isa = PBXGroup;
-			children = (
-				52F50E2B1D3E374200A9AB83 /* NetEaseFooter.swift */,
-			);
-			name = "网易Fooer";
 			sourceTree = "<group>";
 		};
 		52FA97A71D3888660021D77F /* taobao */ = {
@@ -306,7 +335,6 @@
 				5238C8011D3763BA00B3B4FE /* Left.swift in Sources */,
 				52BB29281D3644D00091F36B /* SectionModel.swift in Sources */,
 				5238C8021D3763BA00B3B4FE /* PullToRefresh.swift in Sources */,
-				52F50E2C1D3E374200A9AB83 /* NetEaseFooter.swift in Sources */,
 				52261F131D36879C00161ADF /* DefaultBannerController.swift in Sources */,
 				5238C7D31D37427C00B3B4FE /* TaoBaoRefreshHeader.swift in Sources */,
 				52E8FB421D336E26000D0BF1 /* MainViewController.swift in Sources */,

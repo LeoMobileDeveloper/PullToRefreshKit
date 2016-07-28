@@ -13,7 +13,7 @@ class DianpingRefreshHeader:UIView,RefreshableHeader{
     override init(frame: CGRect) {
         super.init(frame: frame)
         imageView.frame = CGRectMake(0, 0, 60, 60)
-        imageView.center = CGPointMake(CGRectGetWidth(self.bounds)/2.0, CGRectGetHeight(self.bounds)/2.0 + 10)
+        imageView.center = CGPointMake(CGRectGetWidth(self.bounds)/2.0, CGRectGetHeight(self.bounds)/2.0)
         addSubview(imageView)
     }
     
