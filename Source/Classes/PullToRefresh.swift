@@ -150,9 +150,9 @@ public extension UIScrollView{
         header?.beginRefreshing()
         
     }
-    public  func endHeaderRefreshing(result:RefreshResult = .None){
+    public  func endHeaderRefreshing(result:RefreshResult = .None,delay:Double = 0.0){
         let header = self.viewWithTag(PullToRefreshKitConst.headerTag) as? RefreshHeaderContainer
-        header?.endRefreshing(result)
+        header?.endRefreshing(result,delay: delay)
     }
 }
 

@@ -20,7 +20,7 @@ class ConfigDefaultHeaderFooterController: UITableViewController {
             delay(1.5, closure: {
                 self?.models = (self?.models.map({_ in random100()}))!
                 self?.tableView.reloadData()
-                self?.tableView.endHeaderRefreshing(.Success)
+                self?.tableView.endHeaderRefreshing(.Success,delay: 0.3)
             })
         }.SetUp { (header) in
             header.setText("Pull to refresh", mode: .pullToRefresh)

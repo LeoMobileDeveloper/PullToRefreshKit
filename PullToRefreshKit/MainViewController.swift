@@ -32,7 +32,7 @@ class MainViewController: UITableViewController {
         self.tableView.setUpHeaderRefresh { [weak self] in
             let delayTime = dispatch_time(DISPATCH_TIME_NOW, Int64(2 * Double(NSEC_PER_SEC)))
             dispatch_after(delayTime, dispatch_get_main_queue()) {
-                self?.tableView.endHeaderRefreshing(.Success)
+                self?.tableView.endHeaderRefreshing(.Success,delay:0.3)
             }
         }
         self.tableView.tableFooterView = UIView(frame: CGRectZero)

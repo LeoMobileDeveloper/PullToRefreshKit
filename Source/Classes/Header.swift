@@ -23,7 +23,7 @@ public class DefaultRefreshHeader:UIView,RefreshableHeader{
     public let spinner:UIActivityIndicatorView = UIActivityIndicatorView(activityIndicatorStyle: .Gray)
     public let textLabel:UILabel = UILabel(frame: CGRectMake(0,0,120,40))
     public let imageView:UIImageView = UIImageView(frame: CGRectZero)
-    public var durationWhenHide = 0.8
+    public var durationWhenHide = 0.5
     private var textDic = [RefreshKitHeaderText:String]()
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -133,6 +133,7 @@ public class RefreshHeaderContainer:UIView{
     private var currentResult:RefreshResult = .None
     private var _state:RefreshHeaderState = .Idle
     private var insetTDelta:CGFloat = 0.0
+    private var delayTimer:NSTimer?
     private var state:RefreshHeaderState{
         get{
             return _state
@@ -208,6 +209,7 @@ public class RefreshHeaderContainer:UIView{
         addObservers()
     }
     deinit{
+        clearTimer()
         removeObservers()
     }
     // MARK: - Private -
@@ -283,9 +285,20 @@ public class RefreshHeaderContainer:UIView{
             }
         }
     }
-    func endRefreshing(result:RefreshResult){
-        self.delegate?.didBeginEndRefershingAnimation(result)
+    func updateStateToIdea(){
         self.state = .Idle
+        clearTimer()
+    }
+    func endRefreshing(result:RefreshResult,delay:NSTimeInterval = 0.0){
+        self.delegate?.didBeginEndRefershingAnimation(result)
+        self.delayTimer = NSTimer(timeInterval: delay, target: self, selector: #selector(RefreshHeaderContainer.updateStateToIdea), userInfo: nil, repeats: false)
+        NSRunLoop.mainRunLoop().addTimer(self.delayTimer!, forMode: NSRunLoopCommonModes)
+    }
+    func clearTimer(){
+        if self.delayTimer != nil{
+            self.delayTimer?.invalidate()
+            self.delayTimer = nil
+        }
     }
 }
 

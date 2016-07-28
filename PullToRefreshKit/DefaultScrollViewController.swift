@@ -18,7 +18,7 @@ class DefaultScrollViewController:UIViewController{
         setUpScrollView()
         scrollView?.setUpHeaderRefresh({ [weak self] in
             delay(1.0, closure: { 
-                self?.scrollView?.endHeaderRefreshing()
+                self?.scrollView?.endHeaderRefreshing(.Success,delay: 0.3)
             })
         }).SetUp({ (header) in
             header.textLabel.textColor = UIColor.whiteColor()

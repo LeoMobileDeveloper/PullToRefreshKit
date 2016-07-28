@@ -19,7 +19,7 @@ class DianpingTableviewController:CustomBaseTableViewController{
             delay(1.5, closure: {
                 self?.models = (self?.models.map({_ in random100()}))!
                 self?.tableView.reloadData()
-                self?.tableView.endHeaderRefreshing(.Success)
+                self?.tableView.endHeaderRefreshing()
             })
         }
         self.tableView.beginHeaderRefreshing()

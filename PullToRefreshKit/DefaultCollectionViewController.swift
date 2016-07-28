@@ -16,7 +16,7 @@ class DefaultCollectionViewController:UIViewController,UICollectionViewDataSourc
         self.setUpCollectionView()
         self.collectionView?.setUpHeaderRefresh({ [weak self] in
             delay(1.0, closure: {
-                self?.collectionView?.endHeaderRefreshing(.Success)
+                self?.collectionView?.endHeaderRefreshing(.Success,delay: 0.3)
             });
         })
         self.collectionView?.setUpFooterRefresh({ [weak self] in

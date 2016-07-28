@@ -32,6 +32,6 @@ class DefaultWebViewController: UIViewController,UIWebViewDelegate{
         self.webview.delegate = self
     }
     func webViewDidFinishLoad(webView: UIWebView) {
-        self.webview.scrollView.endHeaderRefreshing()
+        self.webview.scrollView.endHeaderRefreshing(.Success,delay: 0.3)
     }
 }
