@@ -30,7 +30,7 @@ class ConfigDefaultHeaderFooterController: UITableViewController {
             header.setText("Failed", mode: .refreshFailure)
             header.setText("Error", mode: .refreshError)
             header.textLabel.textColor = UIColor.orangeColor()
-            header.imageView.image = nil
+            header.durationWhenHide = 0.4
         }
         //Footer
         

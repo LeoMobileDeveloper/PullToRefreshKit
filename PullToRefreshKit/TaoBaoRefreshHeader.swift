@@ -82,6 +82,7 @@ class TaoBaoRefreshHeader:UIView,RefreshableHeader{
         }else{
             textLabel.text = "下拉即可刷新..."
         }
+        self.circleLayer.strokeEnd = 0.05 + 0.9 * adjustPercent
     }
     func releaseWithRefreshingState(){
         self.circleLayer.strokeEnd = 0.95
