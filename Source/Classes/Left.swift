@@ -49,7 +49,7 @@ public class DefaultRefreshLeft:UIView,RefreshableLeftRight{
     }
 
 // MARK: - RefreshableLeftRight Protocol  -
-   public func distanceToRefresh() -> CGFloat {
+   public func heightForRefreshingState() -> CGFloat {
         return PullToRefreshKitConst.defaultHeaderHeight
     }
    public func percentUpdateWhenNotRefreshing(percent:CGFloat){

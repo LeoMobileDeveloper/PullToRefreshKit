@@ -57,7 +57,7 @@ public class DefaultRefreshHeader:UIView,RefreshableHeader{
         textDic[mode] = text
     }
     // MARK: - Refreshable  -
-    public func distanceToRefresh() -> CGFloat {
+    public func heightForRefreshingState() -> CGFloat {
         return PullToRefreshKitConst.defaultHeaderHeight
     }
     public func percentUpdateWhenNotRefreshing(percent:CGFloat){
@@ -158,9 +158,9 @@ public class RefreshHeaderContainer:UIView{
                 })
             case .Refreshing:
                 dispatch_async(dispatch_get_main_queue(), {
-                    let fireHeight = (self.delegate?.distanceToRefresh())!
+                    let insetHeight = (self.delegate?.heightForRefreshingState())!
                     UIView.animateWithDuration(0.4, animations: {
-                        let top = (self.originalInset?.top)! + fireHeight
+                        let top = (self.originalInset?.top)! + insetHeight
                         var oldInset = self.attachedScrollView.contentInset
                         oldInset.top = top
                         self.attachedScrollView.contentInset = oldInset
@@ -219,7 +219,11 @@ public class RefreshHeaderContainer:UIView{
         attachedScrollView?.removeObserver(self, forKeyPath: PullToRefreshKitConst.KPathOffSet,context: nil)
     }
     func handleScrollOffSetChange(change: [String : AnyObject]?){
-        let fireHeight = (self.delegate?.distanceToRefresh())!
+        let insetHeight = (self.delegate?.heightForRefreshingState())!
+        var fireHeight:CGFloat! = self.delegate?.heightForFireRefreshing?()
+        if fireHeight == nil{
+            fireHeight = insetHeight
+        }
         if state == .Refreshing {
 //Refer from here https://github.com/CoderMJLee/MJRefresh/blob/master/MJRefresh/Base/MJRefreshHeader.m, thanks to this lib again
             guard self.window != nil else{
@@ -228,7 +232,7 @@ public class RefreshHeaderContainer:UIView{
             let offset = attachedScrollView.contentOffset
             let inset = originalInset!
             var insetT = -1 * offset.y > inset.top ? (-1 * offset.y):inset.top
-            insetT = insetT > fireHeight + inset.top ? fireHeight + inset.top:insetT
+            insetT = insetT > insetHeight + inset.top ? insetHeight + inset.top:insetT
             var oldInset = attachedScrollView.contentInset
             oldInset.top = insetT
             attachedScrollView.contentInset = oldInset

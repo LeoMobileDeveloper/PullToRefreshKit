@@ -20,7 +20,7 @@ public class ElasticRefreshHeader: UIView,RefreshableHeader {
     required public init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    public func distanceToRefresh() -> CGFloat {
+    public func heightForRefreshingState() -> CGFloat {
         return 60.0
     }
     public func percentUpdateWhenNotRefreshing(percent:CGFloat){

@@ -23,17 +23,21 @@ import UIKit
      */
     case None = 0
 }
+@objc public enum RefreshableHeaderMode:Int{
+    /**
+     *  松手才会刷新
+     */
+    case OnReleasing = 10001
+    /**
+     *  超过阈值就会刷新
+     */
+    case OnThreshold = 10002
+}
 @objc public protocol RefreshableHeader:class{
     /**
-     触发动作的距离，注意，这个距离决定了在刷新状态显示header的视图的大小，这个距离要小于frame.height
+     在刷新状态的时候，距离顶部的距离
      */
-    func distanceToRefresh()->CGFloat
-    
-    /**
-      不在刷新状态的时候，百分比回调，在这里你根据百分比来动态的调整你的刷新视图
-     - parameter percent: 拖拽的百分比，比如一共距离是100，那么拖拽10的时候，percent就是0.1
-     */
-    optional func percentUpdateWhenNotRefreshing(percent:CGFloat)
+    func heightForRefreshingState()->CGFloat
     
     /**
      马上就要进入刷新的回调，这个依赖于你的刷新模式：如果是松手才会刷新，那么这个会在松手的时候调用。如果是超过阈值就会刷新，那么在超过阈值的时候调用
@@ -53,17 +57,31 @@ import UIKit
     func didCompleteEndRefershingAnimation(result:RefreshResult)
     
     /**
+     触发刷新的距离，可选，如果没有实现，则默认触发刷新的距离就是 heightForRefreshingState
+     */
+    optional func heightForFireRefreshing()->CGFloat
+    
+    /**
+     不在刷新状态的时候，百分比回调，在这里你根据百分比来动态的调整你的刷新视图
+     - parameter percent: 拖拽的百分比，比如一共距离是100，那么拖拽10的时候，percent就是0.1
+     */
+    optional func percentUpdateWhenNotRefreshing(percent:CGFloat)
+    
+    /**
      刷新结束，隐藏header的时间间隔，默认0.4s
      
      */
     optional func durationWhenEndRefreshing()->Double
+    
+    /// 进入刷新的模式，可选，默认松开才会刷新
+    optional var refreshMode:RefreshableHeaderMode{get}
 }
 
 @objc public protocol RefreshableFooter:class{
     /**
      触发动作的距离，对于header/footer来讲，就是视图的高度；对于left/right来讲，就是视图的宽度
      */
-    func distanceToRefresh()->CGFloat
+    func heightForRefreshingState()->CGFloat
     /**
      不需要下拉加载更多的回调
      */
@@ -91,7 +109,7 @@ public protocol RefreshableLeftRight:class{
     /**
      触发动作的距离，对于header/footer来讲，就是视图的高度；对于left/right来讲，就是视图的宽度
      */
-    func distanceToRefresh()->CGFloat
+    func heightForRefreshingState()->CGFloat
     /**
      已经开始执行刷新逻辑，在一次刷新中，只会调用一次
      */

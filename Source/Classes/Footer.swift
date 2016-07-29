@@ -81,7 +81,7 @@ public class DefaultRefreshFooter:UIView,RefreshableFooter{
         scrollView?.beginFooterRefreshing()
     }
 // MARK: - Refreshable  -
-    public func distanceToRefresh() -> CGFloat {
+    public func heightForRefreshingState() -> CGFloat {
         return PullToRefreshKitConst.defaultFooterHeight
     }
     public func didBeginRefreshing() {

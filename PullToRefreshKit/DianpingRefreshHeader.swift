@@ -21,7 +21,7 @@ class DianpingRefreshHeader:UIView,RefreshableHeader{
         fatalError("init(coder:) has not been implemented")
     }
     // MARK: - RefreshableHeader -
-    func distanceToRefresh()->CGFloat{
+    func heightForRefreshingState()->CGFloat{
         return 70
     }
     //监听百分比变化

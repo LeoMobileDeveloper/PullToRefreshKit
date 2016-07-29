@@ -72,7 +72,7 @@ class TaoBaoRefreshHeader:UIView,RefreshableHeader{
     }
     
 // MARK: - RefreshableHeader -
-    func distanceToRefresh()->CGFloat{
+    func heightForRefreshingState()->CGFloat{
         return 60
     }
     func percentUpdateWhenNotRefreshing(percent:CGFloat){
