@@ -12,6 +12,8 @@ import UIKit
 public class ElasticRefreshHeader: UIView,RefreshableHeader {
     
     let control:ElasticRefreshControl
+    let imageView = UIImageView()
+    let textLabel = UILabel()
     override init(frame: CGRect) {
         control = ElasticRefreshControl(frame: frame)
         super.init(frame: frame)

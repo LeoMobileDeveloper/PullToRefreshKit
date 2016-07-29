@@ -159,12 +159,54 @@ public class RefreshHeaderContainer:UIView{
             case .Refreshing:
                 dispatch_async(dispatch_get_main_queue(), {
                     let insetHeight = (self.delegate?.heightForRefreshingState())!
+                    var fireHeight:CGFloat! = self.delegate?.heightForFireRefreshing?()
+                    if fireHeight == nil{
+                        fireHeight = insetHeight
+                    }
+                    let offSetY = self.attachedScrollView.contentOffset.y
+                    let topShowOffsetY = -1.0 * self.originalInset!.top
+                    let normal2pullingOffsetY = topShowOffsetY - fireHeight
+                    //如果是自动刷新模式
+                    if let mode = self.delegate?.refreshMode{
+                        if mode == RefreshableHeaderMode.OnThreshold{
+                            self.delegate?.percentUpdateWhenNotRefreshing?(1.0)
+                            self.delegate?.didBeginrefreshingState()
+                            if offSetY > normal2pullingOffsetY{ //手动触发，需要调整位置
+                                UIView.animateWithDuration(0.4, animations: {
+                                    let top = (self.originalInset?.top)! + insetHeight
+                                    var oldInset = self.attachedScrollView.contentInset
+                                    oldInset.top = top
+                                    self.attachedScrollView.contentInset = oldInset
+                                    self.attachedScrollView.contentOffset = CGPointMake(0, -1.0 * top)
+                                    }, completion: { (finsihed) in
+                                        self.refreshAction?()
+                                })
+                            }else{
+                                self.refreshAction?()//直接执行动作
+                                let currentOffset = self.attachedScrollView.contentOffset
+                                UIView.animateWithDuration(0.1, animations: {
+                                    let top = (self.originalInset?.top)! + insetHeight
+                                    var oldInset = self.attachedScrollView.contentInset
+                                    oldInset.top = top
+                                    self.attachedScrollView.contentInset = oldInset
+                                    self.attachedScrollView.contentOffset = currentOffset
+                                    }, completion: { (finsihed) in})
+                            }
+                            return
+                        }
+                    }
+                    //如果是松开刷新模式
+                    let currentOffset = self.attachedScrollView.contentOffset
                     UIView.animateWithDuration(0.4, animations: {
                         let top = (self.originalInset?.top)! + insetHeight
                         var oldInset = self.attachedScrollView.contentInset
                         oldInset.top = top
                         self.attachedScrollView.contentInset = oldInset
-                        self.attachedScrollView.contentOffset = CGPointMake(0, -1.0 * top)
+                        if offSetY > normal2pullingOffsetY{ //手动触发
+                            self.attachedScrollView.contentOffset = CGPointMake(0, -1.0 * top)
+                        }else{//release，防止跳动
+                            self.attachedScrollView.contentOffset = currentOffset
+                        }
                         }, completion: { (finsihed) in
                             self.refreshAction?()
                     })
@@ -237,24 +279,51 @@ public class RefreshHeaderContainer:UIView{
             oldInset.top = insetT
             attachedScrollView.contentInset = oldInset
             insetTDelta = inset.top - insetT
+            print(attachedScrollView.contentOffset)
             return;
         }
+        
         originalInset =  attachedScrollView.contentInset
         let offSetY = attachedScrollView.contentOffset.y
         let topShowOffsetY = -1.0 * originalInset!.top
         guard offSetY <= topShowOffsetY else{
             return
         }
+/*
+         这里又个contentOffset突变的问题
+*/
         let normal2pullingOffsetY = topShowOffsetY - fireHeight
-        if attachedScrollView.dragging {
-            if state == .Idle && offSetY < normal2pullingOffsetY {
-                self.state = .Pulling
-            }else if state == .Pulling && offSetY >= normal2pullingOffsetY{
-                state = .Idle
+        if let mode = self.delegate?.refreshMode{
+            if mode == RefreshableHeaderMode.OnThreshold{
+                if attachedScrollView.dragging {
+                    if state == .Idle && offSetY < normal2pullingOffsetY{
+                        beginRefreshing()
+                        return
+                    }
+                }
+            }else{
+                if attachedScrollView.dragging {
+                    if state == .Idle && offSetY < normal2pullingOffsetY {
+                        self.state = .Pulling
+                    }else if state == .Pulling && offSetY >= normal2pullingOffsetY{
+                        state = .Idle
+                    }
+                }else if state == .Pulling{
+                    beginRefreshing()
+                    return
+                }
             }
-        }else if state == .Pulling{
-            beginRefreshing()
-            return
+        }else{
+            if attachedScrollView.dragging {
+                if state == .Idle && offSetY < normal2pullingOffsetY {
+                    self.state = .Pulling
+                }else if state == .Pulling && offSetY >= normal2pullingOffsetY{
+                    state = .Idle
+                }
+            }else if state == .Pulling{
+                beginRefreshing()
+                return
+            }
         }
         let percent = (topShowOffsetY - offSetY)/fireHeight
         //防止在结束刷新的时候，percent的跳跃

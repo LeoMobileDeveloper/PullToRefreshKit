@@ -21,6 +21,6 @@ class TaobaoTableViewController:CustomBaseTableViewController{
                 self?.tableView.endHeaderRefreshing()
             })
         }
-        self.tableView.beginHeaderRefreshing()
+//        self.tableView.beginHeaderRefreshing()
     }
 }
