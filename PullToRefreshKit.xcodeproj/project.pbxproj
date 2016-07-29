@@ -23,6 +23,8 @@
 		5238C8031D3763BA00B3B4FE /* Right.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5238C7FD1D3763BA00B3B4FE /* Right.swift */; };
 		5238C8081D3763CD00B3B4FE /* arrow_left@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5238C8051D3763CD00B3B4FE /* arrow_left@3x.png */; };
 		5238C8091D3763CD00B3B4FE /* arrow_right@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5238C8061D3763CD00B3B4FE /* arrow_right@3x.png */; };
+		523B68D81D4B7545009861C1 /* ElasticRefreshControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 523B68D71D4B7545009861C1 /* ElasticRefreshControl.swift */; };
+		523B68DA1D4B75B2009861C1 /* ElasticRefreshHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 523B68D91D4B75B2009861C1 /* ElasticRefreshHeader.swift */; };
 		52626DF31D4274AD00DF8E6C /* DefaultWebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52626DF21D4274AD00DF8E6C /* DefaultWebViewController.swift */; };
 		5272861A1D4A26A200DF8EE4 /* arrow_down@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 527286191D4A26A200DF8EE4 /* arrow_down@3x.png */; };
 		5272861C1D4A273E00DF8EE4 /* success@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5272861B1D4A273E00DF8EE4 /* success@3x.png */; };
@@ -61,6 +63,8 @@
 		5238C7FD1D3763BA00B3B4FE /* Right.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Right.swift; path = Source/Classes/Right.swift; sourceTree = SOURCE_ROOT; };
 		5238C8051D3763CD00B3B4FE /* arrow_left@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "arrow_left@3x.png"; path = "Source/Assets/arrow_left@3x.png"; sourceTree = SOURCE_ROOT; };
 		5238C8061D3763CD00B3B4FE /* arrow_right@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "arrow_right@3x.png"; path = "Source/Assets/arrow_right@3x.png"; sourceTree = SOURCE_ROOT; };
+		523B68D71D4B7545009861C1 /* ElasticRefreshControl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ElasticRefreshControl.swift; sourceTree = "<group>"; };
+		523B68D91D4B75B2009861C1 /* ElasticRefreshHeader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ElasticRefreshHeader.swift; sourceTree = "<group>"; };
 		52626DF21D4274AD00DF8E6C /* DefaultWebViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DefaultWebViewController.swift; sourceTree = "<group>"; };
 		527286191D4A26A200DF8EE4 /* arrow_down@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "arrow_down@3x.png"; sourceTree = "<group>"; };
 		5272861B1D4A273E00DF8EE4 /* success@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "success@3x.png"; sourceTree = "<group>"; };
@@ -96,6 +100,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		52562D151D4AF1E7003B0F72 /* CustomHeader */ = {
+			isa = PBXGroup;
+			children = (
+				523B68D71D4B7545009861C1 /* ElasticRefreshControl.swift */,
+				523B68D91D4B75B2009861C1 /* ElasticRefreshHeader.swift */,
+			);
+			name = CustomHeader;
+			sourceTree = "<group>";
+		};
 		52879AA11D4A100000BBD76E /* QQ Video */ = {
 			isa = PBXGroup;
 			children = (
@@ -160,6 +173,7 @@
 		52BB292A1D364C260091F36B /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				52562D151D4AF1E7003B0F72 /* CustomHeader */,
 				5238C7FC1D3763BA00B3B4FE /* PullToRefresh.swift */,
 				5238C7FA1D3763BA00B3B4FE /* Header.swift */,
 				5238C7F91D3763BA00B3B4FE /* Footer.swift */,
@@ -343,10 +357,12 @@
 				5238C8011D3763BA00B3B4FE /* Left.swift in Sources */,
 				52BB29281D3644D00091F36B /* SectionModel.swift in Sources */,
 				5238C8021D3763BA00B3B4FE /* PullToRefresh.swift in Sources */,
+				523B68D81D4B7545009861C1 /* ElasticRefreshControl.swift in Sources */,
 				52261F131D36879C00161ADF /* DefaultBannerController.swift in Sources */,
 				5238C7D31D37427C00B3B4FE /* TaoBaoRefreshHeader.swift in Sources */,
 				52E8FB421D336E26000D0BF1 /* MainViewController.swift in Sources */,
 				52E8FB401D336E26000D0BF1 /* AppDelegate.swift in Sources */,
+				523B68DA1D4B75B2009861C1 /* ElasticRefreshHeader.swift in Sources */,
 				5238C7FF1D3763BA00B3B4FE /* Footer.swift in Sources */,
 				52BB29341D3655B90091F36B /* Util.swift in Sources */,
 				5238C8001D3763BA00B3B4FE /* Header.swift in Sources */,

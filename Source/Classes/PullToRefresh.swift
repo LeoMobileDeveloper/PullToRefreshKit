@@ -33,12 +33,12 @@ import UIKit
       不在刷新状态的时候，百分比回调，在这里你根据百分比来动态的调整你的刷新视图
      - parameter percent: 拖拽的百分比，比如一共距离是100，那么拖拽10的时候，percent就是0.1
      */
-    func percentUpdateWhenNotRefreshing(percent:CGFloat)
+    optional func percentUpdateWhenNotRefreshing(percent:CGFloat)
     
     /**
-     松手就会刷新的回调,在这个回调里，将视图切换到动画的状态
+     马上就要进入刷新的回调，这个依赖于你的刷新模式：如果是松手才会刷新，那么这个会在松手的时候调用。如果是超过阈值就会刷新，那么在超过阈值的时候调用
      */
-    func releaseWithRefreshingState()
+    func didBeginrefreshingState()
     
     /**
        刷新结束，将要进行隐藏的动画，一般在这里告诉用户刷新的结果

@@ -61,7 +61,6 @@ public class DefaultRefreshHeader:UIView,RefreshableHeader{
         return PullToRefreshKitConst.defaultHeaderHeight
     }
     public func percentUpdateWhenNotRefreshing(percent:CGFloat){
-        
         self.hidden = !(percent > 0.0)
         if percent > 1.0{
             textLabel.text = textDic[.releaseToRefresh]
@@ -109,7 +108,7 @@ public class DefaultRefreshHeader:UIView,RefreshableHeader{
         self.hidden = true
         imageView.image = UIImage(named: "arrow_down", inBundle: NSBundle(forClass: DefaultRefreshHeader.self), compatibleWithTraitCollection: nil)
     }
-    public func releaseWithRefreshingState() {
+    public func didBeginrefreshingState() {
         self.hidden = false
         textLabel.text = textDic[.refreshing]
         spinner.startAnimating()
@@ -169,8 +168,8 @@ public class RefreshHeaderContainer:UIView{
                         }, completion: { (finsihed) in
                             self.refreshAction?()
                     })
-                    self.delegate?.percentUpdateWhenNotRefreshing(1.0)
-                    self.delegate?.releaseWithRefreshingState()
+                    self.delegate?.percentUpdateWhenNotRefreshing?(1.0)
+                    self.delegate?.didBeginrefreshingState()
                 })
             default:
                 break
@@ -260,10 +259,10 @@ public class RefreshHeaderContainer:UIView{
             if oldPercent >= 1.0 && percent == 0.0{
                 return
             }else{
-                self.delegate?.percentUpdateWhenNotRefreshing(percent)
+                self.delegate?.percentUpdateWhenNotRefreshing?(percent)
             }
         }else{
-            self.delegate?.percentUpdateWhenNotRefreshing(percent)
+            self.delegate?.percentUpdateWhenNotRefreshing?(percent)
         }
     }
     // MARK: - KVO -

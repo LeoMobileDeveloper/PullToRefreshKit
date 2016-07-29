@@ -84,7 +84,7 @@ class TaoBaoRefreshHeader:UIView,RefreshableHeader{
         }
         self.circleLayer.strokeEnd = 0.05 + 0.9 * adjustPercent
     }
-    func releaseWithRefreshingState(){
+    func didBeginrefreshingState(){
         self.circleLayer.strokeEnd = 0.95
         let rotateAnimation = CABasicAnimation(keyPath: "transform.rotation.z")
         rotateAnimation.toValue = NSNumber(double: M_PI * 2.0)
