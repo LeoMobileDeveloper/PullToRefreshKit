@@ -23,16 +23,6 @@ import UIKit
      */
     case None = 0
 }
-@objc public enum RefreshableHeaderMode:Int{
-    /**
-     *  松手才会刷新
-     */
-    case OnReleasing = 10001
-    /**
-     *  超过阈值就会刷新
-     */
-    case OnThreshold = 10002
-}
 @objc public protocol RefreshableHeader:class{
     /**
      在刷新状态的时候，距离顶部的距离
@@ -72,9 +62,6 @@ import UIKit
      
      */
     optional func durationWhenEndRefreshing()->Double
-    
-    /// 进入刷新的模式，可选，默认松开才会刷新
-    optional var refreshMode:RefreshableHeaderMode{get}
 }
 
 @objc public protocol RefreshableFooter:class{
