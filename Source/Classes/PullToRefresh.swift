@@ -30,7 +30,7 @@ import UIKit
     func heightForRefreshingState()->CGFloat
     
     /**
-     马上就要进入刷新的回调，这个依赖于你的刷新模式：如果是松手才会刷新，那么这个会在松手的时候调用。如果是超过阈值就会刷新，那么在超过阈值的时候调用
+     马上就要进入刷新的回调
      */
     func didBeginrefreshingState()
     

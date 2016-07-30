@@ -13,7 +13,7 @@
  [![License](http://img.shields.io/badge/license-MIT-lightgrey.svg?style=flat
 )](http://mit-license.org)
 
-支持一行代码实现下拉刷新
+一行代码实现下拉刷新
 
 ```
 self.tableView.setUpHeaderRefresh { [weak self] in
@@ -22,8 +22,31 @@ self.tableView.setUpHeaderRefresh { [weak self] in
    })
 }
 ```
-这个库的设计初衷，是为了能够方便地实现自定义的下拉刷新，上拉加载等。比如，Demo中，我列举了用这个框架如何实现[淘宝](https://github.com/LeoMobileDeveloper/PullToRefreshKit/blob/master/PullToRefreshKit/TaoBaoRefreshHeader.swift)和[大众点评](https://github.com/LeoMobileDeveloper/PullToRefreshKit/blob/master/PullToRefreshKit/DianpingRefreshHeader.swift)的下拉刷新。
+内置橡皮筋刷新,两行搞定
 
+```
+let elasticHeader = ElasticRefreshHeader()
+self.tableView.setUpHeaderRefresh(elasticHeader) { [weak self] in
+    delay(1.5, closure: { 
+        self?.tableView.endHeaderRefreshing(.Success)
+   })
+}
+```
+
+<img src="https://raw.github.com/LeoMobileDeveloper/PullToRefreshKit/master/Screenshot/gif5.gif" width="320">
+
+
+支持:
+
+- [x] 默认下拉刷新一行代码，支持提醒用户刷新结果（成功，失败）
+- [x] 默认上拉加载一行代码，支持三种模式，点击/上拉／点击和上拉
+- [x] 默认左拉/又拉进行回调一行搞定
+- [x] 内置橡皮筋下拉刷新
+- [x] 几十行代码即可自定义刷新界面
+
+
+
+Demo中，我列举了用这个框架如何实现[淘宝](https://github.com/LeoMobileDeveloper/PullToRefreshKit/blob/master/PullToRefreshKit/TaoBaoRefreshHeader.swift)和[大众点评](https://github.com/LeoMobileDeveloper/PullToRefreshKit/blob/master/PullToRefreshKit/DianpingRefreshHeader.swift)的下拉刷新。
 
 <img src="https://raw.github.com/LeoMobileDeveloper/PullToRefreshKit/master/Screenshot/taobao.gif" width="200"><img src="https://raw.github.com/LeoMobileDeveloper/PullToRefreshKit/master/Screenshot/dianping.gif" width="200">
 
@@ -37,7 +60,7 @@ self.tableView.setUpHeaderRefresh { [weak self] in
 - UITableView
 - UICollectionView
 - UIScrollView
-- UIWebView(TODO)
+- UIWebView
 
 
 ## 安装
@@ -133,20 +156,26 @@ self.tableView.setUpHeaderRefresh { [weak self] in
 这个协议提供的方法如下
 
 ```
-//触发刷新的距离，对于header/footer来讲，就是视图的高度；对于left/right来讲，就是视图的宽度
-func distanceToRefresh()->CGFloat
+    //在刷新状态的时候，距离顶部的距离
+    func heightForRefreshingState()->CGFloat
+   
+    //马上就要进入刷新的回调,在这里将header调整为刷新中的样式
+    func didBeginrefreshingState()
 
-//百分比回调，在这里你根据百分比来动态的调整你的刷新视图
-func percentUpdateWhenNotRefreshing(percent:CGFloat)
-
-//松手就会刷新的回调,在这个回调里，将视图切换到动画的状态
-func releaseWithRefreshingState()
-
-//刷新结束，将要进行隐藏的动画，一般在这里告诉用户刷新的结果
-func didBeginEndRefershingAnimation(result:RefreshResult)
-
-//刷新结束，隐藏的动画结束，一般在这里把视图隐藏，各个参数恢复到最初状态
-func didCompleteEndRefershingAnimation(result:RefreshResult)
+    //结束刷新，在这里可以告诉用户刷新的结果
+    func didBeginEndRefershingAnimation(result:RefreshResult)
+    
+    //结束刷新，在这里把视图恢复到最初状态
+    func didCompleteEndRefershingAnimation(result:RefreshResult)
+    
+    //拖拽触发刷新的高度，如果不提供，就是heightForRefreshingState
+    optional func heightForFireRefreshing()->CGFloat
+    
+    //刷新的时候，百分比变化，可以根据这个百分比动态的绘制你的视图
+    optional func percentUpdateDuringScrolling(percent:CGFloat)
+    
+    //隐藏header的时间
+    optional func durationWhenEndRefreshing()->Double
     
 ```
 

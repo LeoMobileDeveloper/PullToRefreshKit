@@ -30,7 +30,7 @@ public class ElasticRefreshControl: UIView {
     }
     var arrowRadius:CGFloat{
         get{
-            return radius * 0.5 - 0.3 * radius * adjustedProgress
+            return radius * 0.5 - 0.2 * radius * adjustedProgress
         }
     }
     var adjustedProgress:CGFloat{
@@ -98,7 +98,7 @@ public class ElasticRefreshControl: UIView {
         let lineWidth = 2.5 - 1.0 * adjustedProgress
         //上面圆的信息
         let upCenter = CGPointMake(centerX, (0.75 - 0.5 * adjustedProgress) * totalHeight)
-        let upRadius = radius - radius * 0.5 * adjustedProgress
+        let upRadius = radius - radius * 0.3 * adjustedProgress
         
         //下面圆的信息
         let downRadius:CGFloat = radius  - radius * 0.75 * adjustedProgress
