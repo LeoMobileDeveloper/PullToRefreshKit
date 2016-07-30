@@ -11,10 +11,11 @@ import UIKit
 
 @IBDesignable
 public class ElasticRefreshControl: UIView {
+    //目标，height 80, 高度 40
     public let spinner:UIActivityIndicatorView = UIActivityIndicatorView()
     var radius:CGFloat{
         get{
-            return totalHeight / 4
+            return totalHeight / 4 - margin
         }
     }
     public var progress:CGFloat = 0.0{
@@ -29,7 +30,7 @@ public class ElasticRefreshControl: UIView {
     }
     var arrowRadius:CGFloat{
         get{
-            return radius * 0.5 - 0.3 * radius * progress
+            return radius * 0.5 - 0.3 * radius * adjustedProgress
         }
     }
     var adjustedProgress:CGFloat{
@@ -37,7 +38,7 @@ public class ElasticRefreshControl: UIView {
             return min(max(progress,0.0),1.0)
         }
     }
-    let totalHeight:CGFloat = 60
+    let totalHeight:CGFloat = 80
     public var arrowColor = UIColor.whiteColor(){
         didSet{
             setNeedsDisplay()
@@ -64,6 +65,7 @@ public class ElasticRefreshControl: UIView {
         commonInit()
     }
     func commonInit(){
+        self.opaque = false
         addSubview(spinner)
         sizeToFit()
         spinner.hidesWhenStopped = true
@@ -71,7 +73,7 @@ public class ElasticRefreshControl: UIView {
     }
    public override func layoutSubviews() {
         super.layoutSubviews()
-        spinner.center = CGPointMake(CGRectGetWidth(self.bounds) / 2.0, 0.25 * totalHeight - margin)
+        spinner.center = CGPointMake(CGRectGetWidth(self.bounds) / 2.0, 0.75 * totalHeight)
     }
     public required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
@@ -93,13 +95,13 @@ public class ElasticRefreshControl: UIView {
         }
         let context = UIGraphicsGetCurrentContext()
         let centerX = rect.width/2.0
-        let lineWidth = 2.5 - 1.0 * progress
+        let lineWidth = 2.5 - 1.0 * adjustedProgress
         //上面圆的信息
-        let upCenter = CGPointMake(centerX, (0.75 - 0.5 * progress) * totalHeight - margin)
-        let upRadius = radius - radius * 0.5 * progress
+        let upCenter = CGPointMake(centerX, (0.75 - 0.5 * adjustedProgress) * totalHeight)
+        let upRadius = radius - radius * 0.5 * adjustedProgress
         
         //下面圆的信息
-        let downRadius:CGFloat = radius  - radius * 0.8 * progress
+        let downRadius:CGFloat = radius  - radius * 0.75 * adjustedProgress
         let downCenter = CGPointMake(centerX, totalHeight - downRadius - margin)
     
         //偏移的角度

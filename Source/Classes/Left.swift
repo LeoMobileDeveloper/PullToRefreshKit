@@ -52,7 +52,7 @@ public class DefaultRefreshLeft:UIView,RefreshableLeftRight{
    public func heightForRefreshingState() -> CGFloat {
         return PullToRefreshKitConst.defaultHeaderHeight
     }
-   public func percentUpdateWhenNotRefreshing(percent:CGFloat){
+   public func percentUpdateDuringScrolling(percent:CGFloat){
         if percent > 1.0{
             guard CGAffineTransformEqualToTransform(self.imageView.transform, CGAffineTransformIdentity)  else{
                 return
@@ -165,7 +165,7 @@ class RefreshLeftContainer:UIView{
         let normal2pullingOffsetX = topShowOffsetX - self.frame.size.width
         let percent = (topShowOffsetX - offSetX)/self.frame.size.width
         if attachedScrollView.dragging {
-            self.delegate?.percentUpdateWhenNotRefreshing(percent)
+            self.delegate?.percentUpdateDuringScrolling(percent)
             if state == .Idle && offSetX < normal2pullingOffsetX {
                 self.state = .Pulling
             }else if state == .Pulling && offSetX >= normal2pullingOffsetX{

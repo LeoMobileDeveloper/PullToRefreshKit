@@ -75,7 +75,7 @@ class TaoBaoRefreshHeader:UIView,RefreshableHeader{
     func heightForRefreshingState()->CGFloat{
         return 60
     }
-    func percentUpdateWhenNotRefreshing(percent:CGFloat){
+    func percentUpdateDuringScrolling(percent:CGFloat){
         let adjustPercent = max(min(1.0, percent),0.0)
         if adjustPercent  == 1.0{
             textLabel.text = "释放即可刷新..."

@@ -8,7 +8,7 @@
 
 import Foundation
 import UIKit
-class TaobaoTableViewController:CustomBaseTableViewController{
+class TaobaoTableViewController:BaseTableViewController{
     override func viewDidLoad() {
         super.viewDidLoad()
         //Setup

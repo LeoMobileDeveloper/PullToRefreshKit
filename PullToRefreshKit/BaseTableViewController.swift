@@ -1,5 +1,5 @@
 //
-//  CustomBaseTableViewController.swift
+//  BaseTableViewController.swift
 //  PullToRefreshKit
 //
 //  Created by huangwenchen on 16/7/15.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-class CustomBaseTableViewController: UITableViewController {
+class BaseTableViewController: UITableViewController {
     var models = [1,2,3,4,5,6,7,8,9,10]
     override func viewDidLoad() {
         super.viewDidLoad()

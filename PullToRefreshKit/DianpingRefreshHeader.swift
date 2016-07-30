@@ -25,7 +25,7 @@ class DianpingRefreshHeader:UIView,RefreshableHeader{
         return 70
     }
     //监听百分比变化
-    func percentUpdateWhenNotRefreshing(percent:CGFloat){
+    func percentUpdateDuringScrolling(percent:CGFloat){
         imageView.hidden = (percent == 0)
         let adjustPercent = max(min(1.0, percent),0.0)
         let scale = 0.2 + (1.0 - 0.2) * adjustPercent;

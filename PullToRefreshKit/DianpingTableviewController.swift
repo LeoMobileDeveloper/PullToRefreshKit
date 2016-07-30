@@ -9,7 +9,7 @@
 import Foundation
 import UIKit
 
-class DianpingTableviewController:CustomBaseTableViewController{
+class DianpingTableviewController:BaseTableViewController{
     override func viewDidLoad() {
         super.viewDidLoad()
         //Setup

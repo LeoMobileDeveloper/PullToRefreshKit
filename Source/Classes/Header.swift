@@ -14,7 +14,6 @@ public enum RefreshKitHeaderText{
     case pullToRefresh
     case releaseToRefresh
     case refreshSuccess
-    case refreshError
     case refreshFailure
     case refreshing
 }
@@ -45,7 +44,6 @@ public class DefaultRefreshHeader:UIView,RefreshableHeader{
         textDic[.pullToRefresh] = PullToRefreshKitHeaderString.pullDownToRefresh
         textDic[.releaseToRefresh] = PullToRefreshKitHeaderString.releaseToRefresh
         textDic[.refreshSuccess] = PullToRefreshKitHeaderString.refreshSuccess
-        textDic[.refreshError] = PullToRefreshKitHeaderString.refreshError
         textDic[.refreshFailure] = PullToRefreshKitHeaderString.refreshFailure
         textDic[.refreshing] = PullToRefreshKitHeaderString.refreshing
         textLabel.text = textDic[.pullToRefresh]
@@ -60,7 +58,7 @@ public class DefaultRefreshHeader:UIView,RefreshableHeader{
     public func heightForRefreshingState() -> CGFloat {
         return PullToRefreshKitConst.defaultHeaderHeight
     }
-    public func percentUpdateWhenNotRefreshing(percent:CGFloat){
+    public func percentUpdateDuringScrolling(percent:CGFloat){
         self.hidden = !(percent > 0.0)
         if percent > 1.0{
             textLabel.text = textDic[.releaseToRefresh]
@@ -166,7 +164,6 @@ public class RefreshHeaderContainer:UIView{
                     let offSetY = self.attachedScrollView.contentOffset.y
                     let topShowOffsetY = -1.0 * self.originalInset!.top
                     let normal2pullingOffsetY = topShowOffsetY - fireHeight
-                    //如果是松开刷新模式
                     let currentOffset = self.attachedScrollView.contentOffset
                     UIView.animateWithDuration(0.4, animations: {
                         let top = (self.originalInset?.top)! + insetHeight
@@ -181,7 +178,7 @@ public class RefreshHeaderContainer:UIView{
                         }, completion: { (finsihed) in
                             self.refreshAction?()
                     })
-                    self.delegate?.percentUpdateWhenNotRefreshing?(1.0)
+                    self.delegate?.percentUpdateDuringScrolling?(1.0)
                     self.delegate?.didBeginrefreshingState()
                 })
             default:
@@ -278,10 +275,10 @@ public class RefreshHeaderContainer:UIView{
             if oldPercent >= 1.0 && percent == 0.0{
                 return
             }else{
-                self.delegate?.percentUpdateWhenNotRefreshing?(percent)
+                self.delegate?.percentUpdateDuringScrolling?(percent)
             }
         }else{
-            self.delegate?.percentUpdateWhenNotRefreshing?(percent)
+            self.delegate?.percentUpdateDuringScrolling?(percent)
         }
     }
     // MARK: - KVO -

@@ -18,17 +18,23 @@ class MainViewController: UITableViewController {
                                     sectionTitle:"默认",
                                     rowsTitles: ["Tableview","CollectionView","ScrollView","Banners","WebView"],
                                     rowsTargetControlerNames:["DefaultTableViewController","DefaultCollectionViewController","DefaultScrollViewController","DefaultBannerController","DefaultWebViewController"])
-        let section1 = SectionModel(rowsCount: 2,
+        let section1 = SectionModel(rowsCount: 1,
+                                    sectionTitle:"内置",
+                                    rowsTitles: ["Elastic",],
+                                    rowsTargetControlerNames:["ElasticHeaderTableViewController"])
+        
+        let section2 = SectionModel(rowsCount: 2,
                                     sectionTitle:"属性配置",
                                     rowsTitles: ["配置Header/Footer属性","配置Left/Right属性"],
                                     rowsTargetControlerNames:["ConfigDefaultHeaderFooterController","ConfigBannerController"])
-        let section2 = SectionModel(rowsCount: 2,
+        let section3 = SectionModel(rowsCount: 2,
                                     sectionTitle:"自定义",
                                     rowsTitles: ["淘宝","大众点评"],
                                     rowsTargetControlerNames:["TaobaoTableViewController","DianpingTableviewController"])
         models.append(section0)
         models.append(section1)
         models.append(section2)
+        models.append(section3)
         self.tableView.setUpHeaderRefresh { [weak self] in
             let delayTime = dispatch_time(DISPATCH_TIME_NOW, Int64(2 * Double(NSEC_PER_SEC)))
             dispatch_after(delayTime, dispatch_get_main_queue()) {

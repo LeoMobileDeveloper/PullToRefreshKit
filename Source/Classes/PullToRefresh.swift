@@ -55,7 +55,7 @@ import UIKit
      不在刷新状态的时候，百分比回调，在这里你根据百分比来动态的调整你的刷新视图
      - parameter percent: 拖拽的百分比，比如一共距离是100，那么拖拽10的时候，percent就是0.1
      */
-    optional func percentUpdateWhenNotRefreshing(percent:CGFloat)
+    optional func percentUpdateDuringScrolling(percent:CGFloat)
     
     /**
      刷新结束，隐藏header的时间间隔，默认0.4s
@@ -110,7 +110,7 @@ public protocol RefreshableLeftRight:class{
      
      - parameter percent: 拖动百分比，大于0
      */
-    func percentUpdateWhenNotRefreshing(percent:CGFloat)
+    func percentUpdateDuringScrolling(percent:CGFloat)
 }
 
 

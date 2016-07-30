@@ -28,7 +28,6 @@ class ConfigDefaultHeaderFooterController: UITableViewController {
             header.setText("Success", mode: .refreshSuccess)
             header.setText("Refreshing...", mode: .refreshing)
             header.setText("Failed", mode: .refreshFailure)
-            header.setText("Error", mode: .refreshError)
             header.textLabel.textColor = UIColor.orangeColor()
             header.durationWhenHide = 0.4
         }

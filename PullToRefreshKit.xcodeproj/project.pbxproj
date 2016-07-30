@@ -25,6 +25,7 @@
 		5238C8091D3763CD00B3B4FE /* arrow_right@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5238C8061D3763CD00B3B4FE /* arrow_right@3x.png */; };
 		523B68D81D4B7545009861C1 /* ElasticRefreshControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 523B68D71D4B7545009861C1 /* ElasticRefreshControl.swift */; };
 		523B68DA1D4B75B2009861C1 /* ElasticRefreshHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 523B68D91D4B75B2009861C1 /* ElasticRefreshHeader.swift */; };
+		523B68DE1D4C59DC009861C1 /* ElasticHeaderTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 523B68DD1D4C59DC009861C1 /* ElasticHeaderTableViewController.swift */; };
 		52626DF31D4274AD00DF8E6C /* DefaultWebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52626DF21D4274AD00DF8E6C /* DefaultWebViewController.swift */; };
 		5272861A1D4A26A200DF8EE4 /* arrow_down@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 527286191D4A26A200DF8EE4 /* arrow_down@3x.png */; };
 		5272861C1D4A273E00DF8EE4 /* success@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5272861B1D4A273E00DF8EE4 /* success@3x.png */; };
@@ -41,7 +42,7 @@
 		52E8FB471D336E26000D0BF1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 52E8FB461D336E26000D0BF1 /* Assets.xcassets */; };
 		52E8FB4A1D336E26000D0BF1 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 52E8FB481D336E26000D0BF1 /* LaunchScreen.storyboard */; };
 		52F50E391D3E3E3800A9AB83 /* PullToRefreshkit.strings in Resources */ = {isa = PBXBuildFile; fileRef = 52F50E3B1D3E3E3800A9AB83 /* PullToRefreshkit.strings */; };
-		52FA97A41D3882190021D77F /* CustomBaseTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52FA97A31D3882190021D77F /* CustomBaseTableViewController.swift */; };
+		52FA97A41D3882190021D77F /* BaseTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52FA97A31D3882190021D77F /* BaseTableViewController.swift */; };
 		52FA97AB1D3898770021D77F /* DianpingRefreshHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52FA97AA1D3898770021D77F /* DianpingRefreshHeader.swift */; };
 		52FA97AD1D389A640021D77F /* DianpingTableviewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52FA97AC1D389A640021D77F /* DianpingTableviewController.swift */; };
 /* End PBXBuildFile section */
@@ -65,6 +66,7 @@
 		5238C8061D3763CD00B3B4FE /* arrow_right@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "arrow_right@3x.png"; path = "Source/Assets/arrow_right@3x.png"; sourceTree = SOURCE_ROOT; };
 		523B68D71D4B7545009861C1 /* ElasticRefreshControl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ElasticRefreshControl.swift; sourceTree = "<group>"; };
 		523B68D91D4B75B2009861C1 /* ElasticRefreshHeader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ElasticRefreshHeader.swift; sourceTree = "<group>"; };
+		523B68DD1D4C59DC009861C1 /* ElasticHeaderTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ElasticHeaderTableViewController.swift; sourceTree = "<group>"; };
 		52626DF21D4274AD00DF8E6C /* DefaultWebViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DefaultWebViewController.swift; sourceTree = "<group>"; };
 		527286191D4A26A200DF8EE4 /* arrow_down@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "arrow_down@3x.png"; sourceTree = "<group>"; };
 		5272861B1D4A273E00DF8EE4 /* success@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "success@3x.png"; sourceTree = "<group>"; };
@@ -84,7 +86,7 @@
 		52E8FB4B1D336E26000D0BF1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		52F50E3A1D3E3E3800A9AB83 /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = Base.lproj/PullToRefreshkit.strings; sourceTree = "<group>"; };
 		52F50E3C1D3E3E4400A9AB83 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/PullToRefreshkit.strings"; sourceTree = "<group>"; };
-		52FA97A31D3882190021D77F /* CustomBaseTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomBaseTableViewController.swift; sourceTree = "<group>"; };
+		52FA97A31D3882190021D77F /* BaseTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseTableViewController.swift; sourceTree = "<group>"; };
 		52FA97AA1D3898770021D77F /* DianpingRefreshHeader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DianpingRefreshHeader.swift; sourceTree = "<group>"; };
 		52FA97AC1D389A640021D77F /* DianpingTableviewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DianpingTableviewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -100,6 +102,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		523B68DC1D4C59C8009861C1 /* BuildInHeader */ = {
+			isa = PBXGroup;
+			children = (
+				523B68DD1D4C59DC009861C1 /* ElasticHeaderTableViewController.swift */,
+			);
+			name = BuildInHeader;
+			sourceTree = "<group>";
+		};
 		52562D151D4AF1E7003B0F72 /* CustomHeader */ = {
 			isa = PBXGroup;
 			children = (
@@ -147,11 +157,13 @@
 		52BB29261D3640700091F36B /* Examples */ = {
 			isa = PBXGroup;
 			children = (
+				52FA97A31D3882190021D77F /* BaseTableViewController.swift */,
 				52BB292D1D364C6D0091F36B /* RowModel.swift */,
 				52BB29271D3644D00091F36B /* SectionModel.swift */,
 				52E8FB411D336E26000D0BF1 /* MainViewController.swift */,
 				52BB29331D3655B90091F36B /* Util.swift */,
 				52BB292B1D364C350091F36B /* Default */,
+				523B68DC1D4C59C8009861C1 /* BuildInHeader */,
 				52BB292C1D364C390091F36B /* Custom */,
 			);
 			name = Examples;
@@ -208,7 +220,6 @@
 				52879AA21D4A101A00BBD76E /* YouKu */,
 				52FA97A91D3888990021D77F /* dianping */,
 				52FA97A71D3888660021D77F /* taobao */,
-				52FA97A31D3882190021D77F /* CustomBaseTableViewController.swift */,
 			);
 			name = Custom;
 			sourceTree = "<group>";
@@ -366,10 +377,11 @@
 				5238C7FF1D3763BA00B3B4FE /* Footer.swift in Sources */,
 				52BB29341D3655B90091F36B /* Util.swift in Sources */,
 				5238C8001D3763BA00B3B4FE /* Header.swift in Sources */,
+				523B68DE1D4C59DC009861C1 /* ElasticHeaderTableViewController.swift in Sources */,
 				52626DF31D4274AD00DF8E6C /* DefaultWebViewController.swift in Sources */,
 				5238C7D51D37449800B3B4FE /* TaobaoTableViewController.swift in Sources */,
 				52261F0B1D36730F00161ADF /* DefaultCollectionViewController.swift in Sources */,
-				52FA97A41D3882190021D77F /* CustomBaseTableViewController.swift in Sources */,
+				52FA97A41D3882190021D77F /* BaseTableViewController.swift in Sources */,
 				52261F0D1D36832600161ADF /* ConfigHeaderFooterController.swift in Sources */,
 				52C0E4881D3726EB00618231 /* ConfigBannerController.swift in Sources */,
 				52BB29321D364E490091F36B /* DefaultTableViewController.swift in Sources */,
