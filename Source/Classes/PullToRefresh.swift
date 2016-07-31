@@ -34,6 +34,7 @@ import UIKit
      */
     func didBeginrefreshingState()
     
+    
     /**
        刷新结束，将要进行隐藏的动画，一般在这里告诉用户刷新的结果
      - parameter result: 刷新结果
@@ -46,6 +47,12 @@ import UIKit
      */
     func didCompleteEndRefershingAnimation(result:RefreshResult)
     
+    /**
+     状态改变
+     
+     - parameter state: 新的状态
+    */
+    optional func stateDidChanged(oldState:RefreshHeaderState, newState:RefreshHeaderState)
     /**
      触发刷新的距离，可选，如果没有实现，则默认触发刷新的距离就是 heightForRefreshingState
      */

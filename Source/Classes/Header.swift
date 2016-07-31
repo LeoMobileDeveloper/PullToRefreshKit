@@ -17,7 +17,20 @@ public enum RefreshKitHeaderText{
     case refreshFailure
     case refreshing
 }
-
+/**
+ Header所处的状态
+ 
+ - Idle:        最初
+ - Pulling:     下拉
+ - Refreshing:  正在刷新中
+ - WillRefresh: 将要刷新
+ */
+@objc public enum RefreshHeaderState:Int{
+    case Idle = 0
+    case Pulling = 1
+    case Refreshing = 2
+    case WillRefresh = 3
+}
 public class DefaultRefreshHeader:UIView,RefreshableHeader{
     public let spinner:UIActivityIndicatorView = UIActivityIndicatorView(activityIndicatorStyle: .Gray)
     public let textLabel:UILabel = UILabel(frame: CGRectMake(0,0,120,40))
@@ -82,9 +95,6 @@ public class DefaultRefreshHeader:UIView,RefreshableHeader{
     public func durationWhenEndRefreshing() -> Double {
         return durationWhenHide
     }
-    public func percentageChangedDuringReleaseing(percent:CGFloat){
-    
-    }
     public func didBeginEndRefershingAnimation(result:RefreshResult) {
         spinner.stopAnimating()
         imageView.transform = CGAffineTransformIdentity
@@ -116,12 +126,6 @@ public class DefaultRefreshHeader:UIView,RefreshableHeader{
 
 public class RefreshHeaderContainer:UIView{
     // MARK: - Propertys -
-    enum RefreshHeaderState {
-        case Idle
-        case Pulling
-        case Refreshing
-        case WillRefresh
-    }
     var refreshAction:(()->())?
     var attachedScrollView:UIScrollView!
     var originalInset:UIEdgeInsets?
@@ -139,6 +143,7 @@ public class RefreshHeaderContainer:UIView{
             guard newValue != _state else{
                 return
             }
+            self.delegate?.stateDidChanged?(_state,newState: newValue)
             let oldValue = _state
             _state =  newValue
             switch newValue {
@@ -247,7 +252,6 @@ public class RefreshHeaderContainer:UIView{
             oldInset.top = insetT
             attachedScrollView.contentInset = oldInset
             insetTDelta = inset.top - insetT
-            print(attachedScrollView.contentOffset)
             return;
         }
         

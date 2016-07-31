@@ -35,6 +35,10 @@
 		52BB29321D364E490091F36B /* DefaultTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52BB29311D364E490091F36B /* DefaultTableViewController.swift */; };
 		52BB29341D3655B90091F36B /* Util.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52BB29331D3655B90091F36B /* Util.swift */; };
 		52C0E4881D3726EB00618231 /* ConfigBannerController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52C0E4871D3726EB00618231 /* ConfigBannerController.swift */; };
+		52C6F9771D4DE6020063B754 /* youku_down@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 52C6F9751D4DE6020063B754 /* youku_down@3x.png */; };
+		52C6F9781D4DE6020063B754 /* youku_refreshing@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 52C6F9761D4DE6020063B754 /* youku_refreshing@3x.png */; };
+		52C6F97A1D4DE6340063B754 /* YoukuRefreshHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52C6F9791D4DE6340063B754 /* YoukuRefreshHeader.swift */; };
+		52C6F97C1D4DE6460063B754 /* YoukuTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52C6F97B1D4DE6460063B754 /* YoukuTableViewController.swift */; };
 		52D61D701D3F56A900A5B4E0 /* taobaoLogo.png in Resources */ = {isa = PBXBuildFile; fileRef = 52D61D6F1D3F56A900A5B4E0 /* taobaoLogo.png */; };
 		52E8FB401D336E26000D0BF1 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52E8FB3F1D336E26000D0BF1 /* AppDelegate.swift */; };
 		52E8FB421D336E26000D0BF1 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52E8FB411D336E26000D0BF1 /* MainViewController.swift */; };
@@ -76,6 +80,10 @@
 		52BB29311D364E490091F36B /* DefaultTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DefaultTableViewController.swift; sourceTree = "<group>"; };
 		52BB29331D3655B90091F36B /* Util.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Util.swift; sourceTree = "<group>"; };
 		52C0E4871D3726EB00618231 /* ConfigBannerController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConfigBannerController.swift; sourceTree = "<group>"; };
+		52C6F9751D4DE6020063B754 /* youku_down@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "youku_down@3x.png"; sourceTree = "<group>"; };
+		52C6F9761D4DE6020063B754 /* youku_refreshing@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "youku_refreshing@3x.png"; sourceTree = "<group>"; };
+		52C6F9791D4DE6340063B754 /* YoukuRefreshHeader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = YoukuRefreshHeader.swift; sourceTree = "<group>"; };
+		52C6F97B1D4DE6460063B754 /* YoukuTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = YoukuTableViewController.swift; sourceTree = "<group>"; };
 		52D61D6F1D3F56A900A5B4E0 /* taobaoLogo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = taobaoLogo.png; sourceTree = "<group>"; };
 		52E8FB3C1D336E26000D0BF1 /* PullToRefreshKit.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PullToRefreshKit.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		52E8FB3F1D336E26000D0BF1 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -129,15 +137,12 @@
 		52879AA21D4A101A00BBD76E /* YouKu */ = {
 			isa = PBXGroup;
 			children = (
+				52C6F9751D4DE6020063B754 /* youku_down@3x.png */,
+				52C6F9761D4DE6020063B754 /* youku_refreshing@3x.png */,
+				52C6F9791D4DE6340063B754 /* YoukuRefreshHeader.swift */,
+				52C6F97B1D4DE6460063B754 /* YoukuTableViewController.swift */,
 			);
 			name = YouKu;
-			sourceTree = "<group>";
-		};
-		52879AA31D4A102200BBD76E /* QQ */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			name = QQ;
 			sourceTree = "<group>";
 		};
 		52879AA51D4A126D00BBD76E /* UC */ = {
@@ -215,7 +220,6 @@
 			children = (
 				52879AA61D4A130E00BBD76E /* MeiTuan */,
 				52879AA51D4A126D00BBD76E /* UC */,
-				52879AA31D4A102200BBD76E /* QQ */,
 				52879AA11D4A100000BBD76E /* QQ Video */,
 				52879AA21D4A101A00BBD76E /* YouKu */,
 				52FA97A91D3888990021D77F /* dianping */,
@@ -352,8 +356,10 @@
 				52E8FB4A1D336E26000D0BF1 /* LaunchScreen.storyboard in Resources */,
 				5272861C1D4A273E00DF8EE4 /* success@3x.png in Resources */,
 				5272861E1D4A28CB00DF8EE4 /* failure@3x.png in Resources */,
+				52C6F9771D4DE6020063B754 /* youku_down@3x.png in Resources */,
 				52E8FB471D336E26000D0BF1 /* Assets.xcassets in Resources */,
 				5238C8081D3763CD00B3B4FE /* arrow_left@3x.png in Resources */,
+				52C6F9781D4DE6020063B754 /* youku_refreshing@3x.png in Resources */,
 				52E8FB451D336E26000D0BF1 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -374,6 +380,7 @@
 				52E8FB421D336E26000D0BF1 /* MainViewController.swift in Sources */,
 				52E8FB401D336E26000D0BF1 /* AppDelegate.swift in Sources */,
 				523B68DA1D4B75B2009861C1 /* ElasticRefreshHeader.swift in Sources */,
+				52C6F97C1D4DE6460063B754 /* YoukuTableViewController.swift in Sources */,
 				5238C7FF1D3763BA00B3B4FE /* Footer.swift in Sources */,
 				52BB29341D3655B90091F36B /* Util.swift in Sources */,
 				5238C8001D3763BA00B3B4FE /* Header.swift in Sources */,
@@ -391,6 +398,7 @@
 				52FA97AD1D389A640021D77F /* DianpingTableviewController.swift in Sources */,
 				52BB292E1D364C6D0091F36B /* RowModel.swift in Sources */,
 				5238C7FE1D3763BA00B3B4FE /* Utils.swift in Sources */,
+				52C6F97A1D4DE6340063B754 /* YoukuRefreshHeader.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
