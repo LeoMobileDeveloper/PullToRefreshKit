@@ -39,6 +39,7 @@
 		52C6F9781D4DE6020063B754 /* youku_refreshing@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 52C6F9761D4DE6020063B754 /* youku_refreshing@3x.png */; };
 		52C6F97A1D4DE6340063B754 /* YoukuRefreshHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52C6F9791D4DE6340063B754 /* YoukuRefreshHeader.swift */; };
 		52C6F97C1D4DE6460063B754 /* YoukuTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52C6F97B1D4DE6460063B754 /* YoukuTableViewController.swift */; };
+		52C6F97E1D4F05400063B754 /* youku_ad.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = 52C6F97D1D4F05400063B754 /* youku_ad.jpeg */; };
 		52D61D701D3F56A900A5B4E0 /* taobaoLogo.png in Resources */ = {isa = PBXBuildFile; fileRef = 52D61D6F1D3F56A900A5B4E0 /* taobaoLogo.png */; };
 		52E8FB401D336E26000D0BF1 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52E8FB3F1D336E26000D0BF1 /* AppDelegate.swift */; };
 		52E8FB421D336E26000D0BF1 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52E8FB411D336E26000D0BF1 /* MainViewController.swift */; };
@@ -84,6 +85,7 @@
 		52C6F9761D4DE6020063B754 /* youku_refreshing@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "youku_refreshing@3x.png"; sourceTree = "<group>"; };
 		52C6F9791D4DE6340063B754 /* YoukuRefreshHeader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = YoukuRefreshHeader.swift; sourceTree = "<group>"; };
 		52C6F97B1D4DE6460063B754 /* YoukuTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = YoukuTableViewController.swift; sourceTree = "<group>"; };
+		52C6F97D1D4F05400063B754 /* youku_ad.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = youku_ad.jpeg; sourceTree = "<group>"; };
 		52D61D6F1D3F56A900A5B4E0 /* taobaoLogo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = taobaoLogo.png; sourceTree = "<group>"; };
 		52E8FB3C1D336E26000D0BF1 /* PullToRefreshKit.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PullToRefreshKit.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		52E8FB3F1D336E26000D0BF1 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -137,6 +139,7 @@
 		52879AA21D4A101A00BBD76E /* YouKu */ = {
 			isa = PBXGroup;
 			children = (
+				52C6F97D1D4F05400063B754 /* youku_ad.jpeg */,
 				52C6F9751D4DE6020063B754 /* youku_down@3x.png */,
 				52C6F9761D4DE6020063B754 /* youku_refreshing@3x.png */,
 				52C6F9791D4DE6340063B754 /* YoukuRefreshHeader.swift */,
@@ -348,6 +351,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				5238C8091D3763CD00B3B4FE /* arrow_right@3x.png in Resources */,
+				52C6F97E1D4F05400063B754 /* youku_ad.jpeg in Resources */,
 				52D61D701D3F56A900A5B4E0 /* taobaoLogo.png in Resources */,
 				52261F111D36878A00161ADF /* banner2.jpg in Resources */,
 				5272861A1D4A26A200DF8EE4 /* arrow_down@3x.png in Resources */,
