@@ -13,19 +13,6 @@
  [![License](http://img.shields.io/badge/license-MIT-lightgrey.svg?style=flat
 )](http://mit-license.org)
 
-<img src="https://raw.github.com/LeoMobileDeveloper/PullToRefreshKit/master/Screenshot/gif1.gif" width="320"><img src="https://raw.github.com/LeoMobileDeveloper/PullToRefreshKit/master/Screenshot/gif5.gif" width="250">
-
-
-支持:
-
-- [x] 默认下拉刷新一行代码搞定，支持提醒用户刷新结果（成功，失败）
-- [x] 默认上拉加载一行代码搞定，支持三种模式，点击/上拉/点击和上拉
-- [x] 默认左拉/又拉进行回调一行搞定
-- [x] 内置橡皮筋下拉刷新
-- [x] 几十行代码即可自定义刷新界面
-
-
-项目中，提供了淘宝，QQ视频，QQ,优酷，大众点评的下拉刷新Demo。
 
 <table>
 <tr>
@@ -36,11 +23,11 @@
 <th>大众点评</th>
 </tr>
 <tr>
-<td><img src="https://raw.github.com/LeoMobileDeveloper/PullToRefreshKit/master/Screenshot/taobao.gif" width="200"/></td>
-<td><img src="https://raw.github.com/LeoMobileDeveloper/PullToRefreshKit/master/Screenshot/youku.gif" width="200"/></td>
-<td><img src="https://raw.github.com/LeoMobileDeveloper/PullToRefreshKit/master/Screenshot/qqvideo.gif" width="200"/></td>
-<td><img src="https://raw.github.com/LeoMobileDeveloper/PullToRefreshKit/master/Screenshot/qq.gif" width="200"/></td>
-<td><img src="https://raw.github.com/LeoMobileDeveloper/PullToRefreshKit/master/Screenshot/dianping.gif" width="200"/></td>
+<td><img src="https://raw.github.com/LeoMobileDeveloper/PullToRefreshKit/master/Screenshot/taobao.gif" width="250"/></td>
+<td><img src="https://raw.github.com/LeoMobileDeveloper/PullToRefreshKit/master/Screenshot/youku.gif" width="250"/></td>
+<td><img src="https://raw.github.com/LeoMobileDeveloper/PullToRefreshKit/master/Screenshot/qqvideo.gif" width="250"/></td>
+<td><img src="https://raw.github.com/LeoMobileDeveloper/PullToRefreshKit/master/Screenshot/qq.gif" width="250"/></td>
+<td><img src="https://raw.github.com/LeoMobileDeveloper/PullToRefreshKit/master/Screenshot/dianping.gif" width="250"/></td>
 </tr>
 <tr>
 </table>
@@ -53,10 +40,14 @@
 
 ##支持
 
-- UITableView
-- UICollectionView
-- UIScrollView
-- UIWebView
+UITableView/UICollectionView/UIScrollView/UIWebView
+
+- [x] 默认下拉刷新一行代码搞定，支持提醒用户刷新结果（成功，失败）
+- [x] 默认上拉加载一行代码搞定，支持三种模式，点击/上拉/点击和上拉
+- [x] 默认左拉/又拉进行回调一行搞定
+- [x] 内置橡皮筋下拉刷新
+- [x] 几十行代码即可自定义刷新界面
+
 
 
 ## 安装
@@ -185,4 +176,4 @@ Leo, leomobiledeveloper@gmail.com
 PullToRefreshKit is available under the MIT license. See the LICENSE file for more info.
 
 ## Thanks
-感谢[SVPullToRefresh](https://github.com/samvermette/SVPullToRefresh)和[MJRefresh](https://github.com/CoderMJLee/MJRefresh)，让我少走了很多弯路
+感谢[SVPullToRefresh](https://github.com/samvermette/SVPullToRefresh)和[MJRefresh](https://github.com/CoderMJLee/MJRefresh)，让我少走了很多弯路。
