@@ -32,7 +32,7 @@ import UIKit
     /**
      马上就要进入刷新的回调
      */
-    func didBeginrefreshingState()
+    func didBeginRefreshingState()
     
     
     /**

@@ -67,7 +67,7 @@ class YoukuRefreshHeader:UIView,RefreshableHeader{
         }
     }
     //松手即将刷新的状态
-    func didBeginrefreshingState(){
+    func didBeginRefreshingState(){
         self.iconImageView.hidden = true
         self.rotatingImageView.hidden = false
         let rotateAnimation = CABasicAnimation(keyPath: "transform.rotation.z")

@@ -69,7 +69,7 @@ public class ElasticRefreshHeader: UIView,RefreshableHeader {
             self.control.progress = 1.0
         }
     }
-    public func didBeginrefreshingState() {
+    public func didBeginRefreshingState() {
         self.control.animating = true
     }
     public func didBeginEndRefershingAnimation(result:RefreshResult) {

@@ -36,7 +36,7 @@ class DianpingRefreshHeader:UIView,RefreshableHeader{
         imageView.image = image
     }
     //松手即将刷新的状态
-    func didBeginrefreshingState(){
+    func didBeginRefreshingState(){
         let images = ["dropdown_loading_01","dropdown_loading_02","dropdown_loading_03"].map { (name) -> UIImage in
             return UIImage(named:name)!
         }

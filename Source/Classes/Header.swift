@@ -116,7 +116,7 @@ public class DefaultRefreshHeader:UIView,RefreshableHeader{
         self.hidden = true
         imageView.image = UIImage(named: "arrow_down", inBundle: NSBundle(forClass: DefaultRefreshHeader.self), compatibleWithTraitCollection: nil)
     }
-    public func didBeginrefreshingState() {
+    public func didBeginRefreshingState() {
         self.hidden = false
         textLabel.text = textDic[.refreshing]
         spinner.startAnimating()
@@ -184,7 +184,7 @@ public class RefreshHeaderContainer:UIView{
                             self.refreshAction?()
                     })
                     self.delegate?.percentUpdateDuringScrolling?(1.0)
-                    self.delegate?.didBeginrefreshingState()
+                    self.delegate?.didBeginRefreshingState()
                 })
             default:
                 break
