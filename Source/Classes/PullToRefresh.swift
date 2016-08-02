@@ -30,10 +30,9 @@ import UIKit
     func heightForRefreshingState()->CGFloat
     
     /**
-     马上就要进入刷新的回调
+     进入刷新状态的回调，在这里将视图调整为刷新中
      */
     func didBeginRefreshingState()
-    
     
     /**
        刷新结束，将要进行隐藏的动画，一般在这里告诉用户刷新的结果
@@ -50,7 +49,8 @@ import UIKit
     /**
      状态改变
      
-     - parameter state: 新的状态
+     - parameter newState: 新的状态
+     - parameter oldState: 老得状态
     */
     optional func stateDidChanged(oldState:RefreshHeaderState, newState:RefreshHeaderState)
     /**
