@@ -285,13 +285,6 @@
 			name = UC;
 			sourceTree = "<group>";
 		};
-		52879AA61D4A130E00BBD76E /* MeiTuan */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			name = MeiTuan;
-			sourceTree = "<group>";
-		};
 		52BB29261D3640700091F36B /* Examples */ = {
 			isa = PBXGroup;
 			children = (
@@ -351,7 +344,6 @@
 		52BB292C1D364C390091F36B /* Custom */ = {
 			isa = PBXGroup;
 			children = (
-				52879AA61D4A130E00BBD76E /* MeiTuan */,
 				52879AA51D4A126D00BBD76E /* UC */,
 				52879AA11D4A100000BBD76E /* QQ Video */,
 				52879AA21D4A101A00BBD76E /* YouKu */,

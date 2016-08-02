@@ -46,9 +46,7 @@ class QQVideoRefreshHeader:UIView,RefreshableHeader{
         imageView.startAnimating()
     }
     //刷新结束，将要隐藏header
-    func didBeginEndRefershingAnimation(result:RefreshResult){
-        
-    }
+    func didBeginEndRefershingAnimation(result:RefreshResult){}
     //刷新结束，完全隐藏header
     func didCompleteEndRefershingAnimation(result:RefreshResult){
         imageView.animationImages = nil

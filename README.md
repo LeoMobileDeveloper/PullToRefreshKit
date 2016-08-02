@@ -13,50 +13,45 @@
  [![License](http://img.shields.io/badge/license-MIT-lightgrey.svg?style=flat
 )](http://mit-license.org)
 
-一行代码实现下拉刷新
-
-```
-self.tableView.setUpHeaderRefresh { [weak self] in
-   delay(1.5, closure: { 
-        self?.tableView.endHeaderRefreshing(.Success)
-   })
-}
-```
-内置橡皮筋刷新,两行搞定
-
-```
-let elasticHeader = ElasticRefreshHeader()
-self.tableView.setUpHeaderRefresh(elasticHeader) { [weak self] in
-    delay(1.5, closure: { 
-        self?.tableView.endHeaderRefreshing(.Success)
-   })
-}
-```
-
-<img src="https://raw.github.com/LeoMobileDeveloper/PullToRefreshKit/master/Screenshot/gif5.gif" width="320">
+<img src="https://raw.github.com/LeoMobileDeveloper/PullToRefreshKit/master/Screenshot/gif1.gif" width="320"><img src="https://raw.github.com/LeoMobileDeveloper/PullToRefreshKit/master/Screenshot/gif5.gif" width="250">
 
 
 支持:
 
-- [x] 默认下拉刷新一行代码，支持提醒用户刷新结果（成功，失败）
-- [x] 默认上拉加载一行代码，支持三种模式，点击/上拉／点击和上拉
+- [x] 默认下拉刷新一行代码搞定，支持提醒用户刷新结果（成功，失败）
+- [x] 默认上拉加载一行代码搞定，支持三种模式，点击/上拉/点击和上拉
 - [x] 默认左拉/又拉进行回调一行搞定
 - [x] 内置橡皮筋下拉刷新
 - [x] 几十行代码即可自定义刷新界面
 
 
+项目中，提供了淘宝，QQ视频，QQ,优酷，大众点评的下拉刷新Demo。
 
-Demo中，我列举了用这个框架如何实现[淘宝](https://github.com/LeoMobileDeveloper/PullToRefreshKit/blob/master/PullToRefreshKit/TaoBaoRefreshHeader.swift)和[大众点评](https://github.com/LeoMobileDeveloper/PullToRefreshKit/blob/master/PullToRefreshKit/DianpingRefreshHeader.swift)的[优酷](https://github.com/LeoMobileDeveloper/PullToRefreshKit/blob/master/PullToRefreshKit/YoukuRefreshHeader.swift)下拉刷新。
+<table>
+<tr>
+<th>淘宝</th>
+<th>优酷</th>
+<th>QQ视频</th>
+<th>QQ</th>
+<th>大众点评</th>
+</tr>
+<tr>
+<td><img src="https://raw.github.com/LeoMobileDeveloper/PullToRefreshKit/master/Screenshot/taobao.gif" width="200"/></td>
+<td><img src="https://raw.github.com/LeoMobileDeveloper/PullToRefreshKit/master/Screenshot/youku.gif" width="200"/></td>
+<td><img src="https://raw.github.com/LeoMobileDeveloper/PullToRefreshKit/master/Screenshot/qqvideo.gif" width="200"/></td>
+<td><img src="https://raw.github.com/LeoMobileDeveloper/PullToRefreshKit/master/Screenshot/qq.gif" width="200"/></td>
+<td><img src="https://raw.github.com/LeoMobileDeveloper/PullToRefreshKit/master/Screenshot/dianping.gif" width="200"/></td>
+</tr>
+<tr>
+</table>
 
-<img src="https://raw.github.com/LeoMobileDeveloper/PullToRefreshKit/master/Screenshot/taobao.gif" width="200"><img src="https://raw.github.com/LeoMobileDeveloper/PullToRefreshKit/master/Screenshot/dianping.gif" width="200">
-<img src="https://raw.github.com/LeoMobileDeveloper/PullToRefreshKit/master/Screenshot/youku.gif" width="200">
 
 ## 要求
 
 - iOS 8
 - Swift 2
 
-支持
+##支持
 
 - UITableView
 - UICollectionView
