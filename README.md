@@ -20,20 +20,22 @@
 <th>优酷</th>
 <th>QQ视频</th>
 <th>QQ</th>
-<th>大众点评</th>
+
 </tr>
 <tr>
-<td><img src="https://raw.github.com/LeoMobileDeveloper/PullToRefreshKit/master/Screenshot/taobao.gif" width="250"/></td>
-<td><img src="https://raw.github.com/LeoMobileDeveloper/PullToRefreshKit/master/Screenshot/youku.gif" width="250"/></td>
-<td><img src="https://raw.github.com/LeoMobileDeveloper/PullToRefreshKit/master/Screenshot/qqvideo.gif" width="250"/></td>
-<td><img src="https://raw.github.com/LeoMobileDeveloper/PullToRefreshKit/master/Screenshot/qq.gif" width="250"/></td>
-<td><img src="https://raw.github.com/LeoMobileDeveloper/PullToRefreshKit/master/Screenshot/dianping.gif" width="250"/></td>
+<td><img src="https://raw.github.com/LeoMobileDeveloper/PullToRefreshKit/master/Screenshot/taobao.gif" width="300"/></td>
+<td><img src="https://raw.github.com/LeoMobileDeveloper/PullToRefreshKit/master/Screenshot/youku.gif" width="300"/></td>
+<td><img src="https://raw.github.com/LeoMobileDeveloper/PullToRefreshKit/master/Screenshot/qqvideo.gif" width="300"/></td>
+<td><img src="https://raw.github.com/LeoMobileDeveloper/PullToRefreshKit/master/Screenshot/qq.gif" width="300"/></td>
+
 </tr>
 <tr>
 <tr>
 <th>Curve</th>
+<th>大众点评</th>
 </tr>
-<td><img src="https://raw.github.com/LeoMobileDeveloper/PullToRefreshKit/master/Screenshot/curve.gif" width="250"/></td>
+<td><img src="https://raw.github.com/LeoMobileDeveloper/PullToRefreshKit/master/Screenshot/curve.gif" width="300"/></td>
+<td><img src="https://raw.github.com/LeoMobileDeveloper/PullToRefreshKit/master/Screenshot/dianping.gif" width="300"/></td>
 </tr>
 <tr>
 </table>
