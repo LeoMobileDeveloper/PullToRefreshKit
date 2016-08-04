@@ -30,6 +30,12 @@
 <td><img src="https://raw.github.com/LeoMobileDeveloper/PullToRefreshKit/master/Screenshot/dianping.gif" width="250"/></td>
 </tr>
 <tr>
+<tr>
+<th>Curve</th>
+</tr>
+<td><img src="https://raw.github.com/LeoMobileDeveloper/PullToRefreshKit/master/Screenshot/curve.gif" width="250"/></td>
+</tr>
+<tr>
 </table>
 
 
