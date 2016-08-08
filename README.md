@@ -32,9 +32,11 @@
 <tr>
 <tr>
 <th>Curve</th>
+<th>Yahoo Weather</th>
 <th>大众点评</th>
 </tr>
 <td><img src="https://raw.github.com/LeoMobileDeveloper/PullToRefreshKit/master/Screenshot/curve.gif" width="300"/></td>
+<td><img src="https://raw.github.com/LeoMobileDeveloper/PullToRefreshKit/master/Screenshot/yahoo.gif" width="300"/></td>
 <td><img src="https://raw.github.com/LeoMobileDeveloper/PullToRefreshKit/master/Screenshot/dianping.gif" width="300"/></td>
 </tr>
 <tr>

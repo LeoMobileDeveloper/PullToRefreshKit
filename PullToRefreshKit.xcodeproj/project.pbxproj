@@ -138,6 +138,7 @@
 		52392D291D5058670095F57B /* YahooWeatherRefreshHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52392D281D5058670095F57B /* YahooWeatherRefreshHeader.swift */; };
 		52392D2B1D5058D20095F57B /* YahooWeatherTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52392D2A1D5058D20095F57B /* YahooWeatherTableViewController.swift */; };
 		523B68DE1D4C59DC009861C1 /* ElasticHeaderTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 523B68DD1D4C59DC009861C1 /* ElasticHeaderTableViewController.swift */; };
+		524D90651D585B3200C0FE30 /* yahoo_logo@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 524D90641D585B3200C0FE30 /* yahoo_logo@3x.png */; };
 		5259F1B31D532BB60054B4D3 /* CurveMaskTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5259F1B21D532BB60054B4D3 /* CurveMaskTableViewController.swift */; };
 		5259F1D51D533E820054B4D3 /* arrow_downWhite.png in Resources */ = {isa = PBXBuildFile; fileRef = 5259F1D41D533E820054B4D3 /* arrow_downWhite.png */; };
 		52626DF31D4274AD00DF8E6C /* DefaultWebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52626DF21D4274AD00DF8E6C /* DefaultWebViewController.swift */; };
@@ -361,6 +362,7 @@
 		52392D281D5058670095F57B /* YahooWeatherRefreshHeader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = YahooWeatherRefreshHeader.swift; sourceTree = "<group>"; };
 		52392D2A1D5058D20095F57B /* YahooWeatherTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = YahooWeatherTableViewController.swift; sourceTree = "<group>"; };
 		523B68DD1D4C59DC009861C1 /* ElasticHeaderTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ElasticHeaderTableViewController.swift; sourceTree = "<group>"; };
+		524D90641D585B3200C0FE30 /* yahoo_logo@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "yahoo_logo@3x.png"; sourceTree = "<group>"; };
 		5259F1B21D532BB60054B4D3 /* CurveMaskTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CurveMaskTableViewController.swift; sourceTree = "<group>"; };
 		5259F1D41D533E820054B4D3 /* arrow_downWhite.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = arrow_downWhite.png; sourceTree = "<group>"; };
 		52626DF21D4274AD00DF8E6C /* DefaultWebViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DefaultWebViewController.swift; sourceTree = "<group>"; };
@@ -479,6 +481,7 @@
 		52392C4B1D5057C30095F57B /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				524D90641D585B3200C0FE30 /* yahoo_logo@3x.png */,
 				52392C4C1D5057CA0095F57B /* sun_00000.png */,
 				52392C4D1D5057CA0095F57B /* sun_00001.png */,
 				52392C4E1D5057CA0095F57B /* sun_00002.png */,
@@ -909,6 +912,7 @@
 				52392CCC1D5057CA0095F57B /* sun_00018.png in Resources */,
 				52392CEB1D5057CA0095F57B /* sun_00049.png in Resources */,
 				52392D071D5057CA0095F57B /* sun_00077.png in Resources */,
+				524D90651D585B3200C0FE30 /* yahoo_logo@3x.png in Resources */,
 				52392CD61D5057CA0095F57B /* sun_00028.png in Resources */,
 				52392CD21D5057CA0095F57B /* sun_00024.png in Resources */,
 				52392CCE1D5057CA0095F57B /* sun_00020.png in Resources */,
