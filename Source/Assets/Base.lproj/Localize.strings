@@ -1,0 +1,26 @@
+/* 
+  Localize.strings
+  PullToRefreshKit
+
+  Created by huangwenchen on 16/8/12.
+  Copyright © 2016年 Leo. All rights reserved.
+*/
+
+pullDownToRefresh = "Pull to refresh";
+
+releaseToRefresh = "Release to refresh";
+
+refreshSuccess = "Update successful";
+
+refreshFailure = "Update failed";
+
+refreshing = "Refreshing...";
+
+pullUpToRefresh = "Scroll to load";
+
+noMoreData = "No more data";
+
+tapToRefresh = "Tap to refresh";
+
+scrollAndTapToRefresh = "Scroll or tap to load";
+

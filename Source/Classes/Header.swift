@@ -33,7 +33,7 @@ public enum RefreshKitHeaderText{
 }
 public class DefaultRefreshHeader:UIView,RefreshableHeader{
     public let spinner:UIActivityIndicatorView = UIActivityIndicatorView(activityIndicatorStyle: .Gray)
-    public let textLabel:UILabel = UILabel(frame: CGRectMake(0,0,120,40))
+    public let textLabel:UILabel = UILabel(frame: CGRectMake(0,0,140,40))
     public let imageView:UIImageView = UIImageView(frame: CGRectZero)
     public var durationWhenHide = 0.5
     private var textDic = [RefreshKitHeaderText:String]()
@@ -46,7 +46,7 @@ public class DefaultRefreshHeader:UIView,RefreshableHeader{
         imageView.image = image
         imageView.sizeToFit()
         imageView.frame = CGRectMake(0, 0, 20, 20)
-        imageView.center = CGPointMake(frame.width/2 - 60 - 20, frame.size.height/2)
+        imageView.center = CGPointMake(frame.width/2 - 70 - 20, frame.size.height/2)
         spinner.center = imageView.center
         
         textLabel.center = CGPointMake(frame.size.width/2, frame.size.height/2);

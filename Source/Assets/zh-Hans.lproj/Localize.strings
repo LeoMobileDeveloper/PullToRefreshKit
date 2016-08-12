@@ -1,0 +1,25 @@
+/* 
+  Localize.strings
+  PullToRefreshKit
+
+  Created by huangwenchen on 16/8/12.
+  Copyright © 2016年 Leo. All rights reserved.
+*/
+
+pullDownToRefresh = "下拉可以刷新";
+
+releaseToRefresh = "松开立即刷新";
+
+refreshSuccess = "刷新成功";
+
+refreshFailure = "刷新失败";
+
+refreshing = "正在刷新数据中...";
+
+pullUpToRefresh = "上拉加载更多数据";
+
+noMoreData = "数据加载完毕";
+
+tapToRefresh = "点击加载更多";
+
+scrollAndTapToRefresh = "上拉或点击加载更多";

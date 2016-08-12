@@ -27,22 +27,23 @@ struct PullToRefreshKitConst{
     static let leftTag   = 100003
     static let rightTag  = 100004
 }
-
+func PTRLocalize(string:String)->String{
+    return NSLocalizedString(string, tableName: "Localize", bundle: NSBundle(forClass: DefaultRefreshHeader.self), value: "", comment: "")
+}
 struct PullToRefreshKitHeaderString{
-    static let pullDownToRefresh = "下拉可以刷新"
-    static let releaseToRefresh = "松开立即刷新"
-    static let refreshSuccess = "刷新成功"
-    static let refreshError = "刷新出错"
-    static let refreshFailure = "刷新失败"
-    static let refreshing = "正在刷新数据中..."
+    static let pullDownToRefresh = PTRLocalize("pullDownToRefresh")
+    static let releaseToRefresh = PTRLocalize("releaseToRefresh")
+    static let refreshSuccess = PTRLocalize("refreshSuccess")
+    static let refreshFailure = PTRLocalize("refreshFailure")
+    static let refreshing = PTRLocalize("refreshing")
 }
 
 struct PullToRefreshKitFooterString{
-    static let pullUpToRefresh = "上拉加载更多数据"
-    static let refreshing = "正在加载中..."
-    static let noMoreData = "数据加载完毕"
-    static let tapToRefresh = "点击加载更多"
-    static let scrollAndTapToRefresh = "上拉或点击加载更多"
+    static let pullUpToRefresh = PTRLocalize("pullUpToRefresh")
+    static let refreshing = PTRLocalize("refreshing")
+    static let noMoreData = PTRLocalize("noMoreData")
+    static let tapToRefresh = PTRLocalize("tapToRefresh")
+    static let scrollAndTapToRefresh = PTRLocalize("scrollAndTapToRefresh")
 }
 
 struct PullToRefreshKitLeftString{

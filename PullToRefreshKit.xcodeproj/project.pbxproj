@@ -147,6 +147,7 @@
 		52626DF31D4274AD00DF8E6C /* DefaultWebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52626DF21D4274AD00DF8E6C /* DefaultWebViewController.swift */; };
 		529993F31D4F36A700B3354F /* QQVideoRefreshHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 529993F21D4F36A700B3354F /* QQVideoRefreshHeader.swift */; };
 		529F6C771D51DDBB0043F230 /* CurveRefreshHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 529F6C761D51DDBB0043F230 /* CurveRefreshHeader.swift */; };
+		52B47D681D5DBA2A00FFC530 /* Localize.strings in Resources */ = {isa = PBXBuildFile; fileRef = 52B47D6A1D5DBA2A00FFC530 /* Localize.strings */; };
 		52BB29281D3644D00091F36B /* SectionModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52BB29271D3644D00091F36B /* SectionModel.swift */; };
 		52BB292E1D364C6D0091F36B /* RowModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52BB292D1D364C6D0091F36B /* RowModel.swift */; };
 		52BB29321D364E490091F36B /* DefaultTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52BB29311D364E490091F36B /* DefaultTableViewController.swift */; };
@@ -370,6 +371,8 @@
 		52626DF21D4274AD00DF8E6C /* DefaultWebViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DefaultWebViewController.swift; sourceTree = "<group>"; };
 		529993F21D4F36A700B3354F /* QQVideoRefreshHeader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QQVideoRefreshHeader.swift; sourceTree = "<group>"; };
 		529F6C761D51DDBB0043F230 /* CurveRefreshHeader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CurveRefreshHeader.swift; sourceTree = "<group>"; };
+		52B47D691D5DBA2A00FFC530 /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = Base.lproj/Localize.strings; sourceTree = "<group>"; };
+		52B47D6C1D5DBA4300FFC530 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Localize.strings"; sourceTree = "<group>"; };
 		52BB29271D3644D00091F36B /* SectionModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SectionModel.swift; sourceTree = "<group>"; };
 		52BB292D1D364C6D0091F36B /* RowModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RowModel.swift; sourceTree = "<group>"; };
 		52BB29311D364E490091F36B /* DefaultTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DefaultTableViewController.swift; sourceTree = "<group>"; };
@@ -665,6 +668,7 @@
 				522508FC1D59A746003A4972 /* arrow_right@3x.png */,
 				522508FD1D59A746003A4972 /* failure@3x.png */,
 				522508FE1D59A746003A4972 /* success@3x.png */,
+				52B47D6A1D5DBA2A00FFC530 /* Localize.strings */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -1074,6 +1078,7 @@
 				52392D251D5057CA0095F57B /* sun_00107.png in Resources */,
 				52D810131D50229800CB0E52 /* loading17@2x.png in Resources */,
 				52392CC81D5057CA0095F57B /* sun_00014.png in Resources */,
+				52B47D681D5DBA2A00FFC530 /* Localize.strings in Resources */,
 				52D80FFA1D50229800CB0E52 /* loading04@3x.png in Resources */,
 				52D810221D50229800CB0E52 /* loading24@3x.png in Resources */,
 				52D80FF31D50229800CB0E52 /* loading01@2x.png in Resources */,
@@ -1132,6 +1137,16 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
+		52B47D6A1D5DBA2A00FFC530 /* Localize.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				52B47D691D5DBA2A00FFC530 /* Base */,
+				52B47D6C1D5DBA4300FFC530 /* zh-Hans */,
+			);
+			name = Localize.strings;
+			path = Source/Assets;
+			sourceTree = SOURCE_ROOT;
+		};
 		52E8FB431D336E26000D0BF1 /* Main.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
