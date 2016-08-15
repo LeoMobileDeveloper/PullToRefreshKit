@@ -16,9 +16,9 @@
 
 <table>
 <tr>
-<th>淘宝</th>
-<th>优酷</th>
-<th>QQ视频</th>
+<th>Taobao</th>
+<th>YouKu</th>
+<th>QQ Video</th>
 <th>QQ</th>
 
 </tr>
@@ -33,7 +33,7 @@
 <tr>
 <th>Curve</th>
 <th>Yahoo Weather</th>
-<th>大众点评</th>
+<th>Dian Ping</th>
 </tr>
 <td><img src="https://raw.github.com/LeoMobileDeveloper/PullToRefreshKit/master/Screenshot/curve.gif" width="300"/></td>
 <td><img src="https://raw.github.com/LeoMobileDeveloper/PullToRefreshKit/master/Screenshot/yahoo.gif" width="300"/></td>

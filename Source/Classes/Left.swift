@@ -37,7 +37,6 @@ public class DefaultRefreshLeft:UIView,RefreshableLeftRight{
         textLabel.autoresizingMask = .FlexibleHeight
         textLabel.numberOfLines = 0
         imageView.frame = CGRectMake(0, 0,20, 20)
-        imageView.center = CGPointMake(40,frame.size.height/2)
         let image = UIImage(named: "arrow_right", inBundle: NSBundle(forClass: DefaultRefreshHeader.self), compatibleWithTraitCollection: nil)
         imageView.image = image
         textDic[.scrollToAction] = PullToRefreshKitLeftString.scrollToClose
@@ -47,7 +46,11 @@ public class DefaultRefreshLeft:UIView,RefreshableLeftRight{
    public required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-
+    public override func layoutSubviews() {
+        super.layoutSubviews()
+        textLabel.frame = CGRectMake(10,0,20,frame.size.height)
+        imageView.center = CGPointMake(40,frame.size.height/2)
+    }
 // MARK: - RefreshableLeftRight Protocol  -
    public func heightForRefreshingState() -> CGFloat {
         return PullToRefreshKitConst.defaultHeaderHeight

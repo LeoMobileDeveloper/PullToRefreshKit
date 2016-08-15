@@ -62,8 +62,7 @@ public class DefaultRefreshFooter:UIView,RefreshableFooter{
         super.init(frame: frame)
         addSubview(spinner)
         addSubview(textLabel)
-        textLabel.center = CGPointMake(frame.size.width/2, frame.size.height/2);
-        spinner.center = CGPointMake(frame.width/2 - 70 - 20, frame.size.height/2)
+
         textDic[.PullToRefresh] = PullToRefreshKitFooterString.pullUpToRefresh
         textDic[.Refreshing] = PullToRefreshKitFooterString.refreshing
         textDic[.NoMoreData] = PullToRefreshKitFooterString.noMoreData
@@ -72,6 +71,11 @@ public class DefaultRefreshFooter:UIView,RefreshableFooter{
         udpateTextLabelWithMode(refreshMode)
         tap = UITapGestureRecognizer(target: self, action: #selector(DefaultRefreshFooter.catchTap(_:)))
         self.addGestureRecognizer(tap)
+    }
+    public override func layoutSubviews() {
+        super.layoutSubviews()
+        textLabel.center = CGPointMake(frame.size.width/2, frame.size.height/2);
+        spinner.center = CGPointMake(frame.width/2 - 70 - 20, frame.size.height/2)
     }
     public required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")

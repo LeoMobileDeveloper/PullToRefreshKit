@@ -45,11 +45,6 @@ public class DefaultRefreshHeader:UIView,RefreshableHeader{
         let image = UIImage(named: "arrow_down", inBundle: NSBundle(forClass: DefaultRefreshHeader.self), compatibleWithTraitCollection: nil)
         imageView.image = image
         imageView.sizeToFit()
-        imageView.frame = CGRectMake(0, 0, 20, 20)
-        imageView.center = CGPointMake(frame.width/2 - 70 - 20, frame.size.height/2)
-        spinner.center = imageView.center
-        
-        textLabel.center = CGPointMake(frame.size.width/2, frame.size.height/2);
         textLabel.font = UIFont.systemFontOfSize(14)
         textLabel.textAlignment = .Center
         self.hidden = true
@@ -60,6 +55,13 @@ public class DefaultRefreshHeader:UIView,RefreshableHeader{
         textDic[.refreshFailure] = PullToRefreshKitHeaderString.refreshFailure
         textDic[.refreshing] = PullToRefreshKitHeaderString.refreshing
         textLabel.text = textDic[.pullToRefresh]
+    }
+    public override func layoutSubviews() {
+        super.layoutSubviews()
+        imageView.frame = CGRectMake(0, 0, 20, 20)
+        imageView.center = CGPointMake(frame.width/2 - 70 - 20, frame.size.height/2)
+        spinner.center = imageView.center
+        textLabel.center = CGPointMake(frame.size.width/2, frame.size.height/2);
     }
     required public init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
