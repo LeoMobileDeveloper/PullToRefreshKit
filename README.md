@@ -13,7 +13,8 @@
  [![License](http://img.shields.io/badge/license-MIT-lightgrey.svg?style=flat
 )](http://mit-license.org)
 
-
+**The example project contains some hot App refresh example.
+**
 <table>
 <tr>
 <th>Taobao</th>
@@ -71,12 +72,19 @@ pod "PullToRefreshKit"
 
 ###Pull down to refresh
 
+
 ```
  self.tableView.setUpHeaderRefresh { [weak self] in
     delay(1.5, closure: { 
          self?.tableView.endHeaderRefreshing(.Success)
     })
  }
+```
+Add a delay if you want user to see the result of refresh result
+
+```
+self?.tableView.endHeaderRefreshing(.Success,delay: 0.5)
+
 ```
 
 <img src="https://raw.github.com/LeoMobileDeveloper/PullToRefreshKit/master/Screenshot/gif1.gif" width="320">
@@ -95,12 +103,6 @@ Support three mode to fire refresh action
          self?.tableView.endFooterRefreshing()
      })
  }
-```
-Add a delay if you want user to see the result of refresh result
-
-```
-self?.tableView.endHeaderRefreshing(.Success,delay: 0.5)
-
 ```
 
 <img src="https://raw.github.com/LeoMobileDeveloper/PullToRefreshKit/master/Screenshot/gif2.gif" width="320">
