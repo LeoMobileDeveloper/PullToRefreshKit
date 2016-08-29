@@ -42,7 +42,7 @@ public class ElasticRefreshHeader: UIView,RefreshableHeader {
     public override func layoutSubviews() {
         super.layoutSubviews()
         control.frame = self.bounds
-        imageView.center = CGPointMake(frame.width/2 - 40 - 20, totalHegiht * 0.75)
+        imageView.center = CGPointMake(frame.width/2 - 40 - 40, totalHegiht * 0.75)
         textLabel.center = CGPointMake(frame.size.width/2, totalHegiht * 0.75);
     }
     public override func willMoveToSuperview(newSuperview: UIView?) {
