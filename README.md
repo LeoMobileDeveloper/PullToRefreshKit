@@ -159,16 +159,16 @@ You just need to write a `UIView` sub class,and make it conforms to these protoc
 
 For exmaple,to create a custom header
 ```
-    //Distance when in refreshing state
+    //Distance from top when in refreshing state
     func heightForRefreshingState()->CGFloat
    
-    //Will enter refreshing state,change view state to refreshing in this callback
+    //Will enter refreshing state,change view state to refreshing in this function
     func didBeginrefreshingState()
 
-    //Start end refreshing,tell user the result of rerefresh here
+    //The refreshing task is end.Refresh header will hide.Tell user the refreshing result here.
     func didBeginEndRefershingAnimation(result:RefreshResult)
     
-    //Refresh header is hidden,reset all to inital state in here
+    //Refresh header is hidden,reset all to inital state  here
     func didCompleteEndRefershingAnimation(result:RefreshResult)
     
     //Distance to drag to fire refresh action ,default is heightForRefreshingState
@@ -177,7 +177,7 @@ For exmaple,to create a custom header
     //Percent change during scrolling
     optional func percentUpdateDuringScrolling(percent:CGFloat)
     
-    //Time to hide refresh header
+    //Duration of header hide animation
     optional func durationWhenEndRefreshing()->Double
     
 ```
