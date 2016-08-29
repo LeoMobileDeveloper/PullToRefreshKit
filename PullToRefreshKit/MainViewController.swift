@@ -15,20 +15,20 @@ class MainViewController: UITableViewController {
     var models = [SectionModel]()
     override func viewDidLoad() {
         let section0 = SectionModel(rowsCount: 5,
-                                    sectionTitle:"默认",
+                                    sectionTitle:"Default",
                                     rowsTitles: ["Tableview","CollectionView","ScrollView","Banners","WebView"],
                                     rowsTargetControlerNames:["DefaultTableViewController","DefaultCollectionViewController","DefaultScrollViewController","DefaultBannerController","DefaultWebViewController"])
         let section1 = SectionModel(rowsCount: 1,
-                                    sectionTitle:"内置",
+                                    sectionTitle:"Build In",
                                     rowsTitles: ["Elastic",],
                                     rowsTargetControlerNames:["ElasticHeaderTableViewController"])
         
         let section2 = SectionModel(rowsCount: 2,
-                                    sectionTitle:"属性配置",
-                                    rowsTitles: ["配置Header/Footer属性","配置Left/Right属性"],
+                                    sectionTitle:"Config Default",
+                                    rowsTitles: ["Header/Footer","Left/Right"],
                                     rowsTargetControlerNames:["ConfigDefaultHeaderFooterController","ConfigBannerController"])
         let section3 = SectionModel(rowsCount: 6,
-                                    sectionTitle:"自定义",
+                                    sectionTitle:"Customize",
                                     rowsTitles: ["YahooWeather","Curve Mask","Youku","TaoBao","QQ Video","DianPing"],
                                     rowsTargetControlerNames:["YahooWeatherTableViewController","CurveMaskTableViewController","YoukuTableViewController","TaobaoTableViewController","QQVideoTableviewController","DianpingTableviewController"])
         models.append(section0)

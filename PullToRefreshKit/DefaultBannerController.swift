@@ -45,7 +45,7 @@ class DefaultBannerController: UIViewController {
             label.frame = CGRectMake(0, 0, screenWidth, 40)
             label.font = UIFont.systemFontOfSize(14)
             label.center  = CGPointMake(scrollView.center.x, scrollView.center.y - CGRectGetWidth(scrollView.frame)/2 - 20)
-            label.text = "向左或向右滑动Banner"
+            label.text = "Scroll left or right"
             label.textAlignment = .Center
         }
         view.addSubview(desLabel)

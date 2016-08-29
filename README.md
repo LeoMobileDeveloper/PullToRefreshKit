@@ -43,34 +43,33 @@
 </table>
 
 
-## 要求
+## Require
 
 - iOS 8
 - Swift 2
 
-##支持
+##Support
 
 UITableView/UICollectionView/UIScrollView/UIWebView
 
-- [x] 默认下拉刷新一行代码搞定，支持提醒用户刷新结果（成功，失败）
-- [x] 默认上拉加载一行代码搞定，支持三种模式，点击/上拉/点击和上拉
-- [x] 默认左拉/又拉进行回调一行搞定
-- [x] 内置橡皮筋下拉刷新
-- [x] 几十行代码即可自定义刷新界面
+- [x] Add pull to refresh within on call. Support refresh result
+- [x] Add pull to load more within one call
+- [x] Add pull left/right to load more(Currently only support chinese)
+- [x] Support Elastic refresh 
+- [x] Easy to customize
+- [x] Support English and Chinese
 
 
+## Install
 
-## 安装
-推荐使用CocoaPod安装
+CocoaPod
 
 ```
 pod "PullToRefreshKit"
 ```
-## 使用
+## Useage
 
-对于默认效果的，你只需要一行代码即可
-
-###下拉刷新
+###Pull down to refresh
 
 ```
  self.tableView.setUpHeaderRefresh { [weak self] in
@@ -83,8 +82,12 @@ pod "PullToRefreshKit"
 <img src="https://raw.github.com/LeoMobileDeveloper/PullToRefreshKit/master/Screenshot/gif1.gif" width="320">
 
 
-###上拉加载
-目前上拉加载支持三种模式：Tap，Scroll,TapAndScroll.通过设置footer的refreshMode来设置
+###Pull up to load more
+
+Support three mode to fire refresh action
+- [x] Tap
+- [x] Scroll
+- [x] Scroll and Tap
 
 ```
  self.tableView.setUpFooterRefresh {  [weak self] in
@@ -93,11 +96,17 @@ pod "PullToRefreshKit"
      })
  }
 ```
+Add a delay if you want user to see the result of refresh result
+
+```
+self?.tableView.endHeaderRefreshing(.Success,delay: 0.5)
+
+```
 
 <img src="https://raw.github.com/LeoMobileDeveloper/PullToRefreshKit/master/Screenshot/gif2.gif" width="320">
 
 
-###左拉退出当前界面
+###Pull left to exit
 
 ```
  scrollView.setUpLeftRefresh { [weak self] in
@@ -107,7 +116,7 @@ pod "PullToRefreshKit"
 
 <img src="https://raw.github.com/LeoMobileDeveloper/PullToRefreshKit/master/Screenshot/gif3.gif" width="200">
 
-###右拉进入下一个界面
+###Pull right to enter
 
 ```
  scrollView.setUpRightRefresh { [weak self] in
@@ -118,8 +127,8 @@ pod "PullToRefreshKit"
 
 <img src="https://raw.github.com/LeoMobileDeveloper/PullToRefreshKit/master/Screenshot/gif4.gif" width="200">
 
-###配置默认的属性
-PullToRefershKit提供操作符`SetUp`来实现配置，例如,配置默认header
+###Config the default refresh text
+PullToRefershKit offer `SetUp` operator，for example
 
 ```
 self.tableView.setUpHeaderRefresh { [weak self] in
@@ -138,40 +147,35 @@ self.tableView.setUpHeaderRefresh { [weak self] in
 }
 ```
 
-###自定义刷新界面
+###Customize
 
-对于自定义界面，你唯一要做的就是写一个UIView的子类，然后实现以下协议中的一个
+You just need to write a `UIView` sub class,and make it conforms to these protocols
 
-- RefreshableHeader 自定义下拉刷新要实现的协议
-- RefreshableFooter 自定义上拉加载要实现的协议
-- RefreshableLeftRight 自定义左右滑动要实现的协议
+- RefreshableHeader 
+- RefreshableFooter 
+- RefreshableLeftRight 
 
-例如，Demo工程[TaoBaoRefreshHeader.swift](https://github.com/LeoMobileDeveloper/PullToRefreshKit/blob/master/PullToRefreshKit/TaoBaoRefreshHeader.swift)中实现了淘宝App的下拉刷新例子。
-
-你只需要根据协议提供的回调来更新Header的状态
-
-这个协议提供的方法如下
-
+For exmaple,to create a custom header
 ```
-    //在刷新状态的时候，距离顶部的距离
+    //Distance when in refreshing state
     func heightForRefreshingState()->CGFloat
    
-    //马上就要进入刷新的回调,在这里将header调整为刷新中的样式
+    //Will enter refreshing state,change view state to refreshing in this callback
     func didBeginrefreshingState()
 
-    //结束刷新，在这里可以告诉用户刷新的结果
+    //Start end refreshing,tell user the result of rerefresh here
     func didBeginEndRefershingAnimation(result:RefreshResult)
     
-    //结束刷新，在这里把视图恢复到最初状态
+    //Refresh header is hidden,reset all to inital state in here
     func didCompleteEndRefershingAnimation(result:RefreshResult)
     
-    //拖拽触发刷新的高度，如果不提供，就是heightForRefreshingState
+    //Distance to drag to fire refresh action ,default is heightForRefreshingState
     optional func heightForFireRefreshing()->CGFloat
     
-    //刷新的时候，百分比变化，可以根据这个百分比动态的绘制你的视图
+    //Percent change during scrolling
     optional func percentUpdateDuringScrolling(percent:CGFloat)
     
-    //隐藏header的时间
+    //Time to hide refresh header
     optional func durationWhenEndRefreshing()->Double
     
 ```
@@ -184,6 +188,3 @@ Leo, leomobiledeveloper@gmail.com
 ## License
 
 PullToRefreshKit is available under the MIT license. See the LICENSE file for more info.
-
-## Thanks
-感谢[SVPullToRefresh](https://github.com/samvermette/SVPullToRefresh)和[MJRefresh](https://github.com/CoderMJLee/MJRefresh)，让我少走了很多弯路。

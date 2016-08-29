@@ -5,7 +5,7 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
     </dependencies>
     <scenes>
-        <!--Demo列表-->
+        <!--Demo List-->
         <scene sceneID="kzI-xS-91d">
             <objects>
                 <tableViewController id="cWQ-ij-TeB" customClass="MainViewController" customModule="PullToRefreshKit" customModuleProvider="target" sceneMemberID="viewController">
@@ -18,7 +18,7 @@
                             <outlet property="delegate" destination="cWQ-ij-TeB" id="9q6-62-4Ku"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Demo列表" id="Git-wC-dbv"/>
+                    <navigationItem key="navigationItem" title="Demo List" id="Git-wC-dbv"/>
                     <connections>
                         <segue destination="X8q-wO-DeB" kind="show" identifier="segue" id="bZz-vk-DUt"/>
                     </connections>
