@@ -26,28 +26,28 @@ public enum RefreshKitHeaderText{
  - WillRefresh: 将要刷新
  */
 @objc public enum RefreshHeaderState:Int{
-    case Idle = 0
-    case Pulling = 1
-    case Refreshing = 2
-    case WillRefresh = 3
+    case idle = 0
+    case pulling = 1
+    case refreshing = 2
+    case willRefresh = 3
 }
-public class DefaultRefreshHeader:UIView,RefreshableHeader{
-    public let spinner:UIActivityIndicatorView = UIActivityIndicatorView(activityIndicatorStyle: .Gray)
-    public let textLabel:UILabel = UILabel(frame: CGRectMake(0,0,140,40))
-    public let imageView:UIImageView = UIImageView(frame: CGRectZero)
-    public var durationWhenHide = 0.5
-    private var textDic = [RefreshKitHeaderText:String]()
+open class DefaultRefreshHeader:UIView,RefreshableHeader{
+    open let spinner:UIActivityIndicatorView = UIActivityIndicatorView(activityIndicatorStyle: .gray)
+    open let textLabel:UILabel = UILabel(frame: CGRect(x: 0,y: 0,width: 140,height: 40))
+    open let imageView:UIImageView = UIImageView(frame: CGRect.zero)
+    open var durationWhenHide = 0.5
+    fileprivate var textDic = [RefreshKitHeaderText:String]()
     override init(frame: CGRect) {
         super.init(frame: frame)
         addSubview(spinner)
         addSubview(textLabel)
         addSubview(imageView);
-        let image = UIImage(named: "arrow_down", inBundle: NSBundle(forClass: DefaultRefreshHeader.self), compatibleWithTraitCollection: nil)
+        let image = UIImage(named: "arrow_down", in: Bundle(for: DefaultRefreshHeader.self), compatibleWith: nil)
         imageView.image = image
         imageView.sizeToFit()
-        textLabel.font = UIFont.systemFontOfSize(14)
-        textLabel.textAlignment = .Center
-        self.hidden = true
+        textLabel.font = UIFont.systemFont(ofSize: 14)
+        textLabel.textAlignment = .center
+        self.isHidden = true
         //Default text
         textDic[.pullToRefresh] = PullToRefreshKitHeaderString.pullDownToRefresh
         textDic[.releaseToRefresh] = PullToRefreshKitHeaderString.releaseToRefresh
@@ -56,88 +56,88 @@ public class DefaultRefreshHeader:UIView,RefreshableHeader{
         textDic[.refreshing] = PullToRefreshKitHeaderString.refreshing
         textLabel.text = textDic[.pullToRefresh]
     }
-    public override func layoutSubviews() {
+    open override func layoutSubviews() {
         super.layoutSubviews()
-        imageView.frame = CGRectMake(0, 0, 20, 20)
-        imageView.center = CGPointMake(frame.width/2 - 70 - 20, frame.size.height/2)
+        imageView.frame = CGRect(x: 0, y: 0, width: 20, height: 20)
+        imageView.center = CGPoint(x: frame.width/2 - 70 - 20, y: frame.size.height/2)
         spinner.center = imageView.center
-        textLabel.center = CGPointMake(frame.size.width/2, frame.size.height/2);
+        textLabel.center = CGPoint(x: frame.size.width/2, y: frame.size.height/2);
     }
     required public init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    public func setText(text:String,mode:RefreshKitHeaderText){
+    open func setText(_ text:String,mode:RefreshKitHeaderText){
         textDic[mode] = text
     }
     // MARK: - Refreshable  -
-    public func heightForRefreshingState() -> CGFloat {
+    open func heightForRefreshingState() -> CGFloat {
         return PullToRefreshKitConst.defaultHeaderHeight
     }
-    public func percentUpdateDuringScrolling(percent:CGFloat){
-        self.hidden = !(percent > 0.0)
+    open func percentUpdateDuringScrolling(_ percent:CGFloat){
+        self.isHidden = !(percent > 0.0)
         if percent > 1.0{
             textLabel.text = textDic[.releaseToRefresh]
-            guard CGAffineTransformEqualToTransform(self.imageView.transform, CGAffineTransformIdentity)  else{
+            guard self.imageView.transform == CGAffineTransform.identity else{
                 return
             }
-            UIView.animateWithDuration(0.4, animations: {
-                self.imageView.transform = CGAffineTransformMakeRotation(CGFloat(-M_PI+0.000001))
+            UIView.animate(withDuration: 0.4, animations: {
+                self.imageView.transform = CGAffineTransform(rotationAngle: CGFloat(-M_PI+0.000001))
             })
         }
         if percent <= 1.0{
             textLabel.text = textDic[.pullToRefresh]
-            guard CGAffineTransformEqualToTransform(self.imageView.transform, CGAffineTransformMakeRotation(CGFloat(-M_PI+0.000001)))  else{
+            guard self.imageView.transform == CGAffineTransform(rotationAngle: CGFloat(-M_PI+0.000001))  else{
                 return
             }
-            UIView.animateWithDuration(0.4, animations: {
-                self.imageView.transform = CGAffineTransformIdentity
+            UIView.animate(withDuration: 0.4, animations: {
+                self.imageView.transform = CGAffineTransform.identity
             })
         }
     }
-    public func durationWhenEndRefreshing() -> Double {
+    open func durationWhenEndRefreshing() -> Double {
         return durationWhenHide
     }
-    public func didBeginEndRefershingAnimation(result:RefreshResult) {
+    open func didBeginEndRefershingAnimation(_ result:RefreshResult) {
         spinner.stopAnimating()
-        imageView.transform = CGAffineTransformIdentity
-        imageView.hidden = false
+        imageView.transform = CGAffineTransform.identity
+        imageView.isHidden = false
         switch result {
-        case .Success:
+        case .success:
             textLabel.text = textDic[.refreshSuccess]
-            imageView.image = UIImage(named: "success", inBundle: NSBundle(forClass: DefaultRefreshHeader.self), compatibleWithTraitCollection: nil)
-        case .Failure:
+            imageView.image = UIImage(named: "success", in: Bundle(for: DefaultRefreshHeader.self), compatibleWith: nil)
+        case .failure:
             textLabel.text = textDic[.refreshFailure]
-            imageView.image = UIImage(named: "failure", inBundle: NSBundle(forClass: DefaultRefreshHeader.self), compatibleWithTraitCollection: nil)
-        case .None:
+            imageView.image = UIImage(named: "failure", in: Bundle(for: DefaultRefreshHeader.self), compatibleWith: nil)
+        case .none:
             textLabel.text = textDic[.pullToRefresh]
-            imageView.image = UIImage(named: "arrow_down", inBundle: NSBundle(forClass: DefaultRefreshHeader.self), compatibleWithTraitCollection: nil)
+            imageView.image = UIImage(named: "arrow_down", in: Bundle(for: DefaultRefreshHeader.self), compatibleWith: nil)
         }
     }
-    public func didCompleteEndRefershingAnimation(result:RefreshResult) {
+    open func didCompleteEndRefershingAnimation(_ result:RefreshResult) {
         textLabel.text = textDic[.pullToRefresh]
-        self.hidden = true
-        imageView.image = UIImage(named: "arrow_down", inBundle: NSBundle(forClass: DefaultRefreshHeader.self), compatibleWithTraitCollection: nil)
+        self.isHidden = true
+        imageView.image = UIImage(named: "arrow_down", in: Bundle(for: DefaultRefreshHeader.self), compatibleWith: nil)
     }
-    public func didBeginRefreshingState() {
-        self.hidden = false
+    open func didBeginRefreshingState() {
+        self.isHidden = false
         textLabel.text = textDic[.refreshing]
         spinner.startAnimating()
-        imageView.hidden = true
+        imageView.isHidden = true
     }
 }
 
-public class RefreshHeaderContainer:UIView{
+open class RefreshHeaderContainer:UIView{
     // MARK: - Propertys -
     var refreshAction:(()->())?
     var attachedScrollView:UIScrollView!
     var originalInset:UIEdgeInsets?
     var durationOfEndRefreshing = 0.4
     weak var delegate:RefreshableHeader?
-    private var currentResult:RefreshResult = .None
-    private var _state:RefreshHeaderState = .Idle
-    private var insetTDelta:CGFloat = 0.0
-    private var delayTimer:NSTimer?
-    private var state:RefreshHeaderState{
+    fileprivate var currentResult:RefreshResult = .none
+    fileprivate var _state:RefreshHeaderState = .idle
+    fileprivate var insetTDelta:CGFloat = 0.0
+    fileprivate var delayTimer:Timer?
+    fileprivate var state:RefreshHeaderState{
         get{
             return _state
         }
@@ -149,11 +149,11 @@ public class RefreshHeaderContainer:UIView{
             let oldValue = _state
             _state =  newValue
             switch newValue {
-            case .Idle:
-                guard oldValue == .Refreshing else{
+            case .idle:
+                guard oldValue == .refreshing else{
                     return
                 }
-                UIView.animateWithDuration(durationOfEndRefreshing, animations: {
+                UIView.animate(withDuration: durationOfEndRefreshing, animations: {
                     var oldInset = self.attachedScrollView.contentInset
                     oldInset.top = oldInset.top + self.insetTDelta
                     self.attachedScrollView.contentInset = oldInset
@@ -161,8 +161,8 @@ public class RefreshHeaderContainer:UIView{
                     }, completion: { (finished) in
                         self.delegate?.didCompleteEndRefershingAnimation(self.currentResult)
                 })
-            case .Refreshing:
-                dispatch_async(dispatch_get_main_queue(), {
+            case .refreshing:
+                DispatchQueue.main.async(execute: {
                     let insetHeight = (self.delegate?.heightForRefreshingState())!
                     var fireHeight:CGFloat! = self.delegate?.heightForFireRefreshing?()
                     if fireHeight == nil{
@@ -172,13 +172,13 @@ public class RefreshHeaderContainer:UIView{
                     let topShowOffsetY = -1.0 * self.originalInset!.top
                     let normal2pullingOffsetY = topShowOffsetY - fireHeight
                     let currentOffset = self.attachedScrollView.contentOffset
-                    UIView.animateWithDuration(0.4, animations: {
+                    UIView.animate(withDuration: 0.4, animations: {
                         let top = (self.originalInset?.top)! + insetHeight
                         var oldInset = self.attachedScrollView.contentInset
                         oldInset.top = top
                         self.attachedScrollView.contentInset = oldInset
                         if offSetY > normal2pullingOffsetY{ //手动触发
-                            self.attachedScrollView.contentOffset = CGPointMake(0, -1.0 * top)
+                            self.attachedScrollView.contentOffset = CGPoint(x: 0, y: -1.0 * top)
                         }else{//release，防止跳动
                             self.attachedScrollView.contentOffset = currentOffset
                         }
@@ -199,23 +199,23 @@ public class RefreshHeaderContainer:UIView{
         commonInit()
     }
     func commonInit(){
-        self.userInteractionEnabled = true
-        self.backgroundColor = UIColor.clearColor()
-        self.autoresizingMask = .FlexibleWidth
+        self.isUserInteractionEnabled = true
+        self.backgroundColor = UIColor.clear
+        self.autoresizingMask = .flexibleWidth
     }
     required public init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
     // MARK: - Life circle -
-    public override func drawRect(rect: CGRect) {
-        super.drawRect(rect)
-        if self.state == .WillRefresh {
-            self.state = .Refreshing
+    open override func draw(_ rect: CGRect) {
+        super.draw(rect)
+        if self.state == .willRefresh {
+            self.state = .refreshing
         }
     }
-    public override func willMoveToSuperview(newSuperview: UIView?) {
-        super.willMoveToSuperview(newSuperview)
+    open override func willMove(toSuperview newSuperview: UIView?) {
+        super.willMove(toSuperview: newSuperview)
         guard newSuperview is UIScrollView else{
             return;
         }
@@ -229,19 +229,19 @@ public class RefreshHeaderContainer:UIView{
         removeObservers()
     }
     // MARK: - Private -
-    private func addObservers(){
-        attachedScrollView?.addObserver(self, forKeyPath:PullToRefreshKitConst.KPathOffSet, options: [.Old,.New], context: nil)
+    fileprivate func addObservers(){
+        attachedScrollView?.addObserver(self, forKeyPath:PullToRefreshKitConst.KPathOffSet, options: [.old,.new], context: nil)
     }
-    private func removeObservers(){
+    fileprivate func removeObservers(){
         attachedScrollView?.removeObserver(self, forKeyPath: PullToRefreshKitConst.KPathOffSet,context: nil)
     }
-    func handleScrollOffSetChange(change: [String : AnyObject]?){
+    func handleScrollOffSetChange(_ change: [NSKeyValueChangeKey : Any]?){
         let insetHeight = (self.delegate?.heightForRefreshingState())!
         var fireHeight:CGFloat! = self.delegate?.heightForFireRefreshing?()
         if fireHeight == nil{
             fireHeight = insetHeight
         }
-        if state == .Refreshing {
+        if state == .refreshing {
 //Refer from here https://github.com/CoderMJLee/MJRefresh/blob/master/MJRefresh/Base/MJRefreshHeader.m, thanks to this lib again
             guard self.window != nil else{
                 return
@@ -264,19 +264,19 @@ public class RefreshHeaderContainer:UIView{
             return
         }
         let normal2pullingOffsetY = topShowOffsetY - fireHeight
-        if attachedScrollView.dragging {
-            if state == .Idle && offSetY < normal2pullingOffsetY {
-                self.state = .Pulling
-            }else if state == .Pulling && offSetY >= normal2pullingOffsetY{
-                state = .Idle
+        if attachedScrollView.isDragging {
+            if state == .idle && offSetY < normal2pullingOffsetY {
+                self.state = .pulling
+            }else if state == .pulling && offSetY >= normal2pullingOffsetY{
+                state = .idle
             }
-        }else if state == .Pulling{
+        }else if state == .pulling{
             beginRefreshing()
             return
         }
         let percent = (topShowOffsetY - offSetY)/fireHeight
         //防止在结束刷新的时候，percent的跳跃
-        if let oldOffset = change?[NSKeyValueChangeOldKey]?.CGPointValue(){
+        if let oldOffset = (change?[NSKeyValueChangeKey.oldKey] as AnyObject).cgPointValue{
             let oldPercent = (topShowOffsetY - oldOffset.y)/fireHeight
             if oldPercent >= 1.0 && percent == 0.0{
                 return
@@ -288,8 +288,8 @@ public class RefreshHeaderContainer:UIView{
         }
     }
     // MARK: - KVO -
-    override public func observeValueForKeyPath(keyPath: String?, ofObject object: AnyObject?, change: [String : AnyObject]?, context: UnsafeMutablePointer<Void>) {
-        guard self.userInteractionEnabled else{
+    override open func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
+        guard self.isUserInteractionEnabled else{
             return;
         }
         if keyPath == PullToRefreshKitConst.KPathOffSet {
@@ -299,21 +299,21 @@ public class RefreshHeaderContainer:UIView{
     // MARK: - API -
     func beginRefreshing(){
         if self.window != nil {
-            self.state = .Refreshing
+            self.state = .refreshing
         }else{
-            if state != .Refreshing{
-                self.state = .WillRefresh
+            if state != .refreshing{
+                self.state = .willRefresh
             }
         }
     }
     func updateStateToIdea(){
-        self.state = .Idle
+        self.state = .idle
         clearTimer()
     }
-    func endRefreshing(result:RefreshResult,delay:NSTimeInterval = 0.0){
+    func endRefreshing(_ result:RefreshResult,delay:TimeInterval = 0.0){
         self.delegate?.didBeginEndRefershingAnimation(result)
-        self.delayTimer = NSTimer(timeInterval: delay, target: self, selector: #selector(RefreshHeaderContainer.updateStateToIdea), userInfo: nil, repeats: false)
-        NSRunLoop.mainRunLoop().addTimer(self.delayTimer!, forMode: NSRunLoopCommonModes)
+        self.delayTimer = Timer(timeInterval: delay, target: self, selector: #selector(RefreshHeaderContainer.updateStateToIdea), userInfo: nil, repeats: false)
+        RunLoop.main.add(self.delayTimer!, forMode: RunLoopMode.commonModes)
     }
     func clearTimer(){
         if self.delayTimer != nil{

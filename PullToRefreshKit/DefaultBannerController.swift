@@ -15,38 +15,38 @@ class DefaultBannerController: UIViewController {
         self.navigationItem.title = "Banners"
         self.automaticallyAdjustsScrollViewInsets = false
         setUpViews()
-        scrollView.setUpLeftRefresh { [weak self] in
-            self?.navigationController?.popViewControllerAnimated(true)
+        _ = scrollView.setUpLeftRefresh { [weak self] in
+            _ = self?.navigationController?.popViewController(animated: true)
         }
-        scrollView.setUpRightRefresh { [weak self] in
+        _ = scrollView.setUpRightRefresh { [weak self] in
             let nvc = DefaultBannerController()
             self?.navigationController?.pushViewController(nvc, animated: true)
         }
     }
     
     func setUpViews(){
-        view.backgroundColor = UIColor.whiteColor()
-        let screenWidth = UIScreen.mainScreen().bounds.size.width;
+        view.backgroundColor = UIColor.white
+        let screenWidth = UIScreen.main.bounds.size.width;
         let scrollheight = screenWidth / 8.0 * 5.0
-        scrollView.frame = CGRectMake(0, 0, screenWidth, scrollheight)
+        scrollView.frame = CGRect(x: 0, y: 0, width: screenWidth, height: scrollheight)
         scrollView.center = self.view.center
         self.view.addSubview(scrollView)
-        let imageView1 = UIImageView(frame:CGRectMake(0, 0, screenWidth, scrollheight))
+        let imageView1 = UIImageView(frame:CGRect(x: 0, y: 0, width: screenWidth, height: scrollheight))
         imageView1.image = UIImage(named: "banner1.jpg")
         scrollView.addSubview(imageView1)
         
-        let imageView2 = UIImageView(frame:CGRectMake(screenWidth, 0, screenWidth, scrollheight))
+        let imageView2 = UIImageView(frame:CGRect(x: screenWidth, y: 0, width: screenWidth, height: scrollheight))
         imageView2.image = UIImage(named: "banner2.jpg")
         scrollView.addSubview(imageView2)
         
-        scrollView.pagingEnabled = true
-        scrollView.contentSize = CGSizeMake(screenWidth * 2, scrollheight)
+        scrollView.isPagingEnabled = true
+        scrollView.contentSize = CGSize(width: screenWidth * 2, height: scrollheight)
         let desLabel = UILabel().SetUp { (label) in
-            label.frame = CGRectMake(0, 0, screenWidth, 40)
-            label.font = UIFont.systemFontOfSize(14)
-            label.center  = CGPointMake(scrollView.center.x, scrollView.center.y - CGRectGetWidth(scrollView.frame)/2 - 20)
+            label.frame = CGRect(x: 0, y: 0, width: screenWidth, height: 40)
+            label.font = UIFont.systemFont(ofSize: 14)
+            label.center  = CGPoint(x: scrollView.center.x, y: scrollView.center.y - scrollView.frame.width/2 - 20)
             label.text = "Scroll left or right"
-            label.textAlignment = .Center
+            label.textAlignment = .center
         }
         view.addSubview(desLabel)
     }

@@ -11,19 +11,19 @@ import UIKit
 
 class YahooWeatherRefreshHeader: UIView,RefreshableHeader{
     
-    let imageView = UIImageView(frame:CGRectMake(0, 0, 40, 40))
-    let logoImage = UIImageView(frame: CGRectMake(0, 0, 60, 14))
+    let imageView = UIImageView(frame:CGRect(x: 0, y: 0, width: 40, height: 40))
+    let logoImage = UIImageView(frame: CGRect(x: 0, y: 0, width: 60, height: 14))
     let label = UILabel()
     override init(frame: CGRect) {
         super.init(frame: frame)
         self.backgroundColor = UIColor(white: 0.0, alpha: 0.25)
-        logoImage.center = CGPointMake(CGRectGetWidth(self.bounds)/2.0, frame.height - 30 - 7.0)
-        imageView.center = CGPointMake(CGRectGetWidth(self.bounds)/2.0 - 60.0, frame.height - 30)
+        logoImage.center = CGPoint(x: self.bounds.width/2.0, y: frame.height - 30 - 7.0)
+        imageView.center = CGPoint(x: self.bounds.width/2.0 - 60.0, y: frame.height - 30)
         imageView.image = UIImage(named: "sun_000000")
         logoImage.image = UIImage(named: "yahoo_logo")
-        label.frame = CGRectMake(logoImage.frame.origin.x, logoImage.frame.origin.y + CGRectGetHeight(logoImage.frame) + 2,200, 20)
-        label.textColor = UIColor.whiteColor()
-        label.font = UIFont.systemFontOfSize(12)
+        label.frame = CGRect(x: logoImage.frame.origin.x, y: logoImage.frame.origin.y + logoImage.frame.height + 2,width: 200, height: 20)
+        label.textColor = UIColor.white
+        label.font = UIFont.systemFont(ofSize: 12)
         label.text = "Last update: 5 minutes ago"
         addSubview(imageView)
         addSubview(logoImage)
@@ -38,7 +38,7 @@ class YahooWeatherRefreshHeader: UIView,RefreshableHeader{
     func heightForRefreshingState()->CGFloat{
         return 60
     }
-    func percentUpdateDuringScrolling(percent: CGFloat) {
+    func percentUpdateDuringScrolling(_ percent: CGFloat) {
         let adjustPercent = max(min(1.0, percent),0.0)
         let index  = Int(adjustPercent * 27)
         let imageName = index < 10 ? "sun_0000\(index)" : "sun_000\(index)"
@@ -51,7 +51,7 @@ class YahooWeatherRefreshHeader: UIView,RefreshableHeader{
         imageView.animationDuration = Double(images.count) * 0.02
         imageView.animationRepeatCount = 1
         imageView.startAnimating()
-        self.performSelector(#selector(YahooWeatherRefreshHeader.transitionFinihsed), withObject: nil, afterDelay: imageView.animationDuration)
+        self.perform(#selector(YahooWeatherRefreshHeader.transitionFinihsed), with: nil, afterDelay: imageView.animationDuration)
     }
     func transitionFinihsed(){
         imageView.stopAnimating()
@@ -67,14 +67,14 @@ class YahooWeatherRefreshHeader: UIView,RefreshableHeader{
         startTransitionAnimation()
     }
     //刷新结束，将要隐藏header
-    func didBeginEndRefershingAnimation(result:RefreshResult){
+    func didBeginEndRefershingAnimation(_ result:RefreshResult){
         
     }
     //刷新结束，完全隐藏header
-    func didCompleteEndRefershingAnimation(result:RefreshResult){
+    func didCompleteEndRefershingAnimation(_ result:RefreshResult){
         imageView.stopAnimating()
         imageView.animationImages = nil
         imageView.image = UIImage(named: "sun_000000")
-        NSObject.cancelPreviousPerformRequestsWithTarget(self, selector: #selector(YahooWeatherRefreshHeader.transitionFinihsed), object: nil)
+        NSObject.cancelPreviousPerformRequests(withTarget: self, selector: #selector(YahooWeatherRefreshHeader.transitionFinihsed), object: nil)
     }
 }

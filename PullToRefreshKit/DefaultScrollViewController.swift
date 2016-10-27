@@ -13,23 +13,23 @@ class DefaultScrollViewController:UIViewController{
     var scrollView:UIScrollView?
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.view.backgroundColor = UIColor.whiteColor()
+        self.view.backgroundColor = UIColor.white
         self.automaticallyAdjustsScrollViewInsets = false
         setUpScrollView()
-        scrollView?.setUpHeaderRefresh({ [weak self] in
+        _ = scrollView?.setUpHeaderRefresh({ [weak self] in
             delay(1.0, closure: { 
-                self?.scrollView?.endHeaderRefreshing(.Success,delay: 0.3)
+                self?.scrollView?.endHeaderRefreshing(.success,delay: 0.3)
             })
         }).SetUp({ (header) in
-            header.textLabel.textColor = UIColor.whiteColor()
-            header.spinner.activityIndicatorViewStyle = .White
+            header.textLabel.textColor = UIColor.white
+            header.spinner.activityIndicatorViewStyle = .white
         })
     }
     func setUpScrollView(){
-        self.scrollView = UIScrollView(frame: CGRectMake(0,0,300,300))
-        self.scrollView?.backgroundColor = UIColor.lightGrayColor()
+        self.scrollView = UIScrollView(frame: CGRect(x: 0,y: 0,width: 300,height: 300))
+        self.scrollView?.backgroundColor = UIColor.lightGray
         self.scrollView?.center = self.view.center
-        self.scrollView?.contentSize = CGSizeMake(300,600)
+        self.scrollView?.contentSize = CGSize(width: 300,height: 600)
         self.view.addSubview(self.scrollView!)
     }
 }

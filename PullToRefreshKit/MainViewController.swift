@@ -35,42 +35,42 @@ class MainViewController: UITableViewController {
         models.append(section1)
         models.append(section2)
         models.append(section3)
-        self.tableView.setUpHeaderRefresh { [weak self] in
-            let delayTime = dispatch_time(DISPATCH_TIME_NOW, Int64(2 * Double(NSEC_PER_SEC)))
-            dispatch_after(delayTime, dispatch_get_main_queue()) {
-                self?.tableView.endHeaderRefreshing(.Success,delay:0.3)
+        _ = self.tableView.setUpHeaderRefresh { [weak self] in
+            let delayTime = DispatchTime.now() + Double(Int64(2 * Double(NSEC_PER_SEC))) / Double(NSEC_PER_SEC)
+            DispatchQueue.main.asyncAfter(deadline: delayTime) {
+                self?.tableView.endHeaderRefreshing(.success,delay:0.3)
             }
         }
-        self.tableView.tableFooterView = UIView(frame: CGRectZero)
+        self.tableView.tableFooterView = UIView(frame: CGRect.zero)
     }
     
-    override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    override func numberOfSections(in tableView: UITableView) -> Int {
         return models.count
     }
-    override func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+    override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return 30.0
     }
-    override func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         let sectionModel = models[section]
         return sectionModel.sectionTitle
     }
-    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         let sectionModel = models[section]
         return sectionModel.rowsCount
     }
-    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        var cell = tableView.dequeueReusableCellWithIdentifier("cell")
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        var cell = tableView.dequeueReusableCell(withIdentifier: "cell")
         if cell == nil {
-            cell = UITableViewCell(style: .Default, reuseIdentifier: "cell")
+            cell = UITableViewCell(style: .default, reuseIdentifier: "cell")
         }
-        let sectionModel = models[indexPath.section]
-        cell?.textLabel?.text = sectionModel.rowsTitles[indexPath.row]
+        let sectionModel = models[(indexPath as NSIndexPath).section]
+        cell?.textLabel?.text = sectionModel.rowsTitles[(indexPath as NSIndexPath).row]
         return cell!
     }
-    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        tableView.deselectRowAtIndexPath(indexPath, animated: true)
-        let sectionModel = models[indexPath.section]
-        var className = sectionModel.rowsTargetControlerNames[indexPath.row]
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+        let sectionModel = models[(indexPath as NSIndexPath).section]
+        var className = sectionModel.rowsTargetControlerNames[(indexPath as NSIndexPath).row]
         className = "PullToRefreshKit.\(className)"
         if let cls = NSClassFromString(className) as? UIViewController.Type{
             let dvc = cls.init()

@@ -13,8 +13,8 @@ class CurveMaskTableViewController:BaseTableViewController{
     override func viewDidLoad() {
         super.viewDidLoad()
         //Setup
-        let curveHeader = CurveRefreshHeader(frame: CGRectMake(0, 0, CGRectGetWidth(self.view.frame), 0))
-        self.tableView.setUpHeaderRefresh(curveHeader) { [weak self] in
+        let curveHeader = CurveRefreshHeader(frame: CGRect(x: 0, y: 0, width: self.view.frame.width, height: 0))
+        _ = self.tableView.setUpHeaderRefresh(curveHeader) { [weak self] in
             delay(1.5, closure: {
                 self?.models = (self?.models.map({_ in random100()}))!
                 self?.tableView.reloadData()

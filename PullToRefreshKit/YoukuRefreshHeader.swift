@@ -12,39 +12,38 @@ import UIKit
 //一共高度是两百
 private var frameHeight:CGFloat{
     get{
-        return UIScreen.mainScreen().bounds.size.width * 328.0/571.0
+        return UIScreen.main.bounds.size.width * 328.0/571.0
     }
 }
 class YoukuRefreshHeader:UIView,RefreshableHeader{
     let iconImageView = UIImageView()// 这个ImageView用来显示下拉箭头
-    let rotatingImageView = UIImageView()
+    let rotatingImageView = UIImageView() //这个ImageView用来播放动图
     let backgroundImageView = UIImageView() //这个ImageView用来显示广告的
 
     override init(frame: CGRect) {
-        let adjustFrame = CGRectMake(frame.origin.x, frame.origin.y, frame.size.width, frameHeight)
+        let adjustFrame = CGRect(x: frame.origin.x, y: frame.origin.y, width: frame.size.width, height: frameHeight)
         super.init(frame: adjustFrame)
-        iconImageView.frame = CGRectMake(0, 0, 25, 25)
-        iconImageView.center = CGPointMake(CGRectGetWidth(self.bounds)/2.0, CGRectGetHeight(self.bounds)/2.0)
+        iconImageView.frame = CGRect(x: 0, y: 0, width: 25, height: 25)
+        iconImageView.center = CGPoint(x: self.bounds.width/2.0, y: self.bounds.height/2.0)
         iconImageView.image = UIImage(named: "youku_down")
         rotatingImageView.image = UIImage(named: "youku_refreshing")
-        rotatingImageView.frame = CGRectMake(0, 0, 25, 25)
+        rotatingImageView.frame = CGRect(x: 0, y: 0, width: 25, height: 25)
         backgroundImageView.image = UIImage(named: "youku_ad.jpeg")
         addSubview(backgroundImageView)
         addSubview(iconImageView)
         addSubview(rotatingImageView)
     }
-    override func willMoveToSuperview(newSuperview: UIView?) {
-        super.willMoveToSuperview(newSuperview)
+    override func willMove(toSuperview newSuperview: UIView?) {
+        super.willMove(toSuperview: newSuperview)
         if let superView = newSuperview{
-            self.frame = CGRectMake(self.frame.origin.x, self.frame.origin.y, superView.frame.size.width, frameHeight)
+            self.frame = CGRect(x: self.frame.origin.x, y: self.frame.origin.y, width: superView.frame.size.width, height: frameHeight)
         }
     }
     override func layoutSubviews() {
         super.layoutSubviews()
         backgroundImageView.frame = self.bounds
-        iconImageView.center = CGPointMake(CGRectGetWidth(self.bounds)/2, frameHeight - 30.0)
-        rotatingImageView.center = CGPointMake(CGRectGetWidth(self.bounds)/2, frameHeight - 30.0)
-
+        iconImageView.center = CGPoint(x: self.bounds.width/2, y: frameHeight - 30.0)
+        rotatingImageView.center = CGPoint(x: self.bounds.width/2, y: frameHeight - 30.0)
     }
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
@@ -54,38 +53,38 @@ class YoukuRefreshHeader:UIView,RefreshableHeader{
         return 60
     }
     //监听状态变化
-    func stateDidChanged(oldState: RefreshHeaderState, newState: RefreshHeaderState) {
-        if newState == .Pulling && oldState == .Idle{
-            UIView.animateWithDuration(0.4, animations: {
-                self.iconImageView.transform = CGAffineTransformMakeRotation(CGFloat(-M_PI+0.000001))
+    func stateDidChanged(_ oldState: RefreshHeaderState, newState: RefreshHeaderState) {
+        if newState == .pulling && oldState == .idle{
+            UIView.animate(withDuration: 0.4, animations: {
+                self.iconImageView.transform = CGAffineTransform(rotationAngle: CGFloat(-M_PI+0.000001))
             })
         }
-        if newState == .Idle{
-            UIView.animateWithDuration(0.4, animations: {
-                self.iconImageView.transform = CGAffineTransformIdentity
+        if newState == .idle{
+            UIView.animate(withDuration: 0.4, animations: {
+                self.iconImageView.transform = CGAffineTransform.identity
             })
         }
     }
     //松手即将刷新的状态
     func didBeginRefreshingState(){
-        self.iconImageView.hidden = true
-        self.rotatingImageView.hidden = false
+        self.iconImageView.isHidden = true
+        self.rotatingImageView.isHidden = false
         let rotateAnimation = CABasicAnimation(keyPath: "transform.rotation.z")
-        rotateAnimation.toValue = NSNumber(double: M_PI * 2.0)
+        rotateAnimation.toValue = NSNumber(value: M_PI * 2.0 as Double)
         rotateAnimation.duration = 0.8
-        rotateAnimation.cumulative = true
+        rotateAnimation.isCumulative = true
         rotateAnimation.repeatCount = 10000000
-        self.rotatingImageView.layer.addAnimation(rotateAnimation, forKey: "rotate")
+        self.rotatingImageView.layer.add(rotateAnimation, forKey: "rotate")
     }
     //刷新结束，将要隐藏header
-    func didBeginEndRefershingAnimation(result:RefreshResult){
-        self.rotatingImageView.hidden = true
-        self.iconImageView.hidden = false
+    func didBeginEndRefershingAnimation(_ result:RefreshResult){
+        self.rotatingImageView.isHidden = true
+        self.iconImageView.isHidden = false
         self.iconImageView.layer.removeAllAnimations()
         self.iconImageView.layer.transform = CATransform3DIdentity
         self.iconImageView.image = UIImage(named: "youku_down")
     }
     //刷新结束，完全隐藏header
-    func didCompleteEndRefershingAnimation(result:RefreshResult){
+    func didCompleteEndRefershingAnimation(_ result:RefreshResult){
     }
 }

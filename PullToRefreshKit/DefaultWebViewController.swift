@@ -14,24 +14,24 @@ class DefaultWebViewController: UIViewController,UIWebViewDelegate{
     override func viewDidLoad() {
         super.viewDidLoad()
         self.webview = UIWebView(frame:view.bounds)
-        self.webview.autoresizingMask = [.FlexibleWidth,.FlexibleHeight]
-        self.webview.backgroundColor = UIColor.whiteColor()
+        self.webview.autoresizingMask = [.flexibleWidth,.flexibleHeight]
+        self.webview.backgroundColor = UIColor.white
         view.addSubview(self.webview)
-        self.webview.scrollView.setUpHeaderRefresh({ [weak self] in
+        _ = self.webview.scrollView.setUpHeaderRefresh({ [weak self] in
             if self?.webview.request != nil{
                 self?.webview.reload()
             }else{
-                let url = NSURL(string: "https://www.baidu.com")
-                let request = NSURLRequest(URL: url!)
+                let url = URL(string: "https://www.baidu.com")
+                let request = URLRequest(url: url!)
                 self?.webview.loadRequest(request)
             }
         })
-        let url = NSURL(string: "https://www.baidu.com")
-        let request = NSURLRequest(URL: url!)
+        let url = URL(string: "https://www.baidu.com")
+        let request = URLRequest(url: url!)
         self.webview.loadRequest(request)
         self.webview.delegate = self
     }
-    func webViewDidFinishLoad(webView: UIWebView) {
-        self.webview.scrollView.endHeaderRefreshing(.Success,delay: 0.3)
+    func webViewDidFinishLoad(_ webView: UIWebView) {
+        self.webview.scrollView.endHeaderRefreshing(.success,delay: 0.3)
     }
 }

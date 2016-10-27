@@ -13,8 +13,8 @@ class YahooWeatherTableViewController:BaseTableViewController{
     override func viewDidLoad() {
         super.viewDidLoad()
         //Setup
-        let yahooHeader = YahooWeatherRefreshHeader(frame: CGRectMake(0,0,CGRectGetWidth(self.view.bounds),CGRectGetHeight(UIScreen.mainScreen().bounds)))
-        self.tableView.setUpHeaderRefresh(yahooHeader) { [weak self] in
+        let yahooHeader = YahooWeatherRefreshHeader(frame: CGRect(x: 0,y: 0,width: self.view.bounds.width,height: UIScreen.main.bounds.height))
+        _ = self.tableView.setUpHeaderRefresh(yahooHeader) { [weak self] in
             delay(2.5, closure: {
                 self?.models = (self?.models.map({_ in random100()}))!
                 self?.tableView.reloadData()

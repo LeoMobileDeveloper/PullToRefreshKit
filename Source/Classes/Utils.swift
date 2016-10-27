@@ -27,8 +27,8 @@ struct PullToRefreshKitConst{
     static let leftTag   = 100003
     static let rightTag  = 100004
 }
-func PTRLocalize(string:String)->String{
-    return NSLocalizedString(string, tableName: "Localize", bundle: NSBundle(forClass: DefaultRefreshHeader.self), value: "", comment: "")
+func PTRLocalize(_ string:String)->String{
+    return NSLocalizedString(string, tableName: "Localize", bundle: Bundle(for: DefaultRefreshHeader.self), value: "", comment: "")
 }
 struct PullToRefreshKitHeaderString{
     static let pullDownToRefresh = PTRLocalize("pullDownToRefresh")

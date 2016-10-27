@@ -12,8 +12,8 @@ class QQVideoRefreshHeader:UIView,RefreshableHeader{
     let imageView = UIImageView()
     override init(frame: CGRect) {
         super.init(frame: frame)
-        imageView.frame = CGRectMake(0, 0, 27, 10)
-        imageView.center = CGPointMake(CGRectGetWidth(self.bounds)/2.0, CGRectGetHeight(self.bounds)/2.0)
+        imageView.frame = CGRect(x: 0, y: 0, width: 27, height: 10)
+        imageView.center = CGPoint(x: self.bounds.width/2.0, y: self.bounds.height/2.0)
         imageView.image = UIImage(named: "loading15")
         addSubview(imageView)
     }
@@ -21,19 +21,20 @@ class QQVideoRefreshHeader:UIView,RefreshableHeader{
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    
     // MARK: - RefreshableHeader -
     func heightForRefreshingState()->CGFloat{
         return 50
     }
-    func stateDidChanged(oldState: RefreshHeaderState, newState: RefreshHeaderState) {
-        if newState == .Pulling{
-            UIView.animateWithDuration(0.3, animations: {
-                self.imageView.transform = CGAffineTransformIdentity
+    func stateDidChanged(_ oldState: RefreshHeaderState, newState: RefreshHeaderState) {
+        if newState == .pulling{
+            UIView.animate(withDuration: 0.3, animations: {
+                self.imageView.transform = CGAffineTransform.identity
             })
         }
-        if newState == .Idle{
-            UIView.animateWithDuration(0.3, animations: {
-                self.imageView.transform = CGAffineTransformMakeTranslation(0, -50)
+        if newState == .idle{
+            UIView.animate(withDuration: 0.3, animations: {
+                self.imageView.transform = CGAffineTransform(translationX: 0, y: -50)
             })
         }
     }
@@ -46,9 +47,9 @@ class QQVideoRefreshHeader:UIView,RefreshableHeader{
         imageView.startAnimating()
     }
     //刷新结束，将要隐藏header
-    func didBeginEndRefershingAnimation(result:RefreshResult){}
+    func didBeginEndRefershingAnimation(_ result:RefreshResult){}
     //刷新结束，完全隐藏header
-    func didCompleteEndRefershingAnimation(result:RefreshResult){
+    func didCompleteEndRefershingAnimation(_ result:RefreshResult){
         imageView.animationImages = nil
         imageView.stopAnimating()
         imageView.image = UIImage(named: "loading15")

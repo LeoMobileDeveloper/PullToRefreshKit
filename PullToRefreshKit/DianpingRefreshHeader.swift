@@ -12,8 +12,8 @@ class DianpingRefreshHeader:UIView,RefreshableHeader{
     let imageView = UIImageView()
     override init(frame: CGRect) {
         super.init(frame: frame)
-        imageView.frame = CGRectMake(0, 0, 60, 60)
-        imageView.center = CGPointMake(CGRectGetWidth(self.bounds)/2.0, CGRectGetHeight(self.bounds)/2.0)
+        imageView.frame = CGRect(x: 0, y: 0, width: 60, height: 60)
+        imageView.center = CGPoint(x: self.bounds.width/2.0, y: self.bounds.height/2.0)
         addSubview(imageView)
     }
     
@@ -25,11 +25,11 @@ class DianpingRefreshHeader:UIView,RefreshableHeader{
         return 70
     }
     //监听百分比变化
-    func percentUpdateDuringScrolling(percent:CGFloat){
-        imageView.hidden = (percent == 0)
+    func percentUpdateDuringScrolling(_ percent:CGFloat){
+        imageView.isHidden = (percent == 0)
         let adjustPercent = max(min(1.0, percent),0.0)
         let scale = 0.2 + (1.0 - 0.2) * adjustPercent;
-        imageView.transform = CGAffineTransformMakeScale(scale, scale)
+        imageView.transform = CGAffineTransform(scaleX: scale, y: scale)
         let mappedIndex = Int(adjustPercent * 60)
         let imageName = "dropdown_anim__000\(mappedIndex)"
         let image = UIImage(named: imageName)
@@ -45,13 +45,11 @@ class DianpingRefreshHeader:UIView,RefreshableHeader{
         imageView.startAnimating()
     }
     //刷新结束，将要隐藏header
-    func didBeginEndRefershingAnimation(result:RefreshResult){
-        
-    }
+    func didBeginEndRefershingAnimation(_ result:RefreshResult){}
     //刷新结束，完全隐藏header
-    func didCompleteEndRefershingAnimation(result:RefreshResult){
+    func didCompleteEndRefershingAnimation(_ result:RefreshResult){
         imageView.animationImages = nil
         imageView.stopAnimating()
-        imageView.hidden = true
+        imageView.isHidden = true
     }
 }

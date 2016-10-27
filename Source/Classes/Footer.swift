@@ -8,139 +8,159 @@
 
 import Foundation
 import UIKit
+fileprivate func < <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
+  switch (lhs, rhs) {
+  case let (l?, r?):
+    return l < r
+  case (nil, _?):
+    return true
+  default:
+    return false
+  }
+}
+
+fileprivate func > <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
+  switch (lhs, rhs) {
+  case let (l?, r?):
+    return l > r
+  default:
+    return rhs < lhs
+  }
+}
+
 
 public enum RefreshKitFooterText{
-    case PullToRefresh
-    case TapToRefresh
-    case ScrollAndTapToRefresh
-    case Refreshing
-    case NoMoreData
+    case pullToRefresh
+    case tapToRefresh
+    case scrollAndTapToRefresh
+    case refreshing
+    case noMoreData
 }
 
 public enum RefreshMode{
     /// 只有Scroll才会触发
-    case Scroll
+    case scroll
     /// 只有Tap才会触发
-    case Tap
+    case tap
     /// Scroll和Tap都会触发
-    case ScrollAndTap
+    case scrollAndTap
 }
 
-public class DefaultRefreshFooter:UIView,RefreshableFooter{
-    public let spinner:UIActivityIndicatorView = UIActivityIndicatorView(activityIndicatorStyle: .Gray)
-    public  let textLabel:UILabel = UILabel(frame: CGRectMake(0,0,140,40)).SetUp {
-        $0.font = UIFont.systemFontOfSize(14)
-        $0.textAlignment = .Center
+open class DefaultRefreshFooter:UIView,RefreshableFooter{
+    open let spinner:UIActivityIndicatorView = UIActivityIndicatorView(activityIndicatorStyle: .gray)
+    open  let textLabel:UILabel = UILabel(frame: CGRect(x: 0,y: 0,width: 140,height: 40)).SetUp {
+        $0.font = UIFont.systemFont(ofSize: 14)
+        $0.textAlignment = .center
     }
     /// 触发刷新的模式
-    public var refreshMode = RefreshMode.ScrollAndTap{
+    open var refreshMode = RefreshMode.scrollAndTap{
         didSet{
-            tap.enabled = (refreshMode != .Scroll)
+            tap.isEnabled = (refreshMode != .scroll)
             udpateTextLabelWithMode(refreshMode)
         }
     }
-    private func udpateTextLabelWithMode(refreshMode:RefreshMode){
+    fileprivate func udpateTextLabelWithMode(_ refreshMode:RefreshMode){
         switch refreshMode {
-        case .Scroll:
-            textLabel.text = textDic[.PullToRefresh]
-        case .Tap:
-            textLabel.text = textDic[.TapToRefresh]
-        case .ScrollAndTap:
-            textLabel.text = textDic[.ScrollAndTapToRefresh]
+        case .scroll:
+            textLabel.text = textDic[.pullToRefresh]
+        case .tap:
+            textLabel.text = textDic[.tapToRefresh]
+        case .scrollAndTap:
+            textLabel.text = textDic[.scrollAndTapToRefresh]
         }
     }
-    private var tap:UITapGestureRecognizer!
-    private var textDic = [RefreshKitFooterText:String]()
+    fileprivate var tap:UITapGestureRecognizer!
+    fileprivate var textDic = [RefreshKitFooterText:String]()
     /**
      This function can only be called before Refreshing
      */
-    public  func setText(text:String,mode:RefreshKitFooterText){
+    open  func setText(_ text:String,mode:RefreshKitFooterText){
         textDic[mode] = text
-        textLabel.text = textDic[.PullToRefresh]
+        textLabel.text = textDic[.pullToRefresh]
     }
     override init(frame: CGRect) {
         super.init(frame: frame)
         addSubview(spinner)
         addSubview(textLabel)
 
-        textDic[.PullToRefresh] = PullToRefreshKitFooterString.pullUpToRefresh
-        textDic[.Refreshing] = PullToRefreshKitFooterString.refreshing
-        textDic[.NoMoreData] = PullToRefreshKitFooterString.noMoreData
-        textDic[.TapToRefresh] = PullToRefreshKitFooterString.tapToRefresh
-        textDic[.ScrollAndTapToRefresh] = PullToRefreshKitFooterString.scrollAndTapToRefresh
+        textDic[.pullToRefresh] = PullToRefreshKitFooterString.pullUpToRefresh
+        textDic[.refreshing] = PullToRefreshKitFooterString.refreshing
+        textDic[.noMoreData] = PullToRefreshKitFooterString.noMoreData
+        textDic[.tapToRefresh] = PullToRefreshKitFooterString.tapToRefresh
+        textDic[.scrollAndTapToRefresh] = PullToRefreshKitFooterString.scrollAndTapToRefresh
         udpateTextLabelWithMode(refreshMode)
         tap = UITapGestureRecognizer(target: self, action: #selector(DefaultRefreshFooter.catchTap(_:)))
         self.addGestureRecognizer(tap)
     }
-    public override func layoutSubviews() {
+    open override func layoutSubviews() {
         super.layoutSubviews()
-        textLabel.center = CGPointMake(frame.size.width/2, frame.size.height/2);
-        spinner.center = CGPointMake(frame.width/2 - 70 - 20, frame.size.height/2)
+        textLabel.center = CGPoint(x: frame.size.width/2, y: frame.size.height/2);
+        spinner.center = CGPoint(x: frame.width/2 - 70 - 20, y: frame.size.height/2)
     }
     public required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    func catchTap(tap:UITapGestureRecognizer){
+    func catchTap(_ tap:UITapGestureRecognizer){
         let scrollView = self.superview?.superview as? UIScrollView
         scrollView?.beginFooterRefreshing()
     }
 // MARK: - Refreshable  -
-    public func heightForRefreshingState() -> CGFloat {
+    open func heightForRefreshingState() -> CGFloat {
         return PullToRefreshKitConst.defaultFooterHeight
     }
-    public func didBeginRefreshing() {
-        textLabel.text = textDic[.Refreshing];
+    open func didBeginRefreshing() {
+        textLabel.text = textDic[.refreshing];
         spinner.startAnimating()
     }
-    public func didEndRefreshing() {
+    open func didEndRefreshing() {
         udpateTextLabelWithMode(refreshMode)
         spinner.stopAnimating()
     }
-    public func didUpdateToNoMoreData(){
-        textLabel.text = textDic[.NoMoreData]
+    open func didUpdateToNoMoreData(){
+        textLabel.text = textDic[.noMoreData]
     }
-    public func didResetToDefault() {
+    open func didResetToDefault() {
         udpateTextLabelWithMode(refreshMode)
     }
-    public func shouldBeginRefreshingWhenScroll()->Bool {
-        return refreshMode != .Tap
+    open func shouldBeginRefreshingWhenScroll()->Bool {
+        return refreshMode != .tap
     }
 // MARK: - Handle touch -
-    public override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
-        super.touchesBegan(touches, withEvent: event)
-        guard refreshMode != .Scroll else{
+    open override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        super.touchesBegan(touches, with: event)
+        guard refreshMode != .scroll else{
             return
         }
-        self.backgroundColor = UIColor.lightGrayColor().colorWithAlphaComponent(0.5)
+        self.backgroundColor = UIColor.lightGray.withAlphaComponent(0.5)
     }
-    public override func touchesEnded(touches: Set<UITouch>, withEvent event: UIEvent?) {
-        super.touchesEnded(touches, withEvent: event)
-        guard refreshMode != .Scroll else{
+    open override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
+        super.touchesEnded(touches, with: event)
+        guard refreshMode != .scroll else{
             return
         }
-        self.backgroundColor = UIColor.whiteColor()
+        self.backgroundColor = UIColor.white
     }
-    public override func touchesCancelled(touches: Set<UITouch>?, withEvent event: UIEvent?) {
-        super.touchesCancelled(touches, withEvent: event)
-        guard refreshMode != .Scroll else{
+    open override func touchesCancelled(_ touches: Set<UITouch>, with event: UIEvent?) {
+        super.touchesCancelled(touches, with: event)
+        guard refreshMode != .scroll else{
             return
         }
-        self.backgroundColor = UIColor.whiteColor()
+        self.backgroundColor = UIColor.white
     }
 }
 
 class RefreshFooterContainer:UIView{
     enum RefreshFooterState {
-        case Idle
-        case Refreshing
-        case WillRefresh
-        case NoMoreData
+        case idle
+        case refreshing
+        case willRefresh
+        case noMoreData
     }
 // MARK: - Propertys -
     var refreshAction:(()->())?
     var attachedScrollView:UIScrollView!
     weak var delegate:RefreshableFooter?
-    private var _state:RefreshFooterState = .Idle
+    fileprivate var _state:RefreshFooterState = .idle
     var state:RefreshFooterState{
         get{
             return _state
@@ -150,14 +170,14 @@ class RefreshFooterContainer:UIView{
                 return
             }
             _state =  newValue
-            if newValue == .Refreshing{
-                dispatch_async(dispatch_get_main_queue(), {
+            if newValue == .refreshing{
+                DispatchQueue.main.async(execute: {
                     self.delegate?.didBeginRefreshing()
                     self.refreshAction?()
                 })
-            }else if newValue == .NoMoreData{
+            }else if newValue == .noMoreData{
                 self.delegate?.didUpdateToNoMoreData()
-            }else if newValue == .Idle{
+            }else if newValue == .idle{
                 self.delegate?.didResetToDefault()
             }
         }
@@ -168,27 +188,27 @@ class RefreshFooterContainer:UIView{
         commonInit()
     }
     func commonInit(){
-        self.userInteractionEnabled = true
-        self.backgroundColor = UIColor.clearColor()
-        self.autoresizingMask = .FlexibleWidth
+        self.isUserInteractionEnabled = true
+        self.backgroundColor = UIColor.clear
+        self.autoresizingMask = .flexibleWidth
     }
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
 
 // MARK: - Life circle -
-    override func drawRect(rect: CGRect) {
-        super.drawRect(rect)
-        if self.state == .WillRefresh {
-            self.state = .Refreshing
+    override func draw(_ rect: CGRect) {
+        super.draw(rect)
+        if self.state == .willRefresh {
+            self.state = .refreshing
         }
     }
-    override func willMoveToSuperview(newSuperview: UIView?) {
-        super.willMoveToSuperview(newSuperview)
+    override func willMove(toSuperview newSuperview: UIView?) {
+        super.willMove(toSuperview: newSuperview)
         guard newSuperview != nil else{ //remove from superview
-            if !self.hidden{
+            if !self.isHidden{
                 var inset = attachedScrollView.contentInset
-                inset.bottom = inset.bottom - CGRectGetHeight(self.frame)
+                inset.bottom = inset.bottom - self.frame.height
                 attachedScrollView.contentInset = inset
             }
             return
@@ -198,12 +218,12 @@ class RefreshFooterContainer:UIView{
         }
         attachedScrollView = newSuperview as? UIScrollView
         attachedScrollView.alwaysBounceVertical = true
-        if !self.hidden {
+        if !self.isHidden {
             var contentInset = attachedScrollView.contentInset
-            contentInset.bottom = contentInset.bottom + CGRectGetHeight(self.frame)
+            contentInset.bottom = contentInset.bottom + self.frame.height
             attachedScrollView.contentInset = contentInset
         }
-        self.frame = CGRectMake(0,attachedScrollView.contentSize.height,CGRectGetWidth(self.frame), CGRectGetHeight(self.frame))
+        self.frame = CGRect(x: 0,y: attachedScrollView.contentSize.height,width: self.frame.width, height: self.frame.height)
         addObservers()
     }
     deinit{
@@ -211,18 +231,18 @@ class RefreshFooterContainer:UIView{
     }
     
 // MARK: - Private -
-    private func addObservers(){
-        attachedScrollView?.addObserver(self, forKeyPath:PullToRefreshKitConst.KPathOffSet, options: [.Old,.New], context: nil)
-        attachedScrollView?.addObserver(self, forKeyPath:PullToRefreshKitConst.KPathContentSize, options:[.Old,.New] , context: nil)
-        attachedScrollView?.panGestureRecognizer.addObserver(self, forKeyPath:PullToRefreshKitConst.KPathPanState, options:[.Old,.New] , context: nil)
+    fileprivate func addObservers(){
+        attachedScrollView?.addObserver(self, forKeyPath:PullToRefreshKitConst.KPathOffSet, options: [.old,.new], context: nil)
+        attachedScrollView?.addObserver(self, forKeyPath:PullToRefreshKitConst.KPathContentSize, options:[.old,.new] , context: nil)
+        attachedScrollView?.panGestureRecognizer.addObserver(self, forKeyPath:PullToRefreshKitConst.KPathPanState, options:[.old,.new] , context: nil)
     }
-    private func removeObservers(){
+    fileprivate func removeObservers(){
         attachedScrollView?.removeObserver(self, forKeyPath: PullToRefreshKitConst.KPathContentSize,context: nil)
         attachedScrollView?.removeObserver(self, forKeyPath: PullToRefreshKitConst.KPathOffSet,context: nil)
         attachedScrollView?.panGestureRecognizer.removeObserver(self, forKeyPath: PullToRefreshKitConst.KPathPanState,context: nil)
     }
-    func handleScrollOffSetChange(change: [String : AnyObject]?){
-        if state != .Idle && self.frame.origin.y != 0{
+    func handleScrollOffSetChange(_ change: [NSKeyValueChangeKey : Any]?){
+        if state != .idle && self.frame.origin.y != 0{
             return
         }
         let insetTop = attachedScrollView.contentInset.top
@@ -231,8 +251,8 @@ class RefreshFooterContainer:UIView{
         if insetTop + contentHeight > scrollViewHeight{
             let offSetY = attachedScrollView.contentOffset.y
             if offSetY > self.frame.origin.y - scrollViewHeight + attachedScrollView.contentInset.bottom{
-                let oldOffset = change?[NSKeyValueChangeOldKey]?.CGPointValue()
-                let newOffset = change?[NSKeyValueChangeNewKey]?.CGPointValue()
+                let oldOffset = (change?[NSKeyValueChangeKey.oldKey] as AnyObject).cgPointValue
+                let newOffset = (change?[NSKeyValueChangeKey.newKey] as AnyObject).cgPointValue
                 guard newOffset?.y > oldOffset?.y else{
                     return
                 }
@@ -244,15 +264,15 @@ class RefreshFooterContainer:UIView{
             }
         }
     }
-    func handlePanStateChange(change: [String : AnyObject]?){
-        guard state == .Idle else{
+    func handlePanStateChange(_ change: [NSKeyValueChangeKey : Any]?){
+        guard state == .idle else{
             return
         }
-        if attachedScrollView.panGestureRecognizer.state == .Ended {
+        if attachedScrollView.panGestureRecognizer.state == .ended {
             let scrollInset = attachedScrollView.contentInset
             let scrollOffset = attachedScrollView.contentOffset
             let contentSize = attachedScrollView.contentSize
-            if scrollInset.top + contentSize.height <= CGRectGetHeight(attachedScrollView.frame){
+            if scrollInset.top + contentSize.height <= attachedScrollView.frame.height{
                 if scrollOffset.y >= -1 * scrollInset.top {
                     let shouldStart = self.delegate?.shouldBeginRefreshingWhenScroll()
                     guard shouldStart! else{
@@ -261,7 +281,7 @@ class RefreshFooterContainer:UIView{
                     beginRefreshing()
                 }
             }else{
-                if scrollOffset.y > contentSize.height + scrollInset.bottom - CGRectGetHeight(attachedScrollView.frame) {
+                if scrollOffset.y > contentSize.height + scrollInset.bottom - attachedScrollView.frame.height {
                     let shouldStart = self.delegate?.shouldBeginRefreshingWhenScroll()
                     guard shouldStart! else{
                         return
@@ -271,18 +291,18 @@ class RefreshFooterContainer:UIView{
             }
         }
     }
-    func handleContentSizeChange(change: [String : AnyObject]?){
-        self.frame = CGRectMake(0,self.attachedScrollView.contentSize.height,self.frame.size.width,self.frame.size.height)
+    func handleContentSizeChange(_ change: [NSKeyValueChangeKey : Any]?){
+        self.frame = CGRect(x: 0,y: self.attachedScrollView.contentSize.height,width: self.frame.size.width,height: self.frame.size.height)
     }
 // MARK: - KVO -
-    override func observeValueForKeyPath(keyPath: String?, ofObject object: AnyObject?, change: [String : AnyObject]?, context: UnsafeMutablePointer<Void>) {
-        guard self.userInteractionEnabled else{
+    override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
+        guard self.isUserInteractionEnabled else{
             return;
         }
         if keyPath == PullToRefreshKitConst.KPathOffSet {
             handleScrollOffSetChange(change)
         }
-        guard !self.hidden else{
+        guard !self.isHidden else{
             return;
         }
         if keyPath == PullToRefreshKitConst.KPathPanState{
@@ -295,22 +315,22 @@ class RefreshFooterContainer:UIView{
     // MARK: - API -
     func beginRefreshing(){
         if self.window != nil {
-            self.state = .Refreshing
+            self.state = .refreshing
         }else{
-            if state != .Refreshing{
-                self.state = .WillRefresh
+            if state != .refreshing{
+                self.state = .willRefresh
             }
         }
     }
     func endRefreshing(){
-        self.state = .Idle
+        self.state = .idle
         self.delegate?.didEndRefreshing()
     }
     func resetToDefault(){
-        self.state = .Idle
+        self.state = .idle
     }
     func updateToNoMoreData(){
-        self.state = .NoMoreData
+        self.state = .noMoreData
     }
 }
 

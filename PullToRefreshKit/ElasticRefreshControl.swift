@@ -10,20 +10,20 @@ import Foundation
 import UIKit
 
 @IBDesignable
-public class ElasticRefreshControl: UIView {
+open class ElasticRefreshControl: UIView {
     //目标，height 80, 高度 40
-    public let spinner:UIActivityIndicatorView = UIActivityIndicatorView()
+    open let spinner:UIActivityIndicatorView = UIActivityIndicatorView()
     var radius:CGFloat{
         get{
             return totalHeight / 4 - margin
         }
     }
-    public var progress:CGFloat = 0.0{
+    open var progress:CGFloat = 0.0{
         didSet{
             setNeedsDisplay()
         }
     }
-    public var margin:CGFloat = 4.0{
+    open var margin:CGFloat = 4.0{
         didSet{
             setNeedsDisplay()
         }
@@ -39,12 +39,12 @@ public class ElasticRefreshControl: UIView {
         }
     }
     let totalHeight:CGFloat = 80
-    public var arrowColor = UIColor.whiteColor(){
+    open var arrowColor = UIColor.white{
         didSet{
             setNeedsDisplay()
         }
     }
-    public var elasticTintColor = UIColor.init(white: 0.5, alpha: 0.6){
+    open var elasticTintColor = UIColor.init(white: 0.5, alpha: 0.6){
         didSet{
             setNeedsDisplay()
         }
@@ -65,88 +65,88 @@ public class ElasticRefreshControl: UIView {
         commonInit()
     }
     func commonInit(){
-        self.opaque = false
+        self.isOpaque = false
         addSubview(spinner)
         sizeToFit()
         spinner.hidesWhenStopped = true
-        spinner.activityIndicatorViewStyle = .Gray
+        spinner.activityIndicatorViewStyle = .gray
     }
-   public override func layoutSubviews() {
+   open override func layoutSubviews() {
         super.layoutSubviews()
-        spinner.center = CGPointMake(CGRectGetWidth(self.bounds) / 2.0, 0.75 * totalHeight)
+        spinner.center = CGPoint(x: self.bounds.width / 2.0, y: 0.75 * totalHeight)
     }
     public required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         commonInit()
     }
-    func sinCGFloat(angle:CGFloat)->CGFloat{
+    func sinCGFloat(_ angle:CGFloat)->CGFloat{
         let result = sinf(Float(angle))
         return CGFloat(result)
     }
-    func cosCGFloat(angle:CGFloat)->CGFloat{
+    func cosCGFloat(_ angle:CGFloat)->CGFloat{
         let result = cosf(Float(angle))
         return CGFloat(result)
     }
-    public override func drawRect(rect: CGRect) {
+    open override func draw(_ rect: CGRect) {
         //如果在Animating，则什么都不做
         if animating {
-            super.drawRect(rect)
+            super.draw(rect)
             return
         }
         let context = UIGraphicsGetCurrentContext()
         let centerX = rect.width/2.0
         let lineWidth = 2.5 - 1.0 * adjustedProgress
         //上面圆的信息
-        let upCenter = CGPointMake(centerX, (0.75 - 0.5 * adjustedProgress) * totalHeight)
+        let upCenter = CGPoint(x: centerX, y: (0.75 - 0.5 * adjustedProgress) * totalHeight)
         let upRadius = radius - radius * 0.3 * adjustedProgress
         
         //下面圆的信息
         let downRadius:CGFloat = radius  - radius * 0.75 * adjustedProgress
-        let downCenter = CGPointMake(centerX, totalHeight - downRadius - margin)
+        let downCenter = CGPoint(x: centerX, y: totalHeight - downRadius - margin)
     
         //偏移的角度
         let offSetAngle:CGFloat = CGFloat(M_PI_2 / 12.0)
         //计算上面圆的左/右的交点坐标
-        let upP1 = CGPointMake(upCenter.x - upRadius * cosCGFloat(offSetAngle), upCenter.y + upRadius * sinCGFloat(offSetAngle))
-        let upP2 = CGPointMake(upCenter.x + upRadius * cosCGFloat(offSetAngle), upCenter.y + upRadius * sinCGFloat(offSetAngle))
+        let upP1 = CGPoint(x: upCenter.x - upRadius * cosCGFloat(offSetAngle), y: upCenter.y + upRadius * sinCGFloat(offSetAngle))
+        let upP2 = CGPoint(x: upCenter.x + upRadius * cosCGFloat(offSetAngle), y: upCenter.y + upRadius * sinCGFloat(offSetAngle))
 
         //计算下面的圆左/右叫点坐标
-        let downP1 = CGPointMake(downCenter.x - downRadius * cosCGFloat(offSetAngle), downCenter.y -  downRadius * sinCGFloat(offSetAngle))
+        let downP1 = CGPoint(x: downCenter.x - downRadius * cosCGFloat(offSetAngle), y: downCenter.y -  downRadius * sinCGFloat(offSetAngle))
         
         //计算Control Point
-        let controPonintLeft = CGPointMake(downCenter.x - downRadius, (downCenter.y + upCenter.y)/2)
-        let controPonintRight = CGPointMake(downCenter.x + downRadius, (downCenter.y + upCenter.y)/2)
+        let controPonintLeft = CGPoint(x: downCenter.x - downRadius, y: (downCenter.y + upCenter.y)/2)
+        let controPonintRight = CGPoint(x: downCenter.x + downRadius, y: (downCenter.y + upCenter.y)/2)
         
         //实际绘制
-        CGContextSetFillColorWithColor(context, elasticTintColor.CGColor)
-        CGContextAddArc(context,upCenter.x,upCenter.y,upRadius,CGFloat(-M_PI)-offSetAngle,offSetAngle,0)
-        CGContextMoveToPoint(context,upP1.x, upP1.y)
-        CGContextAddQuadCurveToPoint(context, controPonintLeft.x,controPonintLeft.y,downP1.x, downP1.y)
-        CGContextAddArc(context, downCenter.x, downCenter.y, downRadius,CGFloat(-M_PI) - offSetAngle,offSetAngle,1)
-        CGContextAddQuadCurveToPoint(context, controPonintRight.x, controPonintRight.y, upP2.x, upP2.y)
-        CGContextFillPath(context)
+        context?.setFillColor(elasticTintColor.cgColor)
+        context?.addArc(center: upCenter, radius: upRadius, startAngle: CGFloat(-M_PI)-offSetAngle, endAngle: offSetAngle, clockwise: false)
+        context?.move(to: CGPoint(x: upP1.x, y: upP1.y))
+        context?.addQuadCurve(to: downP1, control: controPonintLeft)
+        context?.addArc(center: downCenter, radius: downRadius, startAngle: CGFloat(-M_PI)-offSetAngle, endAngle: offSetAngle, clockwise: true)
+        context?.addQuadCurve(to: upP2, control: controPonintRight)
+        context?.fillPath()
         
         //绘制箭头
-        CGContextSetStrokeColorWithColor(context, arrowColor.CGColor)
-        CGContextSetLineWidth(context, lineWidth)
-        CGContextAddArc(context, upCenter.x, upCenter.y, arrowRadius, 0, CGFloat(M_PI * 1.5), 0)
-        CGContextStrokePath(context)
+        context?.setStrokeColor(arrowColor.cgColor)
+        context?.setLineWidth(lineWidth)
+        context?.addArc(center: upCenter, radius: arrowRadius, startAngle: 0, endAngle: CGFloat(M_PI * 1.5), clockwise: false)
+        context?.strokePath()
         
-        CGContextSetFillColorWithColor(context, arrowColor.CGColor)
-        CGContextSetLineWidth(context, 0.0)
+        context?.setFillColor(arrowColor.cgColor)
+        context?.setLineWidth(0.0)
         
-        CGContextMoveToPoint(context, upCenter.x, upCenter.y - arrowRadius - lineWidth * 1.5)
-        CGContextAddLineToPoint(context, upCenter.x, upCenter.y - arrowRadius + lineWidth * 1.5)
-        CGContextAddLineToPoint(context, upCenter.x + lineWidth * 0.865 * 3, upCenter.y - arrowRadius)
-        CGContextAddLineToPoint(context, upCenter.x, upCenter.y - arrowRadius - lineWidth * 1.5)
-        CGContextFillPath(context)
+        context?.move(to: CGPoint(x: upCenter.x, y: upCenter.y - arrowRadius - lineWidth * 1.5))
+        context?.addLine(to: CGPoint(x: upCenter.x, y: upCenter.y - arrowRadius + lineWidth * 1.5))
+        context?.addLine(to: CGPoint(x: upCenter.x + lineWidth * 0.865 * 3, y: upCenter.y - arrowRadius))
+        context?.addLine(to: CGPoint(x: upCenter.x, y: upCenter.y - arrowRadius - lineWidth * 1.5))
+        context?.fillPath()
         
     }
-    override public func sizeToFit() {
+    override open func sizeToFit() {
         var width = frame.size.width
         if width < 30.0{
             width = 30.0
         }
-        self.frame = CGRectMake(frame.origin.x, frame.origin.y,width, totalHeight)
+        self.frame = CGRect(x: frame.origin.x, y: frame.origin.y,width: width, height: totalHeight)
     }
 }
