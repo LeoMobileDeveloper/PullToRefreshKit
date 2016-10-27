@@ -73,9 +73,11 @@ open class DefaultRefreshHeader:UIView,RefreshableHeader{
     open func heightForRefreshingState() -> CGFloat {
         return PullToRefreshKitConst.defaultHeaderHeight
     }
-    open func percentUpdateDuringScrolling(_ percent:CGFloat){
-        self.isHidden = !(percent > 0.0)
-        if percent > 1.0{
+    public func percentUpdateDuringScrolling(_ percent: CGFloat) {
+        self.isHidden = false
+    }
+    public func stateDidChanged(_ oldState: RefreshHeaderState, newState: RefreshHeaderState) {
+        if oldState == RefreshHeaderState.idle && newState == RefreshHeaderState.pulling{
             textLabel.text = textDic[.releaseToRefresh]
             guard self.imageView.transform == CGAffineTransform.identity else{
                 return
@@ -84,7 +86,7 @@ open class DefaultRefreshHeader:UIView,RefreshableHeader{
                 self.imageView.transform = CGAffineTransform(rotationAngle: CGFloat(-M_PI+0.000001))
             })
         }
-        if percent <= 1.0{
+        if oldState == RefreshHeaderState.pulling && newState == RefreshHeaderState.idle {
             textLabel.text = textDic[.pullToRefresh]
             guard self.imageView.transform == CGAffineTransform(rotationAngle: CGFloat(-M_PI+0.000001))  else{
                 return
