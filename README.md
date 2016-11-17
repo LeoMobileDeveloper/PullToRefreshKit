@@ -47,8 +47,9 @@
 ## Require
 
 - iOS 8
-- Swift 2
+- Swift 3.0
 
+For Swift 2.3, See branch [Swift2](https://github.com/LeoMobileDeveloper/PullToRefreshKit/tree/Swift2)
 ##Support
 
 UITableView/UICollectionView/UIScrollView/UIWebView

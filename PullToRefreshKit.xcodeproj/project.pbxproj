@@ -873,6 +873,7 @@
 				TargetAttributes = {
 					52E8FB3B1D336E26000D0BF1 = {
 						CreatedOnToolsVersion = 7.3.1;
+						DevelopmentTeam = 8FNLESAJY7;
 						LastSwiftMigration = 0800;
 					};
 				};
@@ -1263,6 +1264,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = 8FNLESAJY7;
 				INFOPLIST_FILE = PullToRefreshKit/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = Leo.PullToRefreshKit;
@@ -1275,6 +1277,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = 8FNLESAJY7;
 				INFOPLIST_FILE = PullToRefreshKit/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = Leo.PullToRefreshKit;
