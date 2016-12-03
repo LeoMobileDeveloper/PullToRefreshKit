@@ -9,23 +9,23 @@
 import Foundation
 import UIKit
 
-public class ElasticRefreshHeader: UIView,RefreshableHeader {
+open class ElasticRefreshHeader: UIView,RefreshableHeader {
     let control:ElasticRefreshControl
-    public let textLabel:UILabel = UILabel(frame: CGRectMake(0,0,120,40))
-    public let imageView:UIImageView = UIImageView(frame: CGRectZero)
-    private var textDic = [RefreshKitHeaderText:String]()
-    private let totalHegiht:CGFloat = 80.0
+    open let textLabel:UILabel = UILabel(frame: CGRect(x: 0,y: 0,width: 120,height: 40))
+    open let imageView:UIImageView = UIImageView(frame: CGRect.zero)
+    fileprivate var textDic = [RefreshKitHeaderText:String]()
+    fileprivate let totalHegiht:CGFloat = 80.0
     override init(frame: CGRect) {
         control = ElasticRefreshControl(frame: frame)
-        let adjustFrame = CGRectMake(frame.origin.x, frame.origin.y, frame.size.width, totalHegiht)
+        let adjustFrame = CGRect(x: frame.origin.x, y: frame.origin.y, width: frame.size.width, height: totalHegiht)
         super.init(frame: adjustFrame)
-        self.autoresizingMask = .FlexibleWidth
-        self.backgroundColor = UIColor.whiteColor()
+        self.autoresizingMask = .flexibleWidth
+        self.backgroundColor = UIColor.white
         imageView.sizeToFit()
-        imageView.frame = CGRectMake(0, 0, 16, 16)
-        textLabel.font = UIFont.systemFontOfSize(12)
-        textLabel.textAlignment = .Center
-        textLabel.textColor = UIColor.darkGrayColor()
+        imageView.frame = CGRect(x: 0, y: 0, width: 16, height: 16)
+        textLabel.font = UIFont.systemFont(ofSize: 12)
+        textLabel.textAlignment = .center
+        textLabel.textColor = UIColor.darkGray
         addSubview(control)
         addSubview(textLabel)
         addSubview(imageView)
@@ -33,33 +33,33 @@ public class ElasticRefreshHeader: UIView,RefreshableHeader {
         textDic[.refreshFailure] = PullToRefreshKitHeaderString.refreshFailure
         textLabel.text = textDic[.pullToRefresh]
     }
-    public func setText(text:String,mode:RefreshKitHeaderText){
+    open func setText(_ text:String,mode:RefreshKitHeaderText){
         textDic[mode] = text
     }
     required public init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    public override func layoutSubviews() {
+    open override func layoutSubviews() {
         super.layoutSubviews()
         control.frame = self.bounds
-        imageView.center = CGPointMake(frame.width/2 - 40 - 20, totalHegiht * 0.75)
-        textLabel.center = CGPointMake(frame.size.width/2, totalHegiht * 0.75);
+        imageView.center = CGPoint(x: frame.width/2 - 40 - 40, y: totalHegiht * 0.75)
+        textLabel.center = CGPoint(x: frame.size.width/2, y: totalHegiht * 0.75);
     }
-    public override func willMoveToSuperview(newSuperview: UIView?) {
-        super.willMoveToSuperview(newSuperview)
+    open override func willMove(toSuperview newSuperview: UIView?) {
+        super.willMove(toSuperview: newSuperview)
         if let superView = newSuperview{
-            self.frame = CGRectMake(self.frame.origin.x, self.frame.origin.y, superView.frame.size.width, self.frame.size.height)
+            self.frame = CGRect(x: self.frame.origin.x, y: self.frame.origin.y, width: superView.frame.size.width, height: self.frame.size.height)
         }
     }
     // MARK: - Refreshable Header -
 
-    public func heightForRefreshingState() -> CGFloat {
+    open func heightForRefreshingState() -> CGFloat {
         return totalHegiht/2.0
     }
-    public func heightForFireRefreshing()->CGFloat{
+    open func heightForFireRefreshing()->CGFloat{
         return totalHegiht
     }
-    public func percentUpdateDuringScrolling(percent:CGFloat){
+    open func percentUpdateDuringScrolling(_ percent:CGFloat){
         self.control.animating = false
         if percent > 0.5 && percent <= 1.0{
             self.control.progress = (percent - 0.5)/0.5
@@ -69,35 +69,35 @@ public class ElasticRefreshHeader: UIView,RefreshableHeader {
             self.control.progress = 1.0
         }
     }
-    public func didBeginRefreshingState() {
+    open func didBeginRefreshingState() {
         self.control.animating = true
     }
-    public func didBeginEndRefershingAnimation(result:RefreshResult) {
+    open func didBeginEndRefershingAnimation(_ result:RefreshResult) {
         switch result {
-        case .Success:
-            self.control.hidden = true
-            imageView.hidden = false
-            textLabel.hidden = false
+        case .success:
+            self.control.isHidden = true
+            imageView.isHidden = false
+            textLabel.isHidden = false
             textLabel.text = textDic[.refreshSuccess]
-            imageView.image = UIImage(named: "success", inBundle: NSBundle(forClass: DefaultRefreshHeader.self), compatibleWithTraitCollection: nil)
-        case .Failure:
-            self.control.hidden = true
-            imageView.hidden = false
-            textLabel.hidden = false
+            imageView.image = UIImage(named: "success", in: Bundle(for: DefaultRefreshHeader.self), compatibleWith: nil)
+        case .failure:
+            self.control.isHidden = true
+            imageView.isHidden = false
+            textLabel.isHidden = false
             textLabel.text = textDic[.refreshFailure]
-            imageView.image = UIImage(named: "failure", inBundle: NSBundle(forClass: DefaultRefreshHeader.self), compatibleWithTraitCollection: nil)
-        case .None:
-            self.control.hidden = false
-            imageView.hidden = true
-            textLabel.hidden = true
+            imageView.image = UIImage(named: "failure", in: Bundle(for: DefaultRefreshHeader.self), compatibleWith: nil)
+        case .none:
+            self.control.isHidden = false
+            imageView.isHidden = true
+            textLabel.isHidden = true
             textLabel.text = textDic[.pullToRefresh]
             imageView.image = nil
         }
     }
-    public func didCompleteEndRefershingAnimation(result:RefreshResult) {
-        self.control.hidden = false
-        self.imageView.hidden = true
-        self.textLabel.hidden = true
+    open func didCompleteEndRefershingAnimation(_ result:RefreshResult) {
+        self.control.isHidden = false
+        self.imageView.isHidden = true
+        self.textLabel.isHidden = true
         
     }
 

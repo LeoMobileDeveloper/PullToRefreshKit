@@ -26,8 +26,6 @@
 		5238C8011D3763BA00B3B4FE /* Left.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5238C7FB1D3763BA00B3B4FE /* Left.swift */; };
 		5238C8021D3763BA00B3B4FE /* PullToRefresh.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5238C7FC1D3763BA00B3B4FE /* PullToRefresh.swift */; };
 		5238C8031D3763BA00B3B4FE /* Right.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5238C7FD1D3763BA00B3B4FE /* Right.swift */; };
-		52392C441D50462B0095F57B /* ElasticRefreshControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52392C421D50462B0095F57B /* ElasticRefreshControl.swift */; };
-		52392C451D50462B0095F57B /* ElasticRefreshHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52392C431D50462B0095F57B /* ElasticRefreshHeader.swift */; };
 		52392CBA1D5057CA0095F57B /* sun_00000.png in Resources */ = {isa = PBXBuildFile; fileRef = 52392C4C1D5057CA0095F57B /* sun_00000.png */; };
 		52392CBB1D5057CA0095F57B /* sun_00001.png in Resources */ = {isa = PBXBuildFile; fileRef = 52392C4D1D5057CA0095F57B /* sun_00001.png */; };
 		52392CBC1D5057CA0095F57B /* sun_00002.png in Resources */ = {isa = PBXBuildFile; fileRef = 52392C4E1D5057CA0095F57B /* sun_00002.png */; };
@@ -158,6 +156,8 @@
 		52C6F97A1D4DE6340063B754 /* YoukuRefreshHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52C6F9791D4DE6340063B754 /* YoukuRefreshHeader.swift */; };
 		52C6F97C1D4DE6460063B754 /* YoukuTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52C6F97B1D4DE6460063B754 /* YoukuTableViewController.swift */; };
 		52C6F97E1D4F05400063B754 /* youku_ad.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = 52C6F97D1D4F05400063B754 /* youku_ad.jpeg */; };
+		52D0E5BD1DF27047004672E8 /* ElasticRefreshControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52D0E5BB1DF27047004672E8 /* ElasticRefreshControl.swift */; };
+		52D0E5BE1DF27047004672E8 /* ElasticRefreshHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52D0E5BC1DF27047004672E8 /* ElasticRefreshHeader.swift */; };
 		52D61D701D3F56A900A5B4E0 /* taobaoLogo.png in Resources */ = {isa = PBXBuildFile; fileRef = 52D61D6F1D3F56A900A5B4E0 /* taobaoLogo.png */; };
 		52D80FF11D50229800CB0E52 /* loading00@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 52D80FB51D50229800CB0E52 /* loading00@2x.png */; };
 		52D80FF21D50229800CB0E52 /* loading00@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 52D80FB61D50229800CB0E52 /* loading00@3x.png */; };
@@ -250,8 +250,6 @@
 		5238C7FB1D3763BA00B3B4FE /* Left.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Left.swift; path = Source/Classes/Left.swift; sourceTree = SOURCE_ROOT; };
 		5238C7FC1D3763BA00B3B4FE /* PullToRefresh.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PullToRefresh.swift; path = Source/Classes/PullToRefresh.swift; sourceTree = SOURCE_ROOT; };
 		5238C7FD1D3763BA00B3B4FE /* Right.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Right.swift; path = Source/Classes/Right.swift; sourceTree = SOURCE_ROOT; };
-		52392C421D50462B0095F57B /* ElasticRefreshControl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ElasticRefreshControl.swift; sourceTree = "<group>"; };
-		52392C431D50462B0095F57B /* ElasticRefreshHeader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ElasticRefreshHeader.swift; sourceTree = "<group>"; };
 		52392C4C1D5057CA0095F57B /* sun_00000.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = sun_00000.png; sourceTree = "<group>"; };
 		52392C4D1D5057CA0095F57B /* sun_00001.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = sun_00001.png; sourceTree = "<group>"; };
 		52392C4E1D5057CA0095F57B /* sun_00002.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = sun_00002.png; sourceTree = "<group>"; };
@@ -383,6 +381,8 @@
 		52C6F9791D4DE6340063B754 /* YoukuRefreshHeader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = YoukuRefreshHeader.swift; sourceTree = "<group>"; };
 		52C6F97B1D4DE6460063B754 /* YoukuTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = YoukuTableViewController.swift; sourceTree = "<group>"; };
 		52C6F97D1D4F05400063B754 /* youku_ad.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = youku_ad.jpeg; sourceTree = "<group>"; };
+		52D0E5BB1DF27047004672E8 /* ElasticRefreshControl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ElasticRefreshControl.swift; path = Source/Classes/ElasticRefreshControl.swift; sourceTree = SOURCE_ROOT; };
+		52D0E5BC1DF27047004672E8 /* ElasticRefreshHeader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ElasticRefreshHeader.swift; path = Source/Classes/ElasticRefreshHeader.swift; sourceTree = SOURCE_ROOT; };
 		52D61D6F1D3F56A900A5B4E0 /* taobaoLogo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = taobaoLogo.png; sourceTree = "<group>"; };
 		52D80FB51D50229800CB0E52 /* loading00@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "loading00@2x.png"; sourceTree = "<group>"; };
 		52D80FB61D50229800CB0E52 /* loading00@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "loading00@3x.png"; sourceTree = "<group>"; };
@@ -607,8 +607,8 @@
 		52562D151D4AF1E7003B0F72 /* CustomHeader */ = {
 			isa = PBXGroup;
 			children = (
-				52392C421D50462B0095F57B /* ElasticRefreshControl.swift */,
-				52392C431D50462B0095F57B /* ElasticRefreshHeader.swift */,
+				52D0E5BB1DF27047004672E8 /* ElasticRefreshControl.swift */,
+				52D0E5BC1DF27047004672E8 /* ElasticRefreshHeader.swift */,
 			);
 			name = CustomHeader;
 			sourceTree = "<group>";
@@ -1104,8 +1104,8 @@
 				5238C8021D3763BA00B3B4FE /* PullToRefresh.swift in Sources */,
 				529993F31D4F36A700B3354F /* QQVideoRefreshHeader.swift in Sources */,
 				52261F131D36879C00161ADF /* DefaultBannerController.swift in Sources */,
-				52392C451D50462B0095F57B /* ElasticRefreshHeader.swift in Sources */,
 				5238C7D31D37427C00B3B4FE /* TaoBaoRefreshHeader.swift in Sources */,
+				52D0E5BE1DF27047004672E8 /* ElasticRefreshHeader.swift in Sources */,
 				52E8FB421D336E26000D0BF1 /* MainViewController.swift in Sources */,
 				52E8FB401D336E26000D0BF1 /* AppDelegate.swift in Sources */,
 				5259F1B31D532BB60054B4D3 /* CurveMaskTableViewController.swift in Sources */,
@@ -1115,10 +1115,10 @@
 				5238C8001D3763BA00B3B4FE /* Header.swift in Sources */,
 				52D8102F1D50260000CB0E52 /* QQVideoTableViewController.swift in Sources */,
 				523B68DE1D4C59DC009861C1 /* ElasticHeaderTableViewController.swift in Sources */,
-				52392C441D50462B0095F57B /* ElasticRefreshControl.swift in Sources */,
 				52626DF31D4274AD00DF8E6C /* DefaultWebViewController.swift in Sources */,
 				5238C7D51D37449800B3B4FE /* TaobaoTableViewController.swift in Sources */,
 				52261F0B1D36730F00161ADF /* DefaultCollectionViewController.swift in Sources */,
+				52D0E5BD1DF27047004672E8 /* ElasticRefreshControl.swift in Sources */,
 				52FA97A41D3882190021D77F /* BaseTableViewController.swift in Sources */,
 				52261F0D1D36832600161ADF /* ConfigHeaderFooterController.swift in Sources */,
 				52C0E4881D3726EB00618231 /* ConfigBannerController.swift in Sources */,
