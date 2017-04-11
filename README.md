@@ -71,7 +71,7 @@ pod "PullToRefreshKit"
 ```
 ## Useage
 
-###Pull down to refresh
+### Pull down to refresh
 
 
 ```
@@ -91,7 +91,7 @@ self?.tableView.endHeaderRefreshing(.Success,delay: 0.5)
 <img src="https://raw.github.com/LeoMobileDeveloper/PullToRefreshKit/master/Screenshot/gif1.gif" width="320">
 
 
-###Pull up to load more
+### Pull up to load more
 
 Support three mode to fire refresh action
 - [x] Tap
@@ -109,7 +109,7 @@ Support three mode to fire refresh action
 <img src="https://raw.github.com/LeoMobileDeveloper/PullToRefreshKit/master/Screenshot/gif2.gif" width="320">
 
 
-###Pull left to exit
+### Pull left to exit
 
 ```
  scrollView.setUpLeftRefresh { [weak self] in
@@ -119,7 +119,7 @@ Support three mode to fire refresh action
 
 <img src="https://raw.github.com/LeoMobileDeveloper/PullToRefreshKit/master/Screenshot/gif3.gif" width="200">
 
-###Pull right to enter
+### Pull right to enter
 
 ```
  scrollView.setUpRightRefresh { [weak self] in
@@ -130,7 +130,7 @@ Support three mode to fire refresh action
 
 <img src="https://raw.github.com/LeoMobileDeveloper/PullToRefreshKit/master/Screenshot/gif4.gif" width="200">
 
-###Config the default refresh text
+### Config the default refresh text
 PullToRefershKit offer `SetUp` operator，for example
 
 ```
