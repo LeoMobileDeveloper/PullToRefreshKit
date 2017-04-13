@@ -31,7 +31,7 @@ public enum RefreshKitHeaderText{
     case refreshing = 2
     case willRefresh = 3
 }
-open class DefaultRefreshHeader:UIView,RefreshableHeader{
+open class DefaultRefreshHeader:UIView,RefreshableHeader, Tintable {
     open let spinner:UIActivityIndicatorView = UIActivityIndicatorView(activityIndicatorStyle: .gray)
     open let textLabel:UILabel = UILabel(frame: CGRect(x: 0,y: 0,width: 140,height: 40))
     open let imageView:UIImageView = UIImageView(frame: CGRect.zero)
@@ -45,6 +45,7 @@ open class DefaultRefreshHeader:UIView,RefreshableHeader{
         let image = UIImage(named: "arrow_down", in: Bundle(for: DefaultRefreshHeader.self), compatibleWith: nil)
         imageView.image = image
         imageView.sizeToFit()
+        imageView.becomeTintable()
         textLabel.font = UIFont.systemFont(ofSize: 14)
         textLabel.textAlignment = .center
         self.isHidden = true
@@ -114,17 +115,26 @@ open class DefaultRefreshHeader:UIView,RefreshableHeader{
             textLabel.text = textDic[.pullToRefresh]
             imageView.image = UIImage(named: "arrow_down", in: Bundle(for: DefaultRefreshHeader.self), compatibleWith: nil)
         }
+        imageView.becomeTintable()
     }
     open func didCompleteEndRefershingAnimation(_ result:RefreshResult) {
         textLabel.text = textDic[.pullToRefresh]
         self.isHidden = true
         imageView.image = UIImage(named: "arrow_down", in: Bundle(for: DefaultRefreshHeader.self), compatibleWith: nil)
+        imageView.becomeTintable()
     }
     open func didBeginRefreshingState() {
         self.isHidden = false
         textLabel.text = textDic[.refreshing]
         spinner.startAnimating()
         imageView.isHidden = true
+    }
+    
+    // MARK: Tintable
+    func setThemeColor(themeColor: UIColor) {
+        imageView.tintColor = themeColor
+        textLabel.textColor = themeColor
+        spinner.color = themeColor
     }
 }
 

@@ -56,3 +56,13 @@ struct PullToRefreshKitRightString{
     static let releaseToViewMore = "滑动浏览更多"
 }
 
+protocol Tintable {
+    func setThemeColor(themeColor: UIColor)
+}
+
+extension UIImageView {
+    func becomeTintable() {
+        image = image?.withRenderingMode(.alwaysTemplate)
+    }
+}
+

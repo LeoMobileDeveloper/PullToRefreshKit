@@ -14,7 +14,7 @@ public enum RefreshKitLeftRightText{
     case releaseToAction
 }
 
-open class DefaultRefreshLeft:UIView,RefreshableLeftRight{
+open class DefaultRefreshLeft:UIView, RefreshableLeftRight, Tintable {
     open let imageView:UIImageView = UIImageView()
     open let textLabel:UILabel  = UILabel().SetUp {
         $0.font = UIFont.systemFont(ofSize: 14)
@@ -39,6 +39,7 @@ open class DefaultRefreshLeft:UIView,RefreshableLeftRight{
         imageView.frame = CGRect(x: 0, y: 0,width: 20, height: 20)
         let image = UIImage(named: "arrow_right", in: Bundle(for: DefaultRefreshHeader.self), compatibleWith: nil)
         imageView.image = image
+        imageView.becomeTintable()
         textDic[.scrollToAction] = PullToRefreshKitLeftString.scrollToClose
         textDic[.releaseToAction] = PullToRefreshKitLeftString.releaseToClose
         textLabel.text = textDic[.scrollToAction]
@@ -80,6 +81,12 @@ open class DefaultRefreshLeft:UIView,RefreshableLeftRight{
     }
    open func didCompleteEndRefershingAnimation() {
         textLabel.text = textDic[.scrollToAction]
+    }
+    
+    // MARK: Tintable
+    func setThemeColor(themeColor: UIColor) {
+        imageView.tintColor = themeColor
+        textLabel.textColor = themeColor
     }
 }
 
