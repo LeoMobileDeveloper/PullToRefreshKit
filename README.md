@@ -50,6 +50,7 @@
 - Swift 3.0
 
 For Swift 2.3, See branch [Swift2](https://github.com/LeoMobileDeveloper/PullToRefreshKit/tree/Swift2)
+
 ##Support
 
 UITableView/UICollectionView/UIScrollView/UIWebView
@@ -131,6 +132,7 @@ Support three mode to fire refresh action
 <img src="https://raw.github.com/LeoMobileDeveloper/PullToRefreshKit/master/Screenshot/gif4.gif" width="200">
 
 ### Config the default refresh text
+
 PullToRefershKit offer `SetUp` operator，for example
 
 ```
@@ -150,7 +152,7 @@ self.tableView.setUpHeaderRefresh { [weak self] in
 }
 ```
 
-###Customize
+### Customize
 
 You just need to write a `UIView` sub class,and make it conforms to these protocols
 
