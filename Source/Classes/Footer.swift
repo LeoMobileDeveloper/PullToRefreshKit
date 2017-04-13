@@ -46,7 +46,7 @@ public enum RefreshMode{
     case scrollAndTap
 }
 
-open class DefaultRefreshFooter:UIView,RefreshableFooter{
+open class DefaultRefreshFooter:UIView, RefreshableFooter, Tintable{
     open let spinner:UIActivityIndicatorView = UIActivityIndicatorView(activityIndicatorStyle: .gray)
     open  let textLabel:UILabel = UILabel(frame: CGRect(x: 0,y: 0,width: 140,height: 40)).SetUp {
         $0.font = UIFont.systemFont(ofSize: 14)
@@ -146,6 +146,12 @@ open class DefaultRefreshFooter:UIView,RefreshableFooter{
             return
         }
         self.backgroundColor = UIColor.white
+    }
+    
+    // MARK: Tintable
+    func setThemeColor(themeColor: UIColor) {
+        textLabel.textColor = themeColor
+        spinner.color = themeColor
     }
 }
 

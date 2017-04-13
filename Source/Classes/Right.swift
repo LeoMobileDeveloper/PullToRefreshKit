@@ -9,7 +9,7 @@ import Foundation
 import UIKit
 
 
-open class DefaultRefreshRight:UIView,RefreshableLeftRight{
+open class DefaultRefreshRight:UIView, RefreshableLeftRight, Tintable {
     open let imageView:UIImageView = UIImageView()
     open  let textLabel:UILabel  = UILabel().SetUp {
         $0.font = UIFont.systemFont(ofSize: 14)
@@ -32,6 +32,7 @@ open class DefaultRefreshRight:UIView,RefreshableLeftRight{
         imageView.frame = CGRect(x: 0, y: 0,width: 20, height: 20)
         let image = UIImage(named: "arrow_left", in: Bundle(for: DefaultRefreshHeader.self), compatibleWith: nil)
         imageView.image = image
+        imageView.becomeTintable()
         textDic[.scrollToAction] = PullToRefreshKitRightString.scrollToViewMore
         textDic[.releaseToAction] = PullToRefreshKitRightString.releaseToViewMore
         textLabel.text = textDic[.scrollToAction]
@@ -74,6 +75,12 @@ open class DefaultRefreshRight:UIView,RefreshableLeftRight{
     }
    open  func didBeginRefreshing() {
         
+    }
+    
+    // MARK: Tintable
+    func setThemeColor(themeColor: UIColor) {
+        imageView.tintColor = themeColor
+        textLabel.textColor = themeColor
     }
 }
 

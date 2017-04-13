@@ -24,14 +24,16 @@ class DefaultTableViewController:UITableViewController{
     override func viewDidLoad() {
         super.viewDidLoad()
         self.tableView.tableFooterView = UIView(frame: CGRect.zero)
-        _ = self.tableView.setUpHeaderRefresh { [weak self] in
+        let header = self.tableView.setUpHeaderRefresh { [weak self] in
            delay(1.5, closure: { 
                 self?.models = (self?.models.map({_ in random100()}))!
                 self?.tableView.reloadData()
                 self?.tableView.endHeaderRefreshing(.success,delay: 0.5)
            })
         }
-        _ = self.tableView.setUpFooterRefresh {  [weak self] in
+        header.setThemeColor(themeColor: UIColor.red)
+        
+        let footer = self.tableView.setUpFooterRefresh {  [weak self] in
             delay(1.5, closure: {
                 self?.models.append(random100())
                 self?.tableView.reloadData()
@@ -42,6 +44,8 @@ class DefaultTableViewController:UITableViewController{
                 }
             })
         }
+        footer.setThemeColor(themeColor: UIColor.red)
+        
         self.tableView.beginHeaderRefreshing()
     }
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
