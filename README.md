@@ -51,16 +51,16 @@
 
 For Swift 2.3, See branch [Swift2](https://github.com/LeoMobileDeveloper/PullToRefreshKit/tree/Swift2)
 
-##Support
+## Support
 
 UITableView/UICollectionView/UIScrollView/UIWebView
 
-- [x] Add pull to refresh within on call. Support refresh result
-- [x] Add pull to load more within one call
-- [x] Add pull left/right to load more(Currently only support chinese)
-- [x] Support Elastic refresh 
+- [x] Refresh within on call. Support dealy do display refresh result
+- [x] Pull to load more within one call
+- [x] Pull left/right to load more(Currently only support chinese)
+- [x] Elastic refresh 
 - [x] Easy to customize
-- [x] Support English and Chinese
+- [x] English and Chinese
 
 
 ## Install
