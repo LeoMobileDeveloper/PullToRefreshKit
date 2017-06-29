@@ -84,12 +84,12 @@ open class DefaultRefreshHeader:UIView,RefreshableHeader, Tintable {
                 return
             }
             UIView.animate(withDuration: 0.4, animations: {
-                self.imageView.transform = CGAffineTransform(rotationAngle: CGFloat(-M_PI+0.000001))
+                self.imageView.transform = CGAffineTransform(rotationAngle: -CGFloat.pi+0.000001)
             })
         }
         if oldState == RefreshHeaderState.pulling && newState == RefreshHeaderState.idle {
             textLabel.text = textDic[.pullToRefresh]
-            guard self.imageView.transform == CGAffineTransform(rotationAngle: CGFloat(-M_PI+0.000001))  else{
+            guard self.imageView.transform == CGAffineTransform(rotationAngle: -CGFloat.pi+0.000001)  else{
                 return
             }
             UIView.animate(withDuration: 0.4, animations: {

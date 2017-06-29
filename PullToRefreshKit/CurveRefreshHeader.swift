@@ -43,7 +43,7 @@ class CurveRefreshHeader: UIView,RefreshableHeader{
     func stateDidChanged(_ oldState: RefreshHeaderState, newState: RefreshHeaderState) {
         if newState == .pulling && oldState == .idle{
             UIView.animate(withDuration: 0.4, animations: {
-                self.imageView.transform = CGAffineTransform(rotationAngle: CGFloat(-M_PI+0.000001))
+                self.imageView.transform = CGAffineTransform(rotationAngle: -CGFloat.pi+0.000001)
             })
         }
         if newState == .idle{

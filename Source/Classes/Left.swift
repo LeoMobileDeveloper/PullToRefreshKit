@@ -62,12 +62,12 @@ open class DefaultRefreshLeft:UIView, RefreshableLeftRight, Tintable {
                 return
             }
             UIView.animate(withDuration: 0.4, animations: {
-                self.imageView.transform = CGAffineTransform(rotationAngle: CGFloat(-M_PI+0.000001))
+                self.imageView.transform = CGAffineTransform(rotationAngle: -CGFloat.pi+0.000001)
             })
             textLabel.text = textDic[.releaseToAction]
         }
         if percent <= 1.0{
-            guard self.imageView.transform == CGAffineTransform(rotationAngle: CGFloat(-M_PI+0.000001)) else{
+            guard self.imageView.transform == CGAffineTransform(rotationAngle: -CGFloat.pi+0.000001) else{
                 return
             }
             textLabel.text = textDic[.scrollToAction]

@@ -53,8 +53,8 @@ class TaoBaoRefreshHeader:UIView,RefreshableHeader{
     func setUpCircleLayer(){
         let bezierPath = UIBezierPath(arcCenter: CGPoint(x: 20, y: 20),
                                       radius: 12.0,
-                                      startAngle:CGFloat(-M_PI/2),
-                                      endAngle: CGFloat(M_PI_2 * 3),
+                                      startAngle:-CGFloat.pi/2,
+                                      endAngle: CGFloat.pi/2.0 * 3.0,
                                       clockwise: true)
         self.circleLayer.path = bezierPath.cgPath
         self.circleLayer.strokeColor = UIColor.lightGray.cgColor
@@ -87,7 +87,7 @@ class TaoBaoRefreshHeader:UIView,RefreshableHeader{
     func didBeginRefreshingState(){
         self.circleLayer.strokeEnd = 0.95
         let rotateAnimation = CABasicAnimation(keyPath: "transform.rotation.z")
-        rotateAnimation.toValue = NSNumber(value: M_PI * 2.0 as Double)
+        rotateAnimation.toValue = NSNumber(value: Double.pi * 2.0)
         rotateAnimation.duration = 0.6
         rotateAnimation.isCumulative = true
         rotateAnimation.repeatCount = 10000000

@@ -105,7 +105,7 @@ open class ElasticRefreshControl: UIView {
         let downCenter = CGPoint(x: centerX, y: totalHeight - downRadius - margin)
     
         //偏移的角度
-        let offSetAngle:CGFloat = CGFloat(M_PI_2 / 12.0)
+        let offSetAngle:CGFloat = CGFloat.pi / 2.0 / 12.0
         //计算上面圆的左/右的交点坐标
         let upP1 = CGPoint(x: upCenter.x - upRadius * cosCGFloat(offSetAngle), y: upCenter.y + upRadius * sinCGFloat(offSetAngle))
         let upP2 = CGPoint(x: upCenter.x + upRadius * cosCGFloat(offSetAngle), y: upCenter.y + upRadius * sinCGFloat(offSetAngle))
@@ -119,17 +119,17 @@ open class ElasticRefreshControl: UIView {
         
         //实际绘制
         context?.setFillColor(elasticTintColor.cgColor)
-        context?.addArc(center: upCenter, radius: upRadius, startAngle: CGFloat(-M_PI)-offSetAngle, endAngle: offSetAngle, clockwise: false)
+        context?.addArc(center: upCenter, radius: upRadius, startAngle: -CGFloat.pi - offSetAngle, endAngle: offSetAngle, clockwise: false)
         context?.move(to: CGPoint(x: upP1.x, y: upP1.y))
         context?.addQuadCurve(to: downP1, control: controPonintLeft)
-        context?.addArc(center: downCenter, radius: downRadius, startAngle: CGFloat(-M_PI)-offSetAngle, endAngle: offSetAngle, clockwise: true)
+        context?.addArc(center: downCenter, radius: downRadius, startAngle: -CGFloat.pi - offSetAngle, endAngle: offSetAngle, clockwise: true)
         context?.addQuadCurve(to: upP2, control: controPonintRight)
         context?.fillPath()
         
         //绘制箭头
         context?.setStrokeColor(arrowColor.cgColor)
         context?.setLineWidth(lineWidth)
-        context?.addArc(center: upCenter, radius: arrowRadius, startAngle: 0, endAngle: CGFloat(M_PI * 1.5), clockwise: false)
+        context?.addArc(center: upCenter, radius: arrowRadius, startAngle: 0, endAngle: CGFloat.pi * 1.5, clockwise: false)
         context?.strokePath()
         
         context?.setFillColor(arrowColor.cgColor)
