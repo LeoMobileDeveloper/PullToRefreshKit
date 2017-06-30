@@ -13,8 +13,8 @@
  [![License](http://img.shields.io/badge/license-MIT-lightgrey.svg?style=flat
 )](http://mit-license.org)
 
-**The example project contains some hot App refresh example.
-**
+**The example project contains some hot App refresh example.**
+
 <table>
 <tr>
 <th>Taobao</th>
@@ -55,8 +55,8 @@ For Swift 2.3, See branch [Swift2](https://github.com/LeoMobileDeveloper/PullToR
 
 UITableView/UICollectionView/UIScrollView/UIWebView
 
-- [x] Refresh within on call. Support dealy do display refresh result
-- [x] Pull to load more within one call
+- [x] Pull to refresh.
+- [x] Pull/Tap to load more.
 - [x] Pull left/right to load more(Currently only support chinese)
 - [x] Elastic refresh 
 - [x] Easy to customize
@@ -70,6 +70,13 @@ CocoaPod
 ```
 pod "PullToRefreshKit"
 ```
+
+Carthage
+
+```
+github "LeoMobileDeveloper/PullToRefreshKit"
+```
+
 ## Useage
 
 ### Pull down to refresh
