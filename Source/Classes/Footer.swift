@@ -149,7 +149,7 @@ open class DefaultRefreshFooter:UIView, RefreshableFooter, Tintable{
     }
     
     // MARK: Tintable
-    func setThemeColor(themeColor: UIColor) {
+    open func setThemeColor(themeColor: UIColor) {
         textLabel.textColor = themeColor
         spinner.color = themeColor
     }

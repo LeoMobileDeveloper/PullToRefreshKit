@@ -8,6 +8,8 @@
 
 import Foundation
 import UIKit
+import PullToRefreshKit
+
 class DianpingRefreshHeader:UIView,RefreshableHeader{
     let imageView = UIImageView()
     override init(frame: CGRect) {

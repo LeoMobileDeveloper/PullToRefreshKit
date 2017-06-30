@@ -7,6 +7,7 @@
 //
 import Foundation
 import UIKit
+import PullToRefreshKit
 
 class QQVideoRefreshHeader:UIView,RefreshableHeader{
     let imageView = UIImageView()

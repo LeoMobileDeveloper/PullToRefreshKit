@@ -8,6 +8,7 @@
 
 import UIKit
 import AudioToolbox
+import PullToRefreshKit
 /* 
     如果你喜欢这个库，一个★就是对我最好的支持，项目地址 https://github.com/LeoMobileDeveloper/PullToRefreshKit
  */
