@@ -131,7 +131,7 @@ open class DefaultRefreshHeader:UIView,RefreshableHeader, Tintable {
     }
     
     // MARK: Tintable
-    func setThemeColor(themeColor: UIColor) {
+    open func setThemeColor(themeColor: UIColor) {
         imageView.tintColor = themeColor
         textLabel.textColor = themeColor
         spinner.color = themeColor

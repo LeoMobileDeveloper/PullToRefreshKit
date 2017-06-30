@@ -8,7 +8,7 @@
 
 import Foundation
 import UIKit
-
+import PullToRefreshKit
 
 class TaoBaoRefreshHeader:UIView,RefreshableHeader{
     fileprivate let circleLayer = CAShapeLayer()

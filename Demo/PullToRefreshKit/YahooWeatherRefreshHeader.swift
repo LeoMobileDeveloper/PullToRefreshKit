@@ -8,6 +8,7 @@
 
 import Foundation
 import UIKit
+import PullToRefreshKit
 
 class YahooWeatherRefreshHeader: UIView,RefreshableHeader{
     

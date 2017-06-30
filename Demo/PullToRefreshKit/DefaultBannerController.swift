@@ -8,6 +8,8 @@
 
 import Foundation
 import UIKit
+import PullToRefreshKit
+
 class DefaultBannerController: UIViewController {
     let scrollView = UIScrollView()
     override func viewDidLoad() {

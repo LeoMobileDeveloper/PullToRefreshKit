@@ -7,8 +7,9 @@
 //
 
 import Foundation
-
+import PullToRefreshKit
 import UIKit
+
 class ElasticHeaderTableViewController:BaseTableViewController{
     override func viewDidLoad() {
         super.viewDidLoad()

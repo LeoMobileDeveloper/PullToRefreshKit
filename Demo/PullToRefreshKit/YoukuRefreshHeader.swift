@@ -8,6 +8,7 @@
 
 import Foundation
 import UIKit
+import PullToRefreshKit
 
 //一共高度是两百
 private var frameHeight:CGFloat{

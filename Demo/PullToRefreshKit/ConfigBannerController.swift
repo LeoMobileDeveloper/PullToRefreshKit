@@ -8,7 +8,7 @@
 
 import Foundation
 import UIKit
-
+import PullToRefreshKit
 class ConfigBannerController: UIViewController {
     let scrollView = UIScrollView()
     override func viewDidLoad() {

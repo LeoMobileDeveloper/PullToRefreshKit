@@ -8,6 +8,7 @@
 
 import Foundation
 import UIKit
+import PullToRefreshKit
 
 class CurveRefreshHeader: UIView,RefreshableHeader{
     let imageView = UIImageView()
