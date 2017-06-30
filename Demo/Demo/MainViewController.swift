@@ -73,7 +73,7 @@ class MainViewController: UITableViewController {
         tableView.deselectRow(at: indexPath, animated: true)
         let sectionModel = models[(indexPath as NSIndexPath).section]
         var className = sectionModel.rowsTargetControlerNames[(indexPath as NSIndexPath).row]
-        className = "PullToRefreshKit.\(className)"
+        className = "Demo.\(className)"
         if let cls = NSClassFromString(className) as? UIViewController.Type{
             let dvc = cls.init()
             self.navigationController?.pushViewController(dvc, animated: true)
