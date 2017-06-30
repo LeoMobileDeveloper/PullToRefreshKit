@@ -5,13 +5,13 @@
 
 </p>
 
-
  [![Version](https://img.shields.io/cocoapods/v/PullToRefreshKit.svg?style=flat)](http://cocoapods.org/pods/PullToRefreshKit)  [![Platform](http://img.shields.io/badge/platform-ios-blue.svg?style=flat
 )](https://developer.apple.com/iphone/index.action)
  [![Language](http://img.shields.io/badge/language-swift-brightgreen.svg?style=flat
 )](https://developer.apple.com/swift)
  [![License](http://img.shields.io/badge/license-MIT-lightgrey.svg?style=flat
 )](http://mit-license.org)
+[![Build Status](https://travis-ci.org/LeoMobileDeveloper/PullToRefreshKit.svg?branch=master)](https://travis-ci.org/LeoMobileDeveloper/PullToRefreshKit)
 
 **The example project contains some hot App refresh example.**
 
