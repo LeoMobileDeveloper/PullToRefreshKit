@@ -34,7 +34,6 @@
 		B3B543EE1F062A9800408912 /* DianpingTableviewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3B543121F062A9700408912 /* DianpingTableviewController.swift */; };
 		B3B543EF1F062A9800408912 /* ElasticHeaderTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3B543131F062A9700408912 /* ElasticHeaderTableViewController.swift */; };
 		B3B543F01F062A9800408912 /* failure@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = B3B543141F062A9700408912 /* failure@3x.png */; };
-		B3B543F11F062A9800408912 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = B3B543151F062A9700408912 /* Info.plist */; };
 		B3B5442E1F062A9800408912 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3B543521F062A9700408912 /* MainViewController.swift */; };
 		B3B5442F1F062A9800408912 /* QQVideoRefreshHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3B543531F062A9700408912 /* QQVideoRefreshHeader.swift */; };
 		B3B544301F062A9800408912 /* QQVideoTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3B543541F062A9700408912 /* QQVideoTableViewController.swift */; };
@@ -340,7 +339,6 @@
 				B3B543E01F062A9700408912 /* banner2.jpg in Resources */,
 				B3B544AB1F062A9800408912 /* youku_refreshing@3x.png in Resources */,
 				B3B543F01F062A9800408912 /* failure@3x.png in Resources */,
-				B3B543F11F062A9800408912 /* Info.plist in Resources */,
 				B3B543DE1F062A9700408912 /* Assets.xcassets in Resources */,
 				B3B544331F062A9800408912 /* success@3x.png in Resources */,
 				B3B544A61F062A9800408912 /* yahoo_logo@3x.png in Resources */,

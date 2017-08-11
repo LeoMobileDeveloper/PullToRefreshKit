@@ -36,13 +36,14 @@ class MainViewController: UITableViewController {
         models.append(section1)
         models.append(section2)
         models.append(section3)
-        let header = self.tableView.setUpHeaderRefresh { [weak self] in
+        self.tableView.setUpHeaderRefresh { [weak self] in
             let delayTime = DispatchTime.now() + Double(Int64(2 * Double(NSEC_PER_SEC))) / Double(NSEC_PER_SEC)
             DispatchQueue.main.asyncAfter(deadline: delayTime) {
                 self?.tableView.endHeaderRefreshing(.success,delay:0.3)
             }
+        }.SetUp { (header) in
+            header.setThemeColor(themeColor: UIColor.blue)
         }
-        header.setThemeColor(themeColor: UIColor.blue)
         self.tableView.tableFooterView = UIView(frame: CGRect.zero)
     }
     
