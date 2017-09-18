@@ -318,7 +318,7 @@ open class RefreshHeaderContainer:UIView{
             }
         }
     }
-    func updateStateToIdea(){
+    @objc func updateStateToIdea(){
         self.state = .idle
         clearTimer()
     }
