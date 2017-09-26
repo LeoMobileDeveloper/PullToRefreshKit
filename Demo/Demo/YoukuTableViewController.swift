@@ -35,7 +35,7 @@ class YoukuTableViewController:BaseTableViewController{
         sw.addTarget(self, action: #selector(YoukuTableViewController.switchValueChanged(_:)), for: UIControlEvents.valueChanged)
         self.navigationItem.rightBarButtonItem = rightItem
     }
-    func switchValueChanged(_ sender:UISwitch){
+    @objc func switchValueChanged(_ sender:UISwitch){
         refreshHeader?.backgroundImageView.isHidden = !sender.isOn
     }
 }

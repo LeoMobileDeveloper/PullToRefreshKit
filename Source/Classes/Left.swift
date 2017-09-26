@@ -13,8 +13,8 @@ public enum RefreshKitLeftRightText{
     case scrollToAction
     case releaseToAction
 }
-
-open class DefaultRefreshLeft:UIView, RefreshableLeftRight, Tintable {
+@objcMembers
+open class DefaultRefreshLeft: UIView, RefreshableLeftRight, Tintable {
     open let imageView:UIImageView = UIImageView()
     open let textLabel:UILabel  = UILabel().SetUp {
         $0.font = UIFont.systemFont(ofSize: 14)
@@ -44,7 +44,7 @@ open class DefaultRefreshLeft:UIView, RefreshableLeftRight, Tintable {
         textDic[.releaseToAction] = PullToRefreshKitLeftString.releaseToClose
         textLabel.text = textDic[.scrollToAction]
     }
-   public required init?(coder aDecoder: NSCoder) {
+    public required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     open override func layoutSubviews() {
@@ -76,10 +76,10 @@ open class DefaultRefreshLeft:UIView, RefreshableLeftRight, Tintable {
             })
         }
     }
-   open func didBeginRefreshing() {
+    open func didBeginRefreshing() {
 
     }
-   open func didCompleteEndRefershingAnimation() {
+    open func didCompleteEndRefershingAnimation() {
         textLabel.text = textDic[.scrollToAction]
     }
     

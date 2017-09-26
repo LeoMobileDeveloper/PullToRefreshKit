@@ -100,7 +100,7 @@ open class DefaultRefreshFooter:UIView, RefreshableFooter, Tintable{
     public required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    func catchTap(_ tap:UITapGestureRecognizer){
+    @objc func catchTap(_ tap:UITapGestureRecognizer){
         let scrollView = self.superview?.superview as? UIScrollView
         scrollView?.beginFooterRefreshing()
     }
