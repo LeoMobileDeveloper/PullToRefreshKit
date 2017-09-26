@@ -70,7 +70,7 @@ UITableView/UICollectionView/UIScrollView/UIWebView
 CocoaPod
 
 ```
-pod "PullToRefreshKit"
+pod "PullToRefreshKit" , "~> 0.6.0"
 ```
 
 Carthage
