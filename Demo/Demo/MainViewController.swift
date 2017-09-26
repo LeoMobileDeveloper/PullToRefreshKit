@@ -45,6 +45,10 @@ class MainViewController: UITableViewController {
             header.setThemeColor(themeColor: UIColor.blue)
         }
         self.tableView.tableFooterView = UIView(frame: CGRect.zero)
+        if #available(iOS 11.0, *) {
+            self.tableView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentBehavior.never
+        } else {
+        }
     }
     
     override func numberOfSections(in tableView: UITableView) -> Int {

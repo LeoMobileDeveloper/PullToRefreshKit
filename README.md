@@ -49,9 +49,9 @@
 ## Require
 
 - iOS 8
-- Swift 3.0
+- Swift 4.0
 
-For Swift 2.3, See branch [Swift2](https://github.com/LeoMobileDeveloper/PullToRefreshKit/tree/Swift2)
+For Swift 3, See branch [Swift3](https://github.com/LeoMobileDeveloper/PullToRefreshKit/tree/Swift3)
 
 ## Support
 

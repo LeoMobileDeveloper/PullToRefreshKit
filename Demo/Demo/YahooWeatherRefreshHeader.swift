@@ -54,7 +54,7 @@ class YahooWeatherRefreshHeader: UIView,RefreshableHeader{
         imageView.startAnimating()
         self.perform(#selector(YahooWeatherRefreshHeader.transitionFinihsed), with: nil, afterDelay: imageView.animationDuration)
     }
-    func transitionFinihsed(){
+    @objc func transitionFinihsed(){
         imageView.stopAnimating()
         let images = (73...109).map({return $0 < 100 ? "sun_000\($0)" : "sun_00\($0)"}).map({UIImage(named:$0)!})
         imageView.animationImages = images
