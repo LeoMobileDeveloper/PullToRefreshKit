@@ -206,7 +206,8 @@ public extension UIScrollView{
     }
     public func setFooterNoMoreData(){
         let footer = self.viewWithTag(PullToRefreshKitConst.footerTag) as? RefreshFooterContainer
-        footer?.endRefreshing()
+        footer?.updateToNoMoreData()
+//         footer?.endRefreshing()
     }
     public func resetFooterToDefault(){
         let footer = self.viewWithTag(PullToRefreshKitConst.footerTag) as? RefreshFooterContainer
