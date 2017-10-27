@@ -20,7 +20,6 @@ open class ElasticRefreshHeader: UIView,RefreshableHeader {
         let adjustFrame = CGRect(x: frame.origin.x, y: frame.origin.y, width: frame.size.width, height: totalHegiht)
         super.init(frame: adjustFrame)
         self.autoresizingMask = .flexibleWidth
-        self.backgroundColor = UIColor.white
         imageView.sizeToFit()
         imageView.frame = CGRect(x: 0, y: 0, width: 16, height: 16)
         textLabel.font = UIFont.systemFont(ofSize: 12)
