@@ -198,7 +198,9 @@ public extension UIScrollView{
     }
     public func beginFooterRefreshing(){
         let footer = self.viewWithTag(PullToRefreshKitConst.footerTag) as? RefreshFooterContainer
-        footer?.beginRefreshing()
+        if footer?.state == .idle {
+            footer?.beginRefreshing()
+        }
     }
     public func endFooterRefreshing(){
         let footer = self.viewWithTag(PullToRefreshKitConst.footerTag) as? RefreshFooterContainer
