@@ -9,16 +9,39 @@
 import Foundation
 import UIKit
 
+public protocol RefreshableLeftRight:class{
+    /**
+     触发动作的距离，对于header/footer来讲，就是视图的高度；对于left/right来讲，就是视图的宽度
+     */
+    func heightForRefreshingState()->CGFloat
+    /**
+     已经开始执行刷新逻辑，在一次刷新中，只会调用一次
+     */
+    func didBeginRefreshing()
+    /**
+     结束刷新的回调
+     */
+    func didCompleteEndRefershingAnimation()
+    /**
+     拖动百分比变化的回调
+     
+     - parameter percent: 拖动百分比，大于0
+     */
+    func percentUpdateDuringScrolling(_ percent:CGFloat)
+}
+
+
 public enum RefreshKitLeftRightText{
     case scrollToAction
     case releaseToAction
 }
 @objcMembers
-open class DefaultRefreshLeft: UIView, RefreshableLeftRight, Tintable {
-    open let imageView:UIImageView = UIImageView()
-    open let textLabel:UILabel  = UILabel().SetUp {
-        $0.font = UIFont.systemFont(ofSize: 14)
+open class DefaultRefreshLeft: UIView, RefreshableLeftRight {
+    open static func left()->DefaultRefreshLeft{
+        return DefaultRefreshLeft(frame: CGRect(x: 0, y: 0, width: PullToRefreshKitConst.defaultLeftWidth, height: UIScreen.main.bounds.size.height))
     }
+    open let imageView:UIImageView = UIImageView()
+    open let textLabel:UILabel  = UILabel()
     fileprivate var textDic = [RefreshKitLeftRightText:String]()
     
     /**
@@ -34,12 +57,12 @@ open class DefaultRefreshLeft: UIView, RefreshableLeftRight, Tintable {
         addSubview(imageView)
         addSubview(textLabel)
         textLabel.frame = CGRect(x: 10,y: 0,width: 20,height: frame.size.height)
+        textLabel.font = UIFont.systemFont(ofSize: 14)
         textLabel.autoresizingMask = .flexibleHeight
         textLabel.numberOfLines = 0
         imageView.frame = CGRect(x: 0, y: 0,width: 20, height: 20)
         let image = UIImage(named: "arrow_right", in: Bundle(for: DefaultRefreshHeader.self), compatibleWith: nil)
         imageView.image = image
-        imageView.becomeTintable()
         textDic[.scrollToAction] = PullToRefreshKitLeftString.scrollToClose
         textDic[.releaseToAction] = PullToRefreshKitLeftString.releaseToClose
         textLabel.text = textDic[.scrollToAction]
@@ -84,9 +107,11 @@ open class DefaultRefreshLeft: UIView, RefreshableLeftRight, Tintable {
     }
     
     // MARK: Tintable
-    func setThemeColor(themeColor: UIColor) {
-        imageView.tintColor = themeColor
-        textLabel.textColor = themeColor
+    override open var tintColor: UIColor!{
+        didSet{
+            imageView.tintColor = tintColor
+            textLabel.textColor = tintColor
+        }
     }
 }
 

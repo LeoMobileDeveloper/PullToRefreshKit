@@ -11,20 +11,21 @@ import UIKit
 import PullToRefreshKit
 
 class DefaultCollectionViewController:UIViewController,UICollectionViewDataSource{
-    var collectionView:UICollectionView?
+    var collectionView:UICollectionView!
     override func viewDidLoad() {
         self.view.backgroundColor = UIColor.white
         self.setUpCollectionView()
-        _ = self.collectionView?.setUpHeaderRefresh({ [weak self] in
+        self.collectionView.configRefreshHeader(with: DefaultRefreshHeader.header()) {
             delay(1.0, closure: {
-                self?.collectionView?.endHeaderRefreshing(.success,delay: 0.3)
+                self.collectionView.switchRefreshHeader(to: .normal(.success, 0.5));
             });
-        })
-        _ = self.collectionView?.setUpFooterRefresh({ [weak self] in
+        }
+        self.collectionView.configRefreshFooter(with: DefaultRefreshFooter.footer()) {
             delay(1.0, closure: {
-                self?.collectionView?.endFooterRefreshing()
+                self.collectionView.switchRefreshFooter(to: .normal)
             });
-        })
+        };
+
     }
     func setUpCollectionView(){
         let flowLayout = UICollectionViewFlowLayout()

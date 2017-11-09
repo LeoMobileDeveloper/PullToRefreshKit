@@ -10,6 +10,54 @@
 import Foundation
 import UIKit
 
+@objc public protocol RefreshableHeader: class{
+    /**
+     在刷新状态的时候，距离顶部的距离
+     */
+    func heightForRefreshingState()->CGFloat
+    
+    /**
+     进入刷新状态的回调，在这里将视图调整为刷新中
+     */
+    func didBeginRefreshingState()
+    
+    /**
+     刷新结束，将要进行隐藏的动画，一般在这里告诉用户刷新的结果
+     - parameter result: 刷新结果
+     */
+    func didBeginEndRefershingAnimation(_ result:RefreshResult)
+    /**
+     刷新结束，隐藏的动画结束，一般在这里把视图隐藏，各个参数恢复到最初状态
+     
+     - parameter result: 刷新结果
+     */
+    func didCompleteEndRefershingAnimation(_ result:RefreshResult)
+    
+    /**
+     状态改变
+     
+     - parameter newState: 新的状态
+     - parameter oldState: 老得状态
+     */
+    @objc optional func stateDidChanged(_ oldState:RefreshHeaderState, newState:RefreshHeaderState)
+    /**
+     触发刷新的距离，可选，如果没有实现，则默认触发刷新的距离就是 heightForRefreshingState
+     */
+    @objc optional func heightForFireRefreshing()->CGFloat
+    
+    /**
+     不在刷新状态的时候，百分比回调，在这里你根据百分比来动态的调整你的刷新视图
+     - parameter percent: 拖拽的百分比，比如一共距离是100，那么拖拽10的时候，percent就是0.1
+     */
+    @objc optional func percentUpdateDuringScrolling(_ percent:CGFloat)
+    
+    /**
+     刷新结束，隐藏header的时间间隔，默认0.4s
+     
+     */
+    @objc optional func durationWhenEndRefreshing()->Double
+}
+
 public enum RefreshKitHeaderText{
     case pullToRefresh
     case releaseToRefresh
@@ -31,7 +79,18 @@ public enum RefreshKitHeaderText{
     case refreshing = 2
     case willRefresh = 3
 }
-open class DefaultRefreshHeader:UIView,RefreshableHeader, Tintable {
+
+open class DefaultRefreshHeader: UIView, RefreshableHeader {
+    open class func header()->DefaultRefreshHeader{
+        return DefaultRefreshHeader(frame: CGRect(x: 0, y: 0, width:UIScreen.main.bounds.size.width , height: 55.0));
+    }
+    open var imageRenderingWithTintColor = false{
+        didSet{
+            if imageRenderingWithTintColor{
+                imageView.image = imageView.image?.withRenderingMode(.alwaysTemplate)
+            }
+        }
+    }
     open let spinner:UIActivityIndicatorView = UIActivityIndicatorView(activityIndicatorStyle: .gray)
     open let textLabel:UILabel = UILabel(frame: CGRect(x: 0,y: 0,width: 140,height: 40))
     open let imageView:UIImageView = UIImageView(frame: CGRect.zero)
@@ -45,7 +104,6 @@ open class DefaultRefreshHeader:UIView,RefreshableHeader, Tintable {
         let image = UIImage(named: "arrow_down", in: Bundle(for: DefaultRefreshHeader.self), compatibleWith: nil)
         imageView.image = image
         imageView.sizeToFit()
-        imageView.becomeTintable()
         textLabel.font = UIFont.systemFont(ofSize: 14)
         textLabel.textAlignment = .center
         self.isHidden = true
@@ -57,6 +115,7 @@ open class DefaultRefreshHeader:UIView,RefreshableHeader, Tintable {
         textDic[.refreshing] = PullToRefreshKitHeaderString.refreshing
         textLabel.text = textDic[.pullToRefresh]
     }
+    
     open override func layoutSubviews() {
         super.layoutSubviews()
         imageView.frame = CGRect(x: 0, y: 0, width: 20, height: 20)
@@ -64,19 +123,24 @@ open class DefaultRefreshHeader:UIView,RefreshableHeader, Tintable {
         spinner.center = imageView.center
         textLabel.center = CGPoint(x: frame.size.width/2, y: frame.size.height/2);
     }
+    
     required public init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    
     open func setText(_ text:String,mode:RefreshKitHeaderText){
         textDic[mode] = text
     }
+    
     // MARK: - Refreshable  -
     open func heightForRefreshingState() -> CGFloat {
         return PullToRefreshKitConst.defaultHeaderHeight
     }
+    
     public func percentUpdateDuringScrolling(_ percent: CGFloat) {
         self.isHidden = false
     }
+    
     public func stateDidChanged(_ oldState: RefreshHeaderState, newState: RefreshHeaderState) {
         if oldState == RefreshHeaderState.idle && newState == RefreshHeaderState.pulling{
             textLabel.text = textDic[.releaseToRefresh]
@@ -97,9 +161,11 @@ open class DefaultRefreshHeader:UIView,RefreshableHeader, Tintable {
             })
         }
     }
+    
     open func durationWhenEndRefreshing() -> Double {
         return durationWhenHide
     }
+    
     open func didBeginEndRefershingAnimation(_ result:RefreshResult) {
         spinner.stopAnimating()
         imageView.transform = CGAffineTransform.identity
@@ -115,13 +181,17 @@ open class DefaultRefreshHeader:UIView,RefreshableHeader, Tintable {
             textLabel.text = textDic[.pullToRefresh]
             imageView.image = UIImage(named: "arrow_down", in: Bundle(for: DefaultRefreshHeader.self), compatibleWith: nil)
         }
-        imageView.becomeTintable()
+        if imageRenderingWithTintColor{
+            imageView.image = imageView.image?.withRenderingMode(.alwaysTemplate)
+        }
     }
     open func didCompleteEndRefershingAnimation(_ result:RefreshResult) {
         textLabel.text = textDic[.pullToRefresh]
         self.isHidden = true
         imageView.image = UIImage(named: "arrow_down", in: Bundle(for: DefaultRefreshHeader.self), compatibleWith: nil)
-        imageView.becomeTintable()
+        if imageRenderingWithTintColor{
+            imageView.image = imageView.image?.withRenderingMode(.alwaysTemplate)
+        }
     }
     open func didBeginRefreshingState() {
         self.isHidden = false
@@ -130,11 +200,12 @@ open class DefaultRefreshHeader:UIView,RefreshableHeader, Tintable {
         imageView.isHidden = true
     }
     
-    // MARK: Tintable
-    open func setThemeColor(themeColor: UIColor) {
-        imageView.tintColor = themeColor
-        textLabel.textColor = themeColor
-        spinner.color = themeColor
+    override open var tintColor: UIColor!{
+        didSet{
+            textLabel.textColor = tintColor
+            spinner.color = tintColor
+            imageView.tintColor = tintColor
+        }
     }
 }
 
@@ -169,7 +240,6 @@ open class RefreshHeaderContainer:UIView{
                     var oldInset = self.attachedScrollView.contentInset
                     oldInset.top = oldInset.top + self.insetTDelta
                     self.attachedScrollView.contentInset = oldInset
-                    
                     }, completion: { (finished) in
                         self.delegate?.didCompleteEndRefershingAnimation(self.currentResult)
                 })
@@ -254,7 +324,6 @@ open class RefreshHeaderContainer:UIView{
             fireHeight = insetHeight
         }
         if state == .refreshing {
-//Refer from here https://github.com/CoderMJLee/MJRefresh/blob/master/MJRefresh/Base/MJRefreshHeader.m, thanks to this lib again
             guard self.window != nil else{
                 return
             }

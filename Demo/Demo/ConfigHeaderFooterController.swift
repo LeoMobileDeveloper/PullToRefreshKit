@@ -16,36 +16,39 @@ class ConfigDefaultHeaderFooterController: UITableViewController {
         self.tableView.tableFooterView = UIView(frame: CGRect.zero)
         
         //Header
-        _ = self.tableView.setUpHeaderRefresh { [weak self] in
+        let header = DefaultRefreshHeader.header()
+        header.setText("Pull to refresh", mode: .pullToRefresh)
+        header.setText("Release to refresh", mode: .releaseToRefresh)
+        header.setText("Success", mode: .refreshSuccess)
+        header.setText("Refreshing...", mode: .refreshing)
+        header.setText("Failed", mode: .refreshFailure)
+        header.tintColor = UIColor.orange
+        header.imageRenderingWithTintColor = true
+        header.durationWhenHide = 0.4
+        self.tableView.configRefreshHeader(with: header) { [weak self] in
             delay(1.5, closure: {
                 self?.models = (self?.models.map({_ in random100()}))!
                 self?.tableView.reloadData()
-                self?.tableView.endHeaderRefreshing(.success,delay: 0.3)
+                self?.tableView.switchRefreshHeader(to: .normal(.success, 0.3))
             })
-        }.SetUp { (header) in
-            header.setText("Pull to refresh", mode: .pullToRefresh)
-            header.setText("Release to refresh", mode: .releaseToRefresh)
-            header.setText("Success", mode: .refreshSuccess)
-            header.setText("Refreshing...", mode: .refreshing)
-            header.setText("Failed", mode: .refreshFailure)
-            header.textLabel.textColor = UIColor.orange
-            header.durationWhenHide = 0.4
-        }
-        //Footer
-        
-        _ = self.tableView.setUpFooterRefresh {  [weak self] in
+        };
+        let footer = DefaultRefreshFooter.footer()
+        footer.setText("Pull up to refresh", mode: .pullToRefresh)
+        footer.setText("No data any more", mode: .noMoreData)
+        footer.setText("Refreshing...", mode: .refreshing)
+        footer.setText("Tap to load more", mode: .tapToRefresh)
+        footer.textLabel.textColor  = UIColor.orange
+        footer.refreshMode = .tap
+        self.tableView.configRefreshFooter(with: footer) {
             delay(1.5, closure: {
-                self?.models.append(random100())
-                self?.tableView.reloadData()
-                self?.tableView.endFooterRefreshing()
+                self.models.append(random100())
+                self.tableView.reloadData()
+                if self.models.count > 12{
+                    self.tableView.switchRefreshFooter(to: .removed)
+                }else{
+                    self.tableView.switchRefreshFooter(to: .normal)
+                }
             })
-        }.SetUp { (footer) in
-            footer.setText("Pull up to refresh", mode: RefreshKitFooterText.pullToRefresh)
-            footer.setText("No data any more", mode: RefreshKitFooterText.noMoreData)
-            footer.setText("Refreshing...", mode: RefreshKitFooterText.refreshing)
-            footer.setText("Tap to load more", mode: RefreshKitFooterText.tapToRefresh)
-            footer.textLabel.textColor  = UIColor.orange
-            footer.refreshMode = .tap
         }
     }
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {

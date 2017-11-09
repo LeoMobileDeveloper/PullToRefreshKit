@@ -17,13 +17,13 @@ class DefaultBannerController: UIViewController {
         self.navigationItem.title = "Banners"
         self.automaticallyAdjustsScrollViewInsets = false
         setUpViews()
-        _ = scrollView.setUpLeftRefresh { [weak self] in
-            _ = self?.navigationController?.popViewController(animated: true)
-        }
-        _ = scrollView.setUpRightRefresh { [weak self] in
+        scrollView.configSideRefresh(with: DefaultRefreshLeft.left(), at: .left) {
+            self.navigationController?.popViewController(animated: true)
+        };
+        scrollView.configSideRefresh(with: DefaultRefreshRight.right(), at: .right) {
             let nvc = DefaultBannerController()
-            self?.navigationController?.pushViewController(nvc, animated: true)
-        }
+            self.navigationController?.pushViewController(nvc, animated: true)
+        };
     }
     
     func setUpViews(){
@@ -43,13 +43,12 @@ class DefaultBannerController: UIViewController {
         
         scrollView.isPagingEnabled = true
         scrollView.contentSize = CGSize(width: screenWidth * 2, height: scrollheight)
-        let desLabel = UILabel().SetUp { (label) in
-            label.frame = CGRect(x: 0, y: 0, width: screenWidth, height: 40)
-            label.font = UIFont.systemFont(ofSize: 14)
-            label.center  = CGPoint(x: scrollView.center.x, y: scrollView.center.y - scrollView.frame.width/2 - 20)
-            label.text = "Scroll left or right"
-            label.textAlignment = .center
-        }
-        view.addSubview(desLabel)
+        let label = UILabel()
+        label.frame = CGRect(x: 0, y: 0, width: screenWidth, height: 40)
+        label.font = UIFont.systemFont(ofSize: 14)
+        label.center  = CGPoint(x: scrollView.center.x, y: scrollView.center.y - scrollView.frame.width/2 - 20)
+        label.text = "Scroll left or right"
+        label.textAlignment = .center
+        view.addSubview(label)
     }
 }

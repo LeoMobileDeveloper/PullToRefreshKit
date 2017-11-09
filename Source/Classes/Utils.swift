@@ -16,10 +16,10 @@ struct PullToRefreshKitConst{
     static let KPathContentSize = "contentSize"
     
     //Default const
-    static let defaultHeaderHeight:CGFloat = 50.0
-    static let defaultFooterHeight:CGFloat = 44.0
-    static let defaultLeftWidth:CGFloat    = 50.0
-    static let defaultRightWidth:CGFloat   = 50.0
+    static let defaultHeaderHeight: CGFloat = 50.0
+    static let defaultFooterHeight: CGFloat = 44.0
+    static let defaultLeftWidth: CGFloat    = 50.0
+    static let defaultRightWidth: CGFloat   = 50.0
     
     //Tags
     static let headerTag = 100001
@@ -27,9 +27,11 @@ struct PullToRefreshKitConst{
     static let leftTag   = 100003
     static let rightTag  = 100004
 }
+
 func PTRLocalize(_ string:String)->String{
     return NSLocalizedString(string, tableName: "Localize", bundle: Bundle(for: DefaultRefreshHeader.self), value: "", comment: "")
 }
+
 struct PullToRefreshKitHeaderString{
     static let pullDownToRefresh = PTRLocalize("pullDownToRefresh")
     static let releaseToRefresh = PTRLocalize("releaseToRefresh")
@@ -55,14 +57,3 @@ struct PullToRefreshKitRightString{
     static let scrollToViewMore = "滑动浏览更多"
     static let releaseToViewMore = "滑动浏览更多"
 }
-
-protocol Tintable {
-    func setThemeColor(themeColor: UIColor)
-}
-
-extension UIImageView {
-    func becomeTintable() {
-        image = image?.withRenderingMode(.alwaysTemplate)
-    }
-}
-

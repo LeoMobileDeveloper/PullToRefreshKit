@@ -12,33 +12,33 @@ import UIKit
 @IBDesignable
 open class ElasticRefreshControl: UIView {
     //目标，height 80, 高度 40
-    open let spinner:UIActivityIndicatorView = UIActivityIndicatorView()
-    var radius:CGFloat{
+    open let spinner: UIActivityIndicatorView = UIActivityIndicatorView()
+    var radius: CGFloat{
         get{
             return totalHeight / 4 - margin
         }
     }
-    open var progress:CGFloat = 0.0{
+    open var progress: CGFloat = 0.0{
         didSet{
             setNeedsDisplay()
         }
     }
-    open var margin:CGFloat = 4.0{
+    open var margin: CGFloat = 4.0{
         didSet{
             setNeedsDisplay()
         }
     }
-    var arrowRadius:CGFloat{
+    var arrowRadius: CGFloat{
         get{
             return radius * 0.5 - 0.2 * radius * adjustedProgress
         }
     }
-    var adjustedProgress:CGFloat{
+    var adjustedProgress: CGFloat{
         get{
             return min(max(progress,0.0),1.0)
         }
     }
-    let totalHeight:CGFloat = 80
+    let totalHeight: CGFloat = 80
     open var arrowColor = UIColor.white{
         didSet{
             setNeedsDisplay()
@@ -88,7 +88,6 @@ open class ElasticRefreshControl: UIView {
         return CGFloat(result)
     }
     open override func draw(_ rect: CGRect) {
-        //如果在Animating，则什么都不做
         if animating {
             super.draw(rect)
             return
@@ -96,28 +95,16 @@ open class ElasticRefreshControl: UIView {
         let context = UIGraphicsGetCurrentContext()
         let centerX = rect.width/2.0
         let lineWidth = 2.5 - 1.0 * adjustedProgress
-        //上面圆的信息
         let upCenter = CGPoint(x: centerX, y: (0.75 - 0.5 * adjustedProgress) * totalHeight)
         let upRadius = radius - radius * 0.3 * adjustedProgress
-        
-        //下面圆的信息
         let downRadius:CGFloat = radius  - radius * 0.75 * adjustedProgress
         let downCenter = CGPoint(x: centerX, y: totalHeight - downRadius - margin)
-    
-        //偏移的角度
         let offSetAngle:CGFloat = CGFloat.pi / 2.0 / 12.0
-        //计算上面圆的左/右的交点坐标
         let upP1 = CGPoint(x: upCenter.x - upRadius * cosCGFloat(offSetAngle), y: upCenter.y + upRadius * sinCGFloat(offSetAngle))
         let upP2 = CGPoint(x: upCenter.x + upRadius * cosCGFloat(offSetAngle), y: upCenter.y + upRadius * sinCGFloat(offSetAngle))
-
-        //计算下面的圆左/右叫点坐标
         let downP1 = CGPoint(x: downCenter.x - downRadius * cosCGFloat(offSetAngle), y: downCenter.y -  downRadius * sinCGFloat(offSetAngle))
-        
-        //计算Control Point
         let controPonintLeft = CGPoint(x: downCenter.x - downRadius, y: (downCenter.y + upCenter.y)/2)
         let controPonintRight = CGPoint(x: downCenter.x + downRadius, y: (downCenter.y + upCenter.y)/2)
-        
-        //实际绘制
         context?.setFillColor(elasticTintColor.cgColor)
         context?.addArc(center: upCenter, radius: upRadius, startAngle: -CGFloat.pi - offSetAngle, endAngle: offSetAngle, clockwise: false)
         context?.move(to: CGPoint(x: upP1.x, y: upP1.y))
@@ -125,8 +112,6 @@ open class ElasticRefreshControl: UIView {
         context?.addArc(center: downCenter, radius: downRadius, startAngle: -CGFloat.pi - offSetAngle, endAngle: offSetAngle, clockwise: true)
         context?.addQuadCurve(to: upP2, control: controPonintRight)
         context?.fillPath()
-        
-        //绘制箭头
         context?.setStrokeColor(arrowColor.cgColor)
         context?.setLineWidth(lineWidth)
         context?.addArc(center: upCenter, radius: arrowRadius, startAngle: 0, endAngle: CGFloat.pi * 1.5, clockwise: false)

@@ -18,21 +18,21 @@ class DefaultWebViewController: UIViewController,UIWebViewDelegate{
         self.webview.autoresizingMask = [.flexibleWidth,.flexibleHeight]
         self.webview.backgroundColor = UIColor.white
         view.addSubview(self.webview)
-        _ = self.webview.scrollView.setUpHeaderRefresh({ [weak self] in
-            if self?.webview.request != nil{
-                self?.webview.reload()
+        self.webview.scrollView.configRefreshHeader(with: DefaultRefreshHeader.header()) {
+            if self.webview.request != nil{
+                self.webview.reload()
             }else{
                 let url = URL(string: "https://www.baidu.com")
                 let request = URLRequest(url: url!)
-                self?.webview.loadRequest(request)
+                self.webview.loadRequest(request)
             }
-        })
+        };
         let url = URL(string: "https://www.baidu.com")
         let request = URLRequest(url: url!)
         self.webview.loadRequest(request)
         self.webview.delegate = self
     }
     func webViewDidFinishLoad(_ webView: UIWebView) {
-        self.webview.scrollView.endHeaderRefreshing(.success,delay: 0.3)
+        self.webview.scrollView.switchRefreshHeader(to: .normal(.success, 0.5))
     }
 }

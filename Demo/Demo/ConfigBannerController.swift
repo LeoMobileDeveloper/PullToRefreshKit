@@ -16,21 +16,21 @@ class ConfigBannerController: UIViewController {
         self.navigationItem.title = "Banners"
         self.automaticallyAdjustsScrollViewInsets = false
         setUpViews()
+        let left = DefaultRefreshLeft.left()
+        left.setText("👉滑动关闭", mode: .scrollToAction)
+        left.setText("松开关闭", mode: .releaseToAction)
+        left.textLabel.textColor = UIColor.orange
+        scrollView.configSideRefresh(with: left, at: .left) {
+            self.navigationController?.popViewController(animated: true)
+        };
         
-        _ = scrollView.setUpLeftRefresh { [weak self] in
-            _ = self?.navigationController?.popViewController(animated: true)
-        }.SetUp { (left) in
-            left.setText("👉滑动关闭", mode: RefreshKitLeftRightText.scrollToAction)
-            left.setText("松开关闭", mode: RefreshKitLeftRightText.releaseToAction)
-            left.textLabel.textColor = UIColor.orange
-        }
-        _ = scrollView.setUpRightRefresh { [weak self] in
-            _ = self?.navigationController?.popViewController(animated: true)
-        }.SetUp { (right) in
-            right.setText("👈滑动关闭", mode: RefreshKitLeftRightText.scrollToAction)
-            right.setText("松开关闭", mode: RefreshKitLeftRightText.releaseToAction)
-            right.textLabel.textColor = UIColor.orange
-        }
+        let right  = DefaultRefreshRight.right()
+        right.setText("👈滑动关闭", mode: .scrollToAction)
+        right.setText("松开关闭", mode: .releaseToAction)
+        right.textLabel.textColor = UIColor.orange
+        scrollView.configSideRefresh(with: right, at: .right) {
+            self.navigationController?.popViewController(animated: true)
+        };
     }
     
     func setUpViews(){
@@ -50,13 +50,12 @@ class ConfigBannerController: UIViewController {
         
         scrollView.isPagingEnabled = true
         scrollView.contentSize = CGSize(width: screenWidth * 2, height: scrollheight)
-        let desLabel = UILabel().SetUp { (label) in
-            label.frame = CGRect(x: 0, y: 0, width: screenWidth, height: 40)
-            label.font = UIFont.systemFont(ofSize: 14)
-            label.center  = CGPoint(x: scrollView.center.x, y: scrollView.center.y - scrollView.frame.width/2 - 20)
-            label.text = "向左或向右滑动Banner"
-            label.textAlignment = .center
-        }
-        view.addSubview(desLabel)
+        let label = UILabel()
+        label.frame = CGRect(x: 0, y: 0, width: screenWidth, height: 40)
+        label.font = UIFont.systemFont(ofSize: 14)
+        label.center  = CGPoint(x: scrollView.center.x, y: scrollView.center.y - scrollView.frame.width/2 - 20)
+        label.text = "向左或向右滑动Banner"
+        label.textAlignment = .center
+        view.addSubview(label)
     }
 }
