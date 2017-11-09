@@ -111,10 +111,49 @@ public extension UIScrollView{
     public func configSideRefresh<T:UIView>(with refrehser:T,
                                             at destination:SideRefreshDestination,
                                             action:@escaping ()->()) where T: RefreshableLeftRight{
-        
+        switch destination {
+            case .left:
+                let oldContain = self.viewWithTag(PullToRefreshKitConst.leftTag)
+                oldContain?.removeFromSuperview()
+                let frame = CGRect(x: -1.0 * refrehser.frame.size.width,
+                                   y: 0.0,
+                                   width: refrehser.frame.size.width,
+                                   height: self.frame.height)
+                let containComponent = RefreshLeftContainer(frame: frame)
+                containComponent.tag = PullToRefreshKitConst.leftTag
+                containComponent.refreshAction = action
+                self.insertSubview(containComponent, at: 0)
+                containComponent.delegate = refrehser
+                refrehser.autoresizingMask = [.flexibleWidth,.flexibleHeight]
+                refrehser.frame = containComponent.bounds
+                containComponent.addSubview(refrehser)
+            case .right:
+                let oldContain = self.viewWithTag(PullToRefreshKitConst.rightTag)
+                oldContain?.removeFromSuperview()
+                let frame = CGRect(x: 0 ,
+                                   y: 0 ,
+                                   width: refrehser.frame.size.width ,
+                                   height: self.frame.height)
+                let containComponent = RefreshRightContainer(frame: frame)
+                containComponent.tag = PullToRefreshKitConst.rightTag
+                containComponent.refreshAction = action
+                self.insertSubview(containComponent, at: 0)
+                
+                containComponent.delegate = refrehser
+                refrehser.autoresizingMask = [.flexibleWidth,.flexibleHeight]
+                refrehser.frame = containComponent.bounds
+                containComponent.addSubview(refrehser)
+        }
     }
     
     public func removeSideRefresh(at destination:SideRefreshDestination){
-        
+        switch destination {
+        case .left:
+            let oldContain = self.viewWithTag(PullToRefreshKitConst.leftTag)
+            oldContain?.removeFromSuperview()
+        case .right:
+            let oldContain = self.viewWithTag(PullToRefreshKitConst.rightTag)
+            oldContain?.removeFromSuperview()
+        }
     }
 }

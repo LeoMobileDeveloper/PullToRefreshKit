@@ -36,7 +36,10 @@ public enum RefreshKitLeftRightText{
     case releaseToAction
 }
 @objcMembers
-open class DefaultRefreshLeft: UIView, RefreshableLeftRight, Tintable {
+open class DefaultRefreshLeft: UIView, RefreshableLeftRight {
+    open static func left()->DefaultRefreshLeft{
+        return DefaultRefreshLeft(frame: CGRect(x: 0, y: 0, width: PullToRefreshKitConst.defaultLeftWidth, height: UIScreen.main.bounds.size.height))
+    }
     open let imageView:UIImageView = UIImageView()
     open let textLabel:UILabel  = UILabel()
     fileprivate var textDic = [RefreshKitLeftRightText:String]()
@@ -60,7 +63,6 @@ open class DefaultRefreshLeft: UIView, RefreshableLeftRight, Tintable {
         imageView.frame = CGRect(x: 0, y: 0,width: 20, height: 20)
         let image = UIImage(named: "arrow_right", in: Bundle(for: DefaultRefreshHeader.self), compatibleWith: nil)
         imageView.image = image
-        imageView.becomeTintable()
         textDic[.scrollToAction] = PullToRefreshKitLeftString.scrollToClose
         textDic[.releaseToAction] = PullToRefreshKitLeftString.releaseToClose
         textLabel.text = textDic[.scrollToAction]
@@ -105,9 +107,11 @@ open class DefaultRefreshLeft: UIView, RefreshableLeftRight, Tintable {
     }
     
     // MARK: Tintable
-    func setThemeColor(themeColor: UIColor) {
-        imageView.tintColor = themeColor
-        textLabel.textColor = themeColor
+    override open var tintColor: UIColor!{
+        didSet{
+            imageView.tintColor = tintColor
+            textLabel.textColor = tintColor
+        }
     }
 }
 

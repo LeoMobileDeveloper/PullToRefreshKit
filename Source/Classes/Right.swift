@@ -9,7 +9,10 @@ import Foundation
 import UIKit
 
 
-open class DefaultRefreshRight:UIView, RefreshableLeftRight, Tintable {
+open class DefaultRefreshRight:UIView, RefreshableLeftRight {
+    open static func right()->DefaultRefreshRight{
+        return DefaultRefreshRight(frame: CGRect(x: 0, y: 0, width: PullToRefreshKitConst.defaultRightWidth, height: UIScreen.main.bounds.size.height))
+    }
     open let imageView:UIImageView = UIImageView()
     open  let textLabel:UILabel  = UILabel()
     fileprivate var textDic = [RefreshKitLeftRightText:String]()
@@ -31,12 +34,11 @@ open class DefaultRefreshRight:UIView, RefreshableLeftRight, Tintable {
         imageView.frame = CGRect(x: 0, y: 0,width: 20, height: 20)
         let image = UIImage(named: "arrow_left", in: Bundle(for: DefaultRefreshHeader.self), compatibleWith: nil)
         imageView.image = image
-        imageView.becomeTintable()
         textDic[.scrollToAction] = PullToRefreshKitRightString.scrollToViewMore
         textDic[.releaseToAction] = PullToRefreshKitRightString.releaseToViewMore
         textLabel.text = textDic[.scrollToAction]
     }
-   public  required init?(coder aDecoder: NSCoder) {
+    public  required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     open override func layoutSubviews() {
@@ -45,10 +47,10 @@ open class DefaultRefreshRight:UIView, RefreshableLeftRight, Tintable {
         imageView.center = CGPoint(x: 10,y: frame.size.height/2)
     }
     // MARK: - RefreshableLeftRight Protocol  -
-   open func heightForRefreshingState() -> CGFloat {
+    open func heightForRefreshingState() -> CGFloat {
         return PullToRefreshKitConst.defaultLeftWidth
     }
-   open func percentUpdateDuringScrolling(_ percent:CGFloat){
+    open func percentUpdateDuringScrolling(_ percent:CGFloat){
         if percent > 1.0{
             guard self.imageView.transform == CGAffineTransform.identity else{
                 return
@@ -68,18 +70,18 @@ open class DefaultRefreshRight:UIView, RefreshableLeftRight, Tintable {
             })
         }
     }
-   open func didCompleteEndRefershingAnimation() {
+    open func didCompleteEndRefershingAnimation() {
         imageView.transform = CGAffineTransform.identity
         textLabel.text = textDic[.scrollToAction]
     }
-   open  func didBeginRefreshing() {
+    open  func didBeginRefreshing() {
         
     }
-    
-    // MARK: Tintable
-    func setThemeColor(themeColor: UIColor) {
-        imageView.tintColor = themeColor
-        textLabel.textColor = themeColor
+    override open var tintColor: UIColor!{
+        didSet{
+            imageView.tintColor = tintColor
+            textLabel.textColor = tintColor
+        }
     }
 }
 

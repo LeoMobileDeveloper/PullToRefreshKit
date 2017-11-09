@@ -76,7 +76,7 @@ public enum RefreshMode{
     case scrollAndTap
 }
 
-open class DefaultRefreshFooter:UIView, RefreshableFooter, Tintable{
+open class DefaultRefreshFooter:UIView, RefreshableFooter{
     open static func footer()-> DefaultRefreshFooter{
         return DefaultRefreshFooter(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.size.width, height: PullToRefreshKitConst.defaultFooterHeight))
     }
@@ -178,11 +178,11 @@ open class DefaultRefreshFooter:UIView, RefreshableFooter, Tintable{
         }
         self.backgroundColor = UIColor.white
     }
-    
-    // MARK: Tintable
-    open func setThemeColor(themeColor: UIColor) {
-        textLabel.textColor = themeColor
-        spinner.color = themeColor
+    override open var tintColor: UIColor!{
+        didSet{
+            textLabel.textColor = tintColor
+            spinner.color = tintColor
+        }
     }
 }
 

@@ -25,29 +25,25 @@ class DefaultTableViewController:UITableViewController{
     override func viewDidLoad() {
         super.viewDidLoad()
         self.tableView.tableFooterView = UIView(frame: CGRect.zero)
-        let header = self.tableView.setUpHeaderRefresh { [weak self] in
-           delay(1.5, closure: { 
-                self?.models = (self?.models.map({_ in random100()}))!
-                self?.tableView.reloadData()
-                self?.tableView.endHeaderRefreshing(.success,delay: 0.5)
-           })
-        }
-        header.setThemeColor(themeColor: UIColor.red)
-        
-        let footer = self.tableView.setUpFooterRefresh {  [weak self] in
+        self.tableView.configRefreshHeader(with: DefaultRefreshHeader.header()) {
             delay(1.5, closure: {
-                self?.models.append(random100())
-                self?.tableView.reloadData()
-                if self?.models.count < 15{
-                    self?.tableView.endFooterRefreshing()
-                }else{
-                    self?.tableView.endFooterRefreshingWithNoMoreData()
-                }
+                self.models = self.models.map({_ in random100()})
+                self.tableView.reloadData()
+                self.tableView.switchRefreshHeader(to: .normal(.success, 0.5))
             })
         }
-        footer.setThemeColor(themeColor: UIColor.red)
-        
-        self.tableView.beginHeaderRefreshing()
+        self.tableView.configRefreshFooter(with: DefaultRefreshFooter.footer()) {
+            delay(1.5, closure: {
+                self.models.append(random100())
+                self.tableView.reloadData()
+                if self.models.count < 15{
+                    self.tableView.switchRefreshFooter(to: .normal)
+                }else{
+                    self.tableView.switchRefreshFooter(to: .noMoreData)
+                }
+            })
+        };
+        self.tableView.switchRefreshHeader(to: .refreshing)
     }
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return models.count

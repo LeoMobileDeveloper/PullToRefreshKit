@@ -18,14 +18,14 @@ class YoukuTableViewController:BaseTableViewController{
         let youkuHeader = YoukuRefreshHeader(frame: CGRect(x: 0,y: 0,width: self.view.bounds.width,height: 60))
         youkuHeader.backgroundImageView.isHidden = true
         self.refreshHeader = youkuHeader
-        _ = self.tableView.setUpHeaderRefresh(youkuHeader) { [weak self] in
+        self.tableView.configRefreshHeader(with: youkuHeader) {
             delay(1.5, closure: {
-                self?.models = (self?.models.map({_ in random100()}))!
-                self?.tableView.reloadData()
-                self?.tableView.endHeaderRefreshing()
+                self.models = self.models.map({_ in random100()})
+                self.tableView.reloadData()
+                self.tableView.switchRefreshHeader(to: .normal(.none, 0.0));
             })
-        }
-        self.tableView.beginHeaderRefreshing()
+        };
+        self.tableView.switchRefreshHeader(to: .refreshing)
         
         self.navigationItem.title = "Try switch"
         //Set up switch

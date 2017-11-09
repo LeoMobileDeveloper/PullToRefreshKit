@@ -79,7 +79,8 @@ public enum RefreshKitHeaderText{
     case refreshing = 2
     case willRefresh = 3
 }
-open class DefaultRefreshHeader: UIView, RefreshableHeader, Tintable {
+
+open class DefaultRefreshHeader: UIView, RefreshableHeader {
     open class func header()->DefaultRefreshHeader{
         return DefaultRefreshHeader(frame: CGRect(x: 0, y: 0, width:UIScreen.main.bounds.size.width , height: 55.0));
     }
@@ -96,7 +97,6 @@ open class DefaultRefreshHeader: UIView, RefreshableHeader, Tintable {
         let image = UIImage(named: "arrow_down", in: Bundle(for: DefaultRefreshHeader.self), compatibleWith: nil)
         imageView.image = image
         imageView.sizeToFit()
-        imageView.becomeTintable()
         textLabel.font = UIFont.systemFont(ofSize: 14)
         textLabel.textAlignment = .center
         self.isHidden = true
@@ -108,6 +108,7 @@ open class DefaultRefreshHeader: UIView, RefreshableHeader, Tintable {
         textDic[.refreshing] = PullToRefreshKitHeaderString.refreshing
         textLabel.text = textDic[.pullToRefresh]
     }
+    
     open override func layoutSubviews() {
         super.layoutSubviews()
         imageView.frame = CGRect(x: 0, y: 0, width: 20, height: 20)
@@ -115,19 +116,24 @@ open class DefaultRefreshHeader: UIView, RefreshableHeader, Tintable {
         spinner.center = imageView.center
         textLabel.center = CGPoint(x: frame.size.width/2, y: frame.size.height/2);
     }
+    
     required public init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    
     open func setText(_ text:String,mode:RefreshKitHeaderText){
         textDic[mode] = text
     }
+    
     // MARK: - Refreshable  -
     open func heightForRefreshingState() -> CGFloat {
         return PullToRefreshKitConst.defaultHeaderHeight
     }
+    
     public func percentUpdateDuringScrolling(_ percent: CGFloat) {
         self.isHidden = false
     }
+    
     public func stateDidChanged(_ oldState: RefreshHeaderState, newState: RefreshHeaderState) {
         if oldState == RefreshHeaderState.idle && newState == RefreshHeaderState.pulling{
             textLabel.text = textDic[.releaseToRefresh]
@@ -148,9 +154,11 @@ open class DefaultRefreshHeader: UIView, RefreshableHeader, Tintable {
             })
         }
     }
+    
     open func durationWhenEndRefreshing() -> Double {
         return durationWhenHide
     }
+    
     open func didBeginEndRefershingAnimation(_ result:RefreshResult) {
         spinner.stopAnimating()
         imageView.transform = CGAffineTransform.identity
@@ -166,13 +174,11 @@ open class DefaultRefreshHeader: UIView, RefreshableHeader, Tintable {
             textLabel.text = textDic[.pullToRefresh]
             imageView.image = UIImage(named: "arrow_down", in: Bundle(for: DefaultRefreshHeader.self), compatibleWith: nil)
         }
-        imageView.becomeTintable()
     }
     open func didCompleteEndRefershingAnimation(_ result:RefreshResult) {
         textLabel.text = textDic[.pullToRefresh]
         self.isHidden = true
         imageView.image = UIImage(named: "arrow_down", in: Bundle(for: DefaultRefreshHeader.self), compatibleWith: nil)
-        imageView.becomeTintable()
     }
     open func didBeginRefreshingState() {
         self.isHidden = false
@@ -181,11 +187,12 @@ open class DefaultRefreshHeader: UIView, RefreshableHeader, Tintable {
         imageView.isHidden = true
     }
     
-    // MARK: Tintable
-    open func setThemeColor(themeColor: UIColor) {
-        imageView.tintColor = themeColor
-        textLabel.textColor = themeColor
-        spinner.color = themeColor
+    override open var tintColor: UIColor!{
+        didSet{
+            textLabel.textColor = tintColor
+            spinner.color = tintColor
+            imageView.tintColor = tintColor
+        }
     }
 }
 
