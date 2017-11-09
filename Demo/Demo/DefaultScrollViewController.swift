@@ -11,21 +11,22 @@ import UIKit
 import PullToRefreshKit
 
 class DefaultScrollViewController:UIViewController{
-    var scrollView:UIScrollView?
+    var scrollView: UIScrollView!
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.backgroundColor = UIColor.white
         self.automaticallyAdjustsScrollViewInsets = false
         setUpScrollView()
-        _ = scrollView?.setUpHeaderRefresh({ [weak self] in
-            delay(1.0, closure: { 
-                self?.scrollView?.endHeaderRefreshing(.success,delay: 0.3)
+        let header = DefaultRefreshHeader.header()
+        header.textLabel.textColor = UIColor.white;
+        header.spinner.activityIndicatorViewStyle = .white
+        scrollView.configRefreshHeader(with: header) {
+            delay(1.0, closure: {
+                self.scrollView.switchRefreshHeader(to: .normal(.success, 0.5));
             })
-        }).SetUp({ (header) in
-            header.textLabel.textColor = UIColor.white
-            header.spinner.activityIndicatorViewStyle = .white
-        })
+        };
     }
+    
     func setUpScrollView(){
         self.scrollView = UIScrollView(frame: CGRect(x: 0,y: 0,width: 300,height: 300))
         self.scrollView?.backgroundColor = UIColor.lightGray

@@ -11,9 +11,7 @@ import UIKit
 
 open class DefaultRefreshRight:UIView, RefreshableLeftRight, Tintable {
     open let imageView:UIImageView = UIImageView()
-    open  let textLabel:UILabel  = UILabel().SetUp {
-        $0.font = UIFont.systemFont(ofSize: 14)
-    }
+    open  let textLabel:UILabel  = UILabel()
     fileprivate var textDic = [RefreshKitLeftRightText:String]()
     
     /**
@@ -29,6 +27,7 @@ open class DefaultRefreshRight:UIView, RefreshableLeftRight, Tintable {
         addSubview(textLabel)
         textLabel.autoresizingMask = .flexibleHeight
         textLabel.numberOfLines = 0
+        textLabel.font = UIFont.systemFont(ofSize: 14)
         imageView.frame = CGRect(x: 0, y: 0,width: 20, height: 20)
         let image = UIImage(named: "arrow_left", in: Bundle(for: DefaultRefreshHeader.self), compatibleWith: nil)
         imageView.image = image

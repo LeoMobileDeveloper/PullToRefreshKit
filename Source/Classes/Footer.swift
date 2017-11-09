@@ -8,6 +8,36 @@
 
 import Foundation
 import UIKit
+
+@objc public protocol RefreshableFooter:class{
+    /**
+     触发动作的距离，对于header/footer来讲，就是视图的高度；对于left/right来讲，就是视图的宽度
+     */
+    func heightForRefreshingState()->CGFloat
+    /**
+     不需要下拉加载更多的回调
+     */
+    func didUpdateToNoMoreData()
+    /**
+     重新设置到常态的回调
+     */
+    func didResetToDefault()
+    /**
+     结束刷新的回调
+     */
+    func didEndRefreshing()
+    /**
+     已经开始执行刷新逻辑，在一次刷新中，只会调用一次
+     */
+    func didBeginRefreshing()
+    
+    /**
+     当Scroll触发刷新，这个方法返回是否需要刷新
+     */
+    func shouldBeginRefreshingWhenScroll()->Bool
+}
+
+
 fileprivate func < <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
   switch (lhs, rhs) {
   case let (l?, r?):
@@ -47,11 +77,11 @@ public enum RefreshMode{
 }
 
 open class DefaultRefreshFooter:UIView, RefreshableFooter, Tintable{
-    open let spinner:UIActivityIndicatorView = UIActivityIndicatorView(activityIndicatorStyle: .gray)
-    open  let textLabel:UILabel = UILabel(frame: CGRect(x: 0,y: 0,width: 140,height: 40)).SetUp {
-        $0.font = UIFont.systemFont(ofSize: 14)
-        $0.textAlignment = .center
+    open static func footer()-> DefaultRefreshFooter{
+        return DefaultRefreshFooter(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.size.width, height: PullToRefreshKitConst.defaultFooterHeight))
     }
+    open let spinner:UIActivityIndicatorView = UIActivityIndicatorView(activityIndicatorStyle: .gray)
+    open  let textLabel:UILabel = UILabel(frame: CGRect(x: 0,y: 0,width: 140,height: 40))
     /// 触发刷新的模式
     open var refreshMode = RefreshMode.scrollAndTap{
         didSet{
@@ -82,13 +112,14 @@ open class DefaultRefreshFooter:UIView, RefreshableFooter, Tintable{
         super.init(frame: frame)
         addSubview(spinner)
         addSubview(textLabel)
-
         textDic[.pullToRefresh] = PullToRefreshKitFooterString.pullUpToRefresh
         textDic[.refreshing] = PullToRefreshKitFooterString.refreshing
         textDic[.noMoreData] = PullToRefreshKitFooterString.noMoreData
         textDic[.tapToRefresh] = PullToRefreshKitFooterString.tapToRefresh
         textDic[.scrollAndTapToRefresh] = PullToRefreshKitFooterString.scrollAndTapToRefresh
         udpateTextLabelWithMode(refreshMode)
+        textLabel.font = UIFont.systemFont(ofSize: 14)
+        textLabel.textAlignment = .center
         tap = UITapGestureRecognizer(target: self, action: #selector(DefaultRefreshFooter.catchTap(_:)))
         self.addGestureRecognizer(tap)
     }
@@ -102,7 +133,7 @@ open class DefaultRefreshFooter:UIView, RefreshableFooter, Tintable{
     }
     @objc func catchTap(_ tap:UITapGestureRecognizer){
         let scrollView = self.superview?.superview as? UIScrollView
-        scrollView?.beginFooterRefreshing()
+        scrollView?.switchRefreshFooter(to: .refreshing)
     }
 // MARK: - Refreshable  -
     open func heightForRefreshingState() -> CGFloat {

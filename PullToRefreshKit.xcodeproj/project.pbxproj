@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		B36DBDCC1FB425D600901DC8 /* Availability.swift in Sources */ = {isa = PBXBuildFile; fileRef = B36DBDCB1FB425D600901DC8 /* Availability.swift */; };
 		B3B540CD1F061B8300408912 /* PullToRefreshKit.h in Headers */ = {isa = PBXBuildFile; fileRef = B3B540CB1F061B8300408912 /* PullToRefreshKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		B3B541091F061C2300408912 /* arrow_down@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = B3B540F71F061C2300408912 /* arrow_down@3x.png */; };
 		B3B5410A1F061C2300408912 /* arrow_left@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = B3B540F81F061C2300408912 /* arrow_left@3x.png */; };
@@ -25,6 +26,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		B36DBDCB1FB425D600901DC8 /* Availability.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Availability.swift; sourceTree = "<group>"; };
 		B3B540C81F061B8300408912 /* PullToRefreshKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = PullToRefreshKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B3B540CB1F061B8300408912 /* PullToRefreshKit.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PullToRefreshKit.h; sourceTree = "<group>"; };
 		B3B540CC1F061B8300408912 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -116,6 +118,7 @@
 				B3B541061F061C2300408912 /* PullToRefresh.swift */,
 				B3B541071F061C2300408912 /* Right.swift */,
 				B3B541081F061C2300408912 /* Utils.swift */,
+				B36DBDCB1FB425D600901DC8 /* Availability.swift */,
 			);
 			path = Classes;
 			sourceTree = "<group>";
@@ -212,6 +215,7 @@
 				B3B541131F061C2300408912 /* Left.swift in Sources */,
 				B3B541141F061C2300408912 /* PullToRefresh.swift in Sources */,
 				B3B541151F061C2300408912 /* Right.swift in Sources */,
+				B36DBDCC1FB425D600901DC8 /* Availability.swift in Sources */,
 				B3B541121F061C2300408912 /* Header.swift in Sources */,
 				B3B541111F061C2300408912 /* Footer.swift in Sources */,
 				B3B541101F061C2300408912 /* ElasticRefreshHeader.swift in Sources */,

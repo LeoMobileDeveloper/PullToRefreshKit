@@ -10,6 +10,54 @@
 import Foundation
 import UIKit
 
+@objc public protocol RefreshableHeader: class{
+    /**
+     在刷新状态的时候，距离顶部的距离
+     */
+    func heightForRefreshingState()->CGFloat
+    
+    /**
+     进入刷新状态的回调，在这里将视图调整为刷新中
+     */
+    func didBeginRefreshingState()
+    
+    /**
+     刷新结束，将要进行隐藏的动画，一般在这里告诉用户刷新的结果
+     - parameter result: 刷新结果
+     */
+    func didBeginEndRefershingAnimation(_ result:RefreshResult)
+    /**
+     刷新结束，隐藏的动画结束，一般在这里把视图隐藏，各个参数恢复到最初状态
+     
+     - parameter result: 刷新结果
+     */
+    func didCompleteEndRefershingAnimation(_ result:RefreshResult)
+    
+    /**
+     状态改变
+     
+     - parameter newState: 新的状态
+     - parameter oldState: 老得状态
+     */
+    @objc optional func stateDidChanged(_ oldState:RefreshHeaderState, newState:RefreshHeaderState)
+    /**
+     触发刷新的距离，可选，如果没有实现，则默认触发刷新的距离就是 heightForRefreshingState
+     */
+    @objc optional func heightForFireRefreshing()->CGFloat
+    
+    /**
+     不在刷新状态的时候，百分比回调，在这里你根据百分比来动态的调整你的刷新视图
+     - parameter percent: 拖拽的百分比，比如一共距离是100，那么拖拽10的时候，percent就是0.1
+     */
+    @objc optional func percentUpdateDuringScrolling(_ percent:CGFloat)
+    
+    /**
+     刷新结束，隐藏header的时间间隔，默认0.4s
+     
+     */
+    @objc optional func durationWhenEndRefreshing()->Double
+}
+
 public enum RefreshKitHeaderText{
     case pullToRefresh
     case releaseToRefresh
@@ -31,7 +79,10 @@ public enum RefreshKitHeaderText{
     case refreshing = 2
     case willRefresh = 3
 }
-open class DefaultRefreshHeader:UIView,RefreshableHeader, Tintable {
+open class DefaultRefreshHeader: UIView, RefreshableHeader, Tintable {
+    open class func header()->DefaultRefreshHeader{
+        return DefaultRefreshHeader(frame: CGRect(x: 0, y: 0, width:UIScreen.main.bounds.size.width , height: 55.0));
+    }
     open let spinner:UIActivityIndicatorView = UIActivityIndicatorView(activityIndicatorStyle: .gray)
     open let textLabel:UILabel = UILabel(frame: CGRect(x: 0,y: 0,width: 140,height: 40))
     open let imageView:UIImageView = UIImageView(frame: CGRect.zero)
@@ -254,7 +305,6 @@ open class RefreshHeaderContainer:UIView{
             fireHeight = insetHeight
         }
         if state == .refreshing {
-//Refer from here https://github.com/CoderMJLee/MJRefresh/blob/master/MJRefresh/Base/MJRefreshHeader.m, thanks to this lib again
             guard self.window != nil else{
                 return
             }

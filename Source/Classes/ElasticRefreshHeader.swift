@@ -33,32 +33,39 @@ open class ElasticRefreshHeader: UIView,RefreshableHeader {
         textDic[.refreshFailure] = PullToRefreshKitHeaderString.refreshFailure
         textLabel.text = textDic[.pullToRefresh]
     }
+    
     open func setText(_ text:String,mode:RefreshKitHeaderText){
         textDic[mode] = text
     }
+    
     required public init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    
     open override func layoutSubviews() {
         super.layoutSubviews()
         control.frame = self.bounds
         imageView.center = CGPoint(x: frame.width/2 - 40 - 40, y: totalHegiht * 0.75)
         textLabel.center = CGPoint(x: frame.size.width/2, y: totalHegiht * 0.75);
     }
+    
     open override func willMove(toSuperview newSuperview: UIView?) {
         super.willMove(toSuperview: newSuperview)
         if let superView = newSuperview{
             self.frame = CGRect(x: self.frame.origin.x, y: self.frame.origin.y, width: superView.frame.size.width, height: self.frame.size.height)
         }
     }
+    
     // MARK: - Refreshable Header -
-
+    
     open func heightForRefreshingState() -> CGFloat {
         return totalHegiht/2.0
     }
+    
     open func heightForFireRefreshing()->CGFloat{
         return totalHegiht
     }
+    
     open func percentUpdateDuringScrolling(_ percent:CGFloat){
         self.control.animating = false
         if percent > 0.5 && percent <= 1.0{
@@ -69,9 +76,11 @@ open class ElasticRefreshHeader: UIView,RefreshableHeader {
             self.control.progress = 1.0
         }
     }
+    
     open func didBeginRefreshingState() {
         self.control.animating = true
     }
+    
     open func didBeginEndRefershingAnimation(_ result:RefreshResult) {
         switch result {
         case .success:
@@ -94,6 +103,7 @@ open class ElasticRefreshHeader: UIView,RefreshableHeader {
             imageView.image = nil
         }
     }
+    
     open func didCompleteEndRefershingAnimation(_ result:RefreshResult) {
         self.control.isHidden = false
         self.imageView.isHidden = true

@@ -166,6 +166,107 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
+		B38F54FE1F976D6000993075 /* Default */ = {
+			isa = PBXGroup;
+			children = (
+				B3B543091F062A9700408912 /* ConfigHeaderFooterController.swift */,
+				B3B543081F062A9700408912 /* ConfigBannerController.swift */,
+				B3B5430C1F062A9700408912 /* DefaultBannerController.swift */,
+				B3B5430D1F062A9700408912 /* DefaultCollectionViewController.swift */,
+				B3B5430E1F062A9700408912 /* DefaultScrollViewController.swift */,
+				B3B5430F1F062A9700408912 /* DefaultTableViewController.swift */,
+				B3B543101F062A9700408912 /* DefaultWebViewController.swift */,
+			);
+			name = Default;
+			sourceTree = "<group>";
+		};
+		B38F55001F976DF000993075 /* Util */ = {
+			isa = PBXGroup;
+			children = (
+				B3B543071F062A9700408912 /* BaseTableViewController.swift */,
+				B3B543551F062A9700408912 /* RowModel.swift */,
+				B3B543561F062A9700408912 /* SectionModel.swift */,
+				B3B543C91F062A9700408912 /* Util.swift */,
+			);
+			name = Util;
+			sourceTree = "<group>";
+		};
+		B38F55011F976DFF00993075 /* Custom */ = {
+			isa = PBXGroup;
+			children = (
+				B38F55031F976E3200993075 /* Taobao */,
+				B38F55081F976E6500993075 /* Elastic */,
+				B38F55071F976E5D00993075 /* Yahoo */,
+				B38F55061F976E4C00993075 /* Dianping */,
+				B38F55021F976E2A00993075 /* QQVideo */,
+				B38F55051F976E4300993075 /* Curve */,
+				B38F55041F976E3A00993075 /* Youku */,
+			);
+			name = Custom;
+			sourceTree = "<group>";
+		};
+		B38F55021F976E2A00993075 /* QQVideo */ = {
+			isa = PBXGroup;
+			children = (
+				B3B543531F062A9700408912 /* QQVideoRefreshHeader.swift */,
+				B3B543541F062A9700408912 /* QQVideoTableViewController.swift */,
+			);
+			name = QQVideo;
+			sourceTree = "<group>";
+		};
+		B38F55031F976E3200993075 /* Taobao */ = {
+			isa = PBXGroup;
+			children = (
+				B3B543C71F062A9700408912 /* TaoBaoRefreshHeader.swift */,
+				B3B543C81F062A9700408912 /* TaobaoTableViewController.swift */,
+			);
+			name = Taobao;
+			sourceTree = "<group>";
+		};
+		B38F55041F976E3A00993075 /* Youku */ = {
+			isa = PBXGroup;
+			children = (
+				B3B543D01F062A9700408912 /* YoukuRefreshHeader.swift */,
+				B3B543D11F062A9700408912 /* YoukuTableViewController.swift */,
+			);
+			name = Youku;
+			sourceTree = "<group>";
+		};
+		B38F55051F976E4300993075 /* Curve */ = {
+			isa = PBXGroup;
+			children = (
+				B3B5430A1F062A9700408912 /* CurveMaskTableViewController.swift */,
+				B3B5430B1F062A9700408912 /* CurveRefreshHeader.swift */,
+			);
+			name = Curve;
+			sourceTree = "<group>";
+		};
+		B38F55061F976E4C00993075 /* Dianping */ = {
+			isa = PBXGroup;
+			children = (
+				B3B543111F062A9700408912 /* DianpingRefreshHeader.swift */,
+				B3B543121F062A9700408912 /* DianpingTableviewController.swift */,
+			);
+			name = Dianping;
+			sourceTree = "<group>";
+		};
+		B38F55071F976E5D00993075 /* Yahoo */ = {
+			isa = PBXGroup;
+			children = (
+				B3B543CB1F062A9700408912 /* YahooWeatherRefreshHeader.swift */,
+				B3B543CC1F062A9700408912 /* YahooWeatherTableViewController.swift */,
+			);
+			name = Yahoo;
+			sourceTree = "<group>";
+		};
+		B38F55081F976E6500993075 /* Elastic */ = {
+			isa = PBXGroup;
+			children = (
+				B3B543131F062A9700408912 /* ElasticHeaderTableViewController.swift */,
+			);
+			name = Elastic;
+			sourceTree = "<group>";
+		};
 		B3B541181F061C3800408912 /* Products */ = {
 			isa = PBXGroup;
 			children = (
@@ -194,30 +295,9 @@
 			isa = PBXGroup;
 			children = (
 				B3B543521F062A9700408912 /* MainViewController.swift */,
-				B3B543531F062A9700408912 /* QQVideoRefreshHeader.swift */,
-				B3B543541F062A9700408912 /* QQVideoTableViewController.swift */,
-				B3B543551F062A9700408912 /* RowModel.swift */,
-				B3B543561F062A9700408912 /* SectionModel.swift */,
-				B3B543C71F062A9700408912 /* TaoBaoRefreshHeader.swift */,
-				B3B543C81F062A9700408912 /* TaobaoTableViewController.swift */,
-				B3B543C91F062A9700408912 /* Util.swift */,
-				B3B543CB1F062A9700408912 /* YahooWeatherRefreshHeader.swift */,
-				B3B543CC1F062A9700408912 /* YahooWeatherTableViewController.swift */,
-				B3B543D01F062A9700408912 /* YoukuRefreshHeader.swift */,
-				B3B543D11F062A9700408912 /* YoukuTableViewController.swift */,
-				B3B543071F062A9700408912 /* BaseTableViewController.swift */,
-				B3B543081F062A9700408912 /* ConfigBannerController.swift */,
-				B3B543091F062A9700408912 /* ConfigHeaderFooterController.swift */,
-				B3B5430A1F062A9700408912 /* CurveMaskTableViewController.swift */,
-				B3B5430B1F062A9700408912 /* CurveRefreshHeader.swift */,
-				B3B5430C1F062A9700408912 /* DefaultBannerController.swift */,
-				B3B5430D1F062A9700408912 /* DefaultCollectionViewController.swift */,
-				B3B5430E1F062A9700408912 /* DefaultScrollViewController.swift */,
-				B3B5430F1F062A9700408912 /* DefaultTableViewController.swift */,
-				B3B543101F062A9700408912 /* DefaultWebViewController.swift */,
-				B3B543111F062A9700408912 /* DianpingRefreshHeader.swift */,
-				B3B543121F062A9700408912 /* DianpingTableviewController.swift */,
-				B3B543131F062A9700408912 /* ElasticHeaderTableViewController.swift */,
+				B38F55001F976DF000993075 /* Util */,
+				B38F54FE1F976D6000993075 /* Default */,
+				B38F55011F976DFF00993075 /* Custom */,
 			);
 			name = ViewControllers;
 			sourceTree = "<group>";
