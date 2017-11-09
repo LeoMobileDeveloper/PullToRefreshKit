@@ -23,7 +23,7 @@ class ConfigDefaultHeaderFooterController: UITableViewController {
         header.setText("Refreshing...", mode: .refreshing)
         header.setText("Failed", mode: .refreshFailure)
         header.tintColor = UIColor.orange
-        
+        header.imageRenderingWithTintColor = true
         header.durationWhenHide = 0.4
         self.tableView.configRefreshHeader(with: header) { [weak self] in
             delay(1.5, closure: {
@@ -39,11 +39,15 @@ class ConfigDefaultHeaderFooterController: UITableViewController {
         footer.setText("Tap to load more", mode: .tapToRefresh)
         footer.textLabel.textColor  = UIColor.orange
         footer.refreshMode = .tap
-        self.tableView.configRefreshFooter(with: footer) { [weak self] in
+        self.tableView.configRefreshFooter(with: footer) {
             delay(1.5, closure: {
-                self?.models.append(random100())
-                self?.tableView.reloadData()
-                self?.tableView.switchRefreshFooter(to: .normal)
+                self.models.append(random100())
+                self.tableView.reloadData()
+                if self.models.count > 12{
+                    self.tableView.switchRefreshFooter(to: .removed)
+                }else{
+                    self.tableView.switchRefreshFooter(to: .normal)
+                }
             })
         }
     }

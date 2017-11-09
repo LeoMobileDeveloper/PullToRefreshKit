@@ -84,6 +84,13 @@ open class DefaultRefreshHeader: UIView, RefreshableHeader {
     open class func header()->DefaultRefreshHeader{
         return DefaultRefreshHeader(frame: CGRect(x: 0, y: 0, width:UIScreen.main.bounds.size.width , height: 55.0));
     }
+    open var imageRenderingWithTintColor = false{
+        didSet{
+            if imageRenderingWithTintColor{
+                imageView.image = imageView.image?.withRenderingMode(.alwaysTemplate)
+            }
+        }
+    }
     open let spinner:UIActivityIndicatorView = UIActivityIndicatorView(activityIndicatorStyle: .gray)
     open let textLabel:UILabel = UILabel(frame: CGRect(x: 0,y: 0,width: 140,height: 40))
     open let imageView:UIImageView = UIImageView(frame: CGRect.zero)
@@ -174,11 +181,17 @@ open class DefaultRefreshHeader: UIView, RefreshableHeader {
             textLabel.text = textDic[.pullToRefresh]
             imageView.image = UIImage(named: "arrow_down", in: Bundle(for: DefaultRefreshHeader.self), compatibleWith: nil)
         }
+        if imageRenderingWithTintColor{
+            imageView.image = imageView.image?.withRenderingMode(.alwaysTemplate)
+        }
     }
     open func didCompleteEndRefershingAnimation(_ result:RefreshResult) {
         textLabel.text = textDic[.pullToRefresh]
         self.isHidden = true
         imageView.image = UIImage(named: "arrow_down", in: Bundle(for: DefaultRefreshHeader.self), compatibleWith: nil)
+        if imageRenderingWithTintColor{
+            imageView.image = imageView.image?.withRenderingMode(.alwaysTemplate)
+        }
     }
     open func didBeginRefreshingState() {
         self.isHidden = false
@@ -227,7 +240,6 @@ open class RefreshHeaderContainer:UIView{
                     var oldInset = self.attachedScrollView.contentInset
                     oldInset.top = oldInset.top + self.insetTDelta
                     self.attachedScrollView.contentInset = oldInset
-                    
                     }, completion: { (finished) in
                         self.delegate?.didCompleteEndRefershingAnimation(self.currentResult)
                 })

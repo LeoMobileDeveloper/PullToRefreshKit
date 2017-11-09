@@ -198,7 +198,7 @@ class RefreshFooterContainer:UIView{
     var attachedScrollView:UIScrollView!
     weak var delegate:RefreshableFooter?
     fileprivate var _state:RefreshFooterState = .idle
-    var state:RefreshFooterState{
+    var state: RefreshFooterState{
         get{
             return _state
         }
@@ -208,13 +208,16 @@ class RefreshFooterContainer:UIView{
             }
             _state =  newValue
             if newValue == .refreshing{
+                self.isUserInteractionEnabled = true
                 DispatchQueue.main.async(execute: {
                     self.delegate?.didBeginRefreshing()
                     self.refreshAction?()
                 })
             }else if newValue == .noMoreData{
+                self.isUserInteractionEnabled = false
                 self.delegate?.didUpdateToNoMoreData()
             }else if newValue == .idle{
+                self.isUserInteractionEnabled = true
                 self.delegate?.didResetToDefault()
             }
         }

@@ -13,8 +13,6 @@ import UIKit
 class ElasticHeaderTableViewController:BaseTableViewController{
     override func viewDidLoad() {
         super.viewDidLoad()
-        //Setup
-        //        self.tableView.backgroundColor = UIColor(red: 232.0/255.0, green: 234.0/255.0, blue: 235.0/255.0, alpha: 1.0)
         let elasticHeader = ElasticRefreshHeader()
         self.tableView.configRefreshHeader(with: elasticHeader) { [weak self] in
             delay(1.5, closure: {
