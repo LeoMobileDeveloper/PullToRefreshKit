@@ -181,11 +181,12 @@ self.tableView.configRefreshHeader(with: header) { [weak self] in
 
 You just need to write a `UIView` sub class,and make it conforms to these protocols
 
-- RefreshableHeader 
-- RefreshableFooter 
-- RefreshableLeftRight 
+- `RefreshableHeader`
+- `RefreshableFooter`
+- `RefreshableLeftRight` 
 
 For exmaple,to create a custom header
+
 ```
     //Distance from top when in refreshing state
     func heightForRefreshingState()->CGFloat

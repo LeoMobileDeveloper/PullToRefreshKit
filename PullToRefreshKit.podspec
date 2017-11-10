@@ -8,10 +8,10 @@
 
 Pod::Spec.new do |s|
   s.name             = 'PullToRefreshKit'
-  s.version          = '0.7.0'
-  s.summary          = 'A refresh library written with pure Swift 3'
+  s.version          = '0.8.0'
+  s.summary          = 'A refresh library written with pure Swift 4'
   s.description      = <<-DESC
-This is a pull to refresh library written by pure Swift 3. Using it you can add pull to refresh,pull to load more,pull left/right to view details within one line. Besides,it is quite easy to write a custom refresh view when using this lib.
+This is a pull to refresh library written by pure Swift 4. Using it you can add pull to refresh,pull to load more,pull left/right to view details within one line. Besides,it is quite easy to write a custom refresh view when using this lib.
                        DESC
 
   s.homepage         = 'https://github.com/LeoMobileDeveloper/PullToRefreshKit'
