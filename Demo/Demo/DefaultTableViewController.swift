@@ -29,9 +29,9 @@ class DefaultTableViewController:UITableViewController{
         self.tableView.configRefreshHeader(with: DefaultRefreshHeader.header()) {
             delay(1.5, closure: {
                 self.models = self.originalModes.map({_ in random100()})
-                self.tableView.reloadData()
-                self.tableView.switchRefreshHeader(to: .normal(.success, 0.5))
                 self.tableView.switchRefreshFooter(to: .normal)
+                self.tableView.switchRefreshHeader(to: .normal(.success, 0.5))
+                self.tableView.reloadData()
             })
         }
         self.tableView.configRefreshFooter(with: DefaultRefreshFooter.footer()) {

@@ -124,17 +124,18 @@ Remove footer:
 self.tableView.switchRefreshFooter(to: .removed)
 ```
 
-No more Data:
+No more Data
 
-```                  self.tableView.switchRefreshFooter(to: .noMoreData)
+```
+self.tableView.switchRefreshFooter(to: .noMoreData)
 ```
 
 ### Pull left to exit
 
 ```
-  scrollView.configSideRefresh(with: DefaultRefreshLeft.left(), at: .left) {
-            self.navigationController?.popViewController(animated: true)
-        };
+scrollView.configSideRefresh(with: DefaultRefreshLeft.left(), at: .left) {
+   self.navigationController?.popViewController(animated: true)
+};
 ```
 
 <img src="https://raw.github.com/LeoMobileDeveloper/PullToRefreshKit/master/Screenshot/gif3.gif" width="200">
@@ -147,7 +148,7 @@ right.setText("👈滑动关闭", mode: .scrollToAction)
 right.setText("松开关闭", mode: .releaseToAction)
 right.textLabel.textColor = UIColor.orange
 scrollView.configSideRefresh(with: right, at: .right) {
-     self.navigationController?.popViewController(animated: true)
+    self.navigationController?.popViewController(animated: true)
 };
 ```
 
