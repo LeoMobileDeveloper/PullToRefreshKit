@@ -336,6 +336,9 @@ class RefreshFooterContainer:UIView{
     }
 // MARK: - KVO -
     override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
+        if keyPath == PullToRefreshKitConst.KPathContentSize {
+            handleContentSizeChange(change)
+        }
         guard self.isUserInteractionEnabled else{
             return;
         }
@@ -347,9 +350,6 @@ class RefreshFooterContainer:UIView{
         }
         if keyPath == PullToRefreshKitConst.KPathPanState{
             handlePanStateChange(change)
-        }
-        if keyPath == PullToRefreshKitConst.KPathContentSize {
-            handleContentSizeChange(change)
         }
     }
     // MARK: - API -
