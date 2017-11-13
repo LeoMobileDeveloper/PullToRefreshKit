@@ -47,8 +47,8 @@ open class DefaultRefreshRight:UIView, RefreshableLeftRight {
         imageView.center = CGPoint(x: 10,y: frame.size.height/2)
     }
     // MARK: - RefreshableLeftRight Protocol  -
-    open func heightForRefreshingState() -> CGFloat {
-        return PullToRefreshKitConst.defaultLeftWidth
+    open func widthForComponent() -> CGFloat {
+        return PullToRefreshKitConst.defaultRightWidth
     }
     open func percentUpdateDuringScrolling(_ percent:CGFloat){
         if percent > 1.0{
@@ -70,7 +70,7 @@ open class DefaultRefreshRight:UIView, RefreshableLeftRight {
             })
         }
     }
-    open func didCompleteEndRefershingAnimation() {
+    open func didCompleteHideAnimation() {
         imageView.transform = CGAffineTransform.identity
         textLabel.text = textDic[.scrollToAction]
     }
@@ -112,7 +112,7 @@ class RefreshRightContainer:UIView{
                     self.delegate?.didBeginRefreshing()
                     self.refreshAction?()
                     self.endRefreshing()
-                    self.delegate?.didCompleteEndRefershingAnimation()
+                    self.delegate?.didCompleteHideAnimation()
                 })
             default:
                 break

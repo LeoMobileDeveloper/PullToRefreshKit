@@ -14,7 +14,7 @@ class ConfigDefaultHeaderFooterController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.tableView.tableFooterView = UIView(frame: CGRect.zero)
-        
+
         //Header
         let header = DefaultRefreshHeader.header()
         header.setText("Pull to refresh", mode: .pullToRefresh)
@@ -43,7 +43,7 @@ class ConfigDefaultHeaderFooterController: UITableViewController {
             delay(1.5, closure: {
                 self.models.append(random100())
                 self.tableView.reloadData()
-                if self.models.count > 12{
+                if self.models.count > 18{
                     self.tableView.switchRefreshFooter(to: .removed)
                 }else{
                     self.tableView.switchRefreshFooter(to: .normal)

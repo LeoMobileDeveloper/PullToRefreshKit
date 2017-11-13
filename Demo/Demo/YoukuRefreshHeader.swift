@@ -10,20 +10,13 @@ import Foundation
 import UIKit
 import PullToRefreshKit
 
-//一共高度是两百
-private var frameHeight:CGFloat{
-    get{
-        return UIScreen.main.bounds.size.width * 328.0/571.0
-    }
-}
 class YoukuRefreshHeader:UIView,RefreshableHeader{
     let iconImageView = UIImageView()// 这个ImageView用来显示下拉箭头
     let rotatingImageView = UIImageView() //这个ImageView用来播放动图
     let backgroundImageView = UIImageView() //这个ImageView用来显示广告的
 
     override init(frame: CGRect) {
-        let adjustFrame = CGRect(x: frame.origin.x, y: frame.origin.y, width: frame.size.width, height: frameHeight)
-        super.init(frame: adjustFrame)
+        super.init(frame: frame)
         iconImageView.frame = CGRect(x: 0, y: 0, width: 25, height: 25)
         iconImageView.center = CGPoint(x: self.bounds.width/2.0, y: self.bounds.height/2.0)
         iconImageView.image = UIImage(named: "youku_down")
@@ -34,25 +27,30 @@ class YoukuRefreshHeader:UIView,RefreshableHeader{
         addSubview(iconImageView)
         addSubview(rotatingImageView)
     }
-    override func willMove(toSuperview newSuperview: UIView?) {
-        super.willMove(toSuperview: newSuperview)
-        if let superView = newSuperview{
-            self.frame = CGRect(x: self.frame.origin.x, y: self.frame.origin.y, width: superView.frame.size.width, height: frameHeight)
-        }
-    }
+    
     override func layoutSubviews() {
         super.layoutSubviews()
         backgroundImageView.frame = self.bounds
-        iconImageView.center = CGPoint(x: self.bounds.width/2, y: frameHeight - 30.0)
-        rotatingImageView.center = CGPoint(x: self.bounds.width/2, y: frameHeight - 30.0)
+        iconImageView.center = CGPoint(x: self.bounds.width/2, y: self.frame.size.height - 30.0)
+        rotatingImageView.center = CGPoint(x: self.bounds.width/2, y: self.frame.size.height - 30.0)
     }
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    
     // MARK: - RefreshableHeader -
-    func heightForRefreshingState()->CGFloat{
-        return 60
+    func heightForHeader() -> CGFloat {
+        return UIScreen.main.bounds.size.width * 328.0/571.0
     }
+    
+    func heightForFireRefreshing() -> CGFloat {
+        return 60.0
+    }
+    
+    func heightForRefreshingState() -> CGFloat {
+        return 60.0
+    }
+    
     //监听状态变化
     func stateDidChanged(_ oldState: RefreshHeaderState, newState: RefreshHeaderState) {
         if newState == .pulling && oldState == .idle{
@@ -78,7 +76,7 @@ class YoukuRefreshHeader:UIView,RefreshableHeader{
         self.rotatingImageView.layer.add(rotateAnimation, forKey: "rotate")
     }
     //刷新结束，将要隐藏header
-    func didBeginEndRefershingAnimation(_ result:RefreshResult){
+    func didBeginHideAnimation(_ result:RefreshResult){
         self.rotatingImageView.isHidden = true
         self.iconImageView.isHidden = false
         self.iconImageView.layer.removeAllAnimations()
@@ -86,6 +84,6 @@ class YoukuRefreshHeader:UIView,RefreshableHeader{
         self.iconImageView.image = UIImage(named: "youku_down")
     }
     //刷新结束，完全隐藏header
-    func didCompleteEndRefershingAnimation(_ result:RefreshResult){
+    func didCompleteHideAnimation(_ result:RefreshResult){
     }
 }

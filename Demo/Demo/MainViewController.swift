@@ -35,13 +35,13 @@ class MainViewController: UITableViewController {
                                     rowsTargetControlerNames:["ConfigDefaultHeaderFooterController","ConfigBannerController"])
         let section3 = SectionModel(rowsCount: 6,
                                     sectionTitle:"Customize",
-                                    rowsTitles: ["YahooWeather","Curve Mask","Youku","TaoBao","QQ Video","DianPing"],
+                                    rowsTitles: ["YahooWeather","Youku","TaoBao","QQ Video","DianPing","Netease Footer"],
                                     rowsTargetControlerNames:["YahooWeatherTableViewController",
-                                                              "CurveMaskTableViewController",
                                                               "YoukuTableViewController",
                                                               "TaobaoTableViewController",
                                                               "QQVideoTableviewController",
-                                                              "DianpingTableviewController"])
+                                                              "DianpingTableviewController",
+                                                              "NeteaseFooterController"])
         models.append(section0)
         models.append(section1)
         models.append(section2)

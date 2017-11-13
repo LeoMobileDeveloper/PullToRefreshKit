@@ -21,8 +21,8 @@ fileprivate func < <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
 }
 
 class DefaultTableViewController:UITableViewController{
-    let originalModes = [1,2,3,4,5,6,7,8,9,10]
-    var models = [1,2,3,4,5,6,7,8,9,10]
+    let originalModes = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16]
+    var models = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16]
     override func viewDidLoad() {
         super.viewDidLoad()
         self.tableView.tableFooterView = UIView(frame: CGRect.zero)
@@ -38,7 +38,7 @@ class DefaultTableViewController:UITableViewController{
             delay(1.5, closure: {
                 self.models.append(random100())
                 self.tableView.reloadData()
-                if self.models.count < 12 {
+                if self.models.count < 18 {
                     self.tableView.switchRefreshFooter(to: .normal)
                 }else{
                     self.tableView.switchRefreshFooter(to: .noMoreData)

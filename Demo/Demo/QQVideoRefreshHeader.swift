@@ -24,8 +24,8 @@ class QQVideoRefreshHeader:UIView,RefreshableHeader{
     }
     
     // MARK: - RefreshableHeader -
-    func heightForRefreshingState()->CGFloat{
-        return 50
+    func heightForHeader() -> CGFloat {
+        return 50.0
     }
     func stateDidChanged(_ oldState: RefreshHeaderState, newState: RefreshHeaderState) {
         if newState == .pulling{
@@ -48,9 +48,9 @@ class QQVideoRefreshHeader:UIView,RefreshableHeader{
         imageView.startAnimating()
     }
     //刷新结束，将要隐藏header
-    func didBeginEndRefershingAnimation(_ result:RefreshResult){}
+    func didBeginHideAnimation(_ result:RefreshResult){}
     //刷新结束，完全隐藏header
-    func didCompleteEndRefershingAnimation(_ result:RefreshResult){
+    func didCompleteHideAnimation(_ result:RefreshResult){
         imageView.animationImages = nil
         imageView.stopAnimating()
         imageView.image = UIImage(named: "loading15")

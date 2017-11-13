@@ -13,7 +13,7 @@ public protocol RefreshableLeftRight:class{
     /**
      触发动作的距离，对于header/footer来讲，就是视图的高度；对于left/right来讲，就是视图的宽度
      */
-    func heightForRefreshingState()->CGFloat
+    func widthForComponent()->CGFloat
     /**
      已经开始执行刷新逻辑，在一次刷新中，只会调用一次
      */
@@ -21,7 +21,7 @@ public protocol RefreshableLeftRight:class{
     /**
      结束刷新的回调
      */
-    func didCompleteEndRefershingAnimation()
+    func didCompleteHideAnimation()
     /**
      拖动百分比变化的回调
      
@@ -76,10 +76,10 @@ open class DefaultRefreshLeft: UIView, RefreshableLeftRight {
         imageView.center = CGPoint(x: 40,y: frame.size.height/2)
     }
 // MARK: - RefreshableLeftRight Protocol  -
-   open func heightForRefreshingState() -> CGFloat {
-        return PullToRefreshKitConst.defaultHeaderHeight
+    open func widthForComponent() -> CGFloat {
+        return PullToRefreshKitConst.defaultRightWidth
     }
-   open func percentUpdateDuringScrolling(_ percent:CGFloat){
+    open func percentUpdateDuringScrolling(_ percent:CGFloat){
         if percent > 1.0{
             guard self.imageView.transform == CGAffineTransform.identity else{
                 return
@@ -102,7 +102,7 @@ open class DefaultRefreshLeft: UIView, RefreshableLeftRight {
     open func didBeginRefreshing() {
 
     }
-    open func didCompleteEndRefershingAnimation() {
+    open func didCompleteHideAnimation() {
         textLabel.text = textDic[.scrollToAction]
     }
     
@@ -142,7 +142,7 @@ class RefreshLeftContainer:UIView{
                     self.delegate?.didBeginRefreshing()
                     self.refreshAction?()
                     self.endRefreshing()
-                    self.delegate?.didCompleteEndRefershingAnimation()
+                    self.delegate?.didCompleteHideAnimation()
                 })
             default:
                 break

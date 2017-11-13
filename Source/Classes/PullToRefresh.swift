@@ -31,7 +31,7 @@ public extension UIScrollView{
         oldContain?.removeFromSuperview()
         let containFrame = CGRect(x: 0, y: -self.frame.height, width: self.frame.width, height: self.frame.height)
         let containComponent = RefreshHeaderContainer(frame: containFrame)
-        if let endDuration = refrehser.durationWhenEndRefreshing?(){
+        if let endDuration = refrehser.durationOfHideAnimation?(){
             containComponent.durationOfEndRefreshing = endDuration
         }
         containComponent.tag = PullToRefreshKitConst.headerTag
@@ -39,7 +39,8 @@ public extension UIScrollView{
         self.addSubview(containComponent)
         containComponent.delegate = refrehser
         refrehser.autoresizingMask = [.flexibleWidth,.flexibleHeight]
-        let bounds = CGRect(x: 0,y: containFrame.height - refrehser.frame.height,width: self.frame.width,height: refrehser.frame.height)
+        let refreshHeight = refrehser.heightForHeader()
+        let bounds = CGRect(x: 0,y: containFrame.height - refreshHeight,width: self.frame.width,height: refreshHeight)
         refrehser.frame = bounds
         containComponent.addSubview(refrehser)
     }
@@ -72,7 +73,7 @@ public extension UIScrollView{
                                               action:@escaping ()->()) where T: RefreshableFooter{
         let oldContain = self.viewWithTag(PullToRefreshKitConst.footerTag)
         oldContain?.removeFromSuperview()
-        let containComponent = RefreshFooterContainer(frame: refrehser.bounds)
+        let containComponent = RefreshFooterContainer(frame: CGRect(x: 0, y: 0, width: self.frame.size.width, height: refrehser.heightForFooter()))
         containComponent.tag = PullToRefreshKitConst.footerTag
         containComponent.refreshAction = action
         self.insertSubview(containComponent, at: 0)
@@ -117,7 +118,7 @@ public extension UIScrollView{
                 oldContain?.removeFromSuperview()
                 let frame = CGRect(x: -1.0 * refrehser.frame.size.width,
                                    y: 0.0,
-                                   width: refrehser.frame.size.width,
+                                   width: refrehser.widthForComponent(),
                                    height: self.frame.height)
                 let containComponent = RefreshLeftContainer(frame: frame)
                 containComponent.tag = PullToRefreshKitConst.leftTag

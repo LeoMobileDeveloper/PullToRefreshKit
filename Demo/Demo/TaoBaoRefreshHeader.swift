@@ -15,24 +15,29 @@ class TaoBaoRefreshHeader:UIView,RefreshableHeader{
     fileprivate let arrowLayer = CAShapeLayer()
     fileprivate let textLabel = UILabel()
     fileprivate let strokeColor = UIColor(red: 135.0/255.0, green: 136.0/255.0, blue: 137.0/255.0, alpha: 1.0)
+    fileprivate let imageView = UIImageView(frame:CGRect(x: 0, y: 0, width: 230, height: 35))
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         setUpCircleLayer()
         setUpArrowLayer()
-        textLabel.frame = CGRect(x: 0,y: 0,width: 120, height: 40)
         textLabel.textAlignment = .center
         textLabel.textColor = UIColor.lightGray
         textLabel.font = UIFont.systemFont(ofSize: 14)
         textLabel.text = "下拉即可刷新..."
-        let imageView = UIImageView(frame: CGRect(x: 0, y: 0, width: 230, height: 35))
         imageView.image = UIImage(named: "taobaoLogo")
         self.addSubview(imageView)
         self.addSubview(textLabel)
+ 
+    }
+    override func layoutSubviews() {
+        super.layoutSubviews()
         //放置Views和Layer
-        imageView.center = CGPoint(x: frame.width/2, y: frame.height - 60 - 18)
-        textLabel.center = CGPoint(x: frame.width/2 + 20, y: frame.height - 30)
-        self.arrowLayer.position = CGPoint(x: frame.width/2 - 60, y: frame.height - 30)
-        self.circleLayer.position = CGPoint(x: frame.width/2 - 60, y: frame.height - 30)
+        textLabel.frame = CGRect(x: 0,y: 0,width: 120, height: 40)
+        imageView.center = CGPoint(x: self.frame.width/2, y: self.frame.height - 60 - 18)
+        textLabel.center = CGPoint(x: self.frame.width/2 + 20, y: self.frame.height - 30)
+        self.arrowLayer.position = CGPoint(x: self.frame.width/2 - 60, y: self.frame.height - 30)
+        self.circleLayer.position = CGPoint(x: self.frame.width/2 - 60, y: self.frame.height - 30)
     }
     func setUpArrowLayer(){
         let bezierPath = UIBezierPath()
@@ -72,9 +77,18 @@ class TaoBaoRefreshHeader:UIView,RefreshableHeader{
     }
     
 // MARK: - RefreshableHeader -
-    func heightForRefreshingState()->CGFloat{
-        return 60
+    func heightForHeader() -> CGFloat {
+        return 100
     }
+    
+    func heightForFireRefreshing() -> CGFloat {
+        return 60.0
+    }
+    
+    func heightForRefreshingState() -> CGFloat {
+        return 60.0
+    }
+    
     func percentUpdateDuringScrolling(_ percent:CGFloat){
         let adjustPercent = max(min(1.0, percent),0.0)
         if adjustPercent  == 1.0{
@@ -84,6 +98,7 @@ class TaoBaoRefreshHeader:UIView,RefreshableHeader{
         }
         self.circleLayer.strokeEnd = 0.05 + 0.9 * adjustPercent
     }
+    
     func didBeginRefreshingState(){
         self.circleLayer.strokeEnd = 0.95
         let rotateAnimation = CABasicAnimation(keyPath: "transform.rotation.z")
@@ -95,19 +110,22 @@ class TaoBaoRefreshHeader:UIView,RefreshableHeader{
         self.arrowLayer.isHidden = true
         textLabel.text = "刷新中..."
     }
-    func didBeginEndRefershingAnimation(_ result:RefreshResult){
+    
+    func didBeginHideAnimation(_ result:RefreshResult){
         transitionWithOutAnimation {
             self.circleLayer.strokeEnd = 0.05
         };
         self.circleLayer.removeAllAnimations()
     }
-    func didCompleteEndRefershingAnimation(_ result:RefreshResult){
+    
+    func didCompleteHideAnimation(_ result:RefreshResult){
         transitionWithOutAnimation { 
             self.circleLayer.strokeEnd = 0.05
         };
         self.arrowLayer.isHidden = false
         textLabel.text = "下拉即可刷新"
     }
+    
     func transitionWithOutAnimation(_ clousre:()->()){
         CATransaction.begin()
         CATransaction.setDisableActions(true)
