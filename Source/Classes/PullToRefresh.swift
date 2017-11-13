@@ -118,7 +118,7 @@ public extension UIScrollView{
                 oldContain?.removeFromSuperview()
                 let frame = CGRect(x: -1.0 * refrehser.frame.size.width,
                                    y: 0.0,
-                                   width: refrehser.frame.size.width,
+                                   width: refrehser.widthForComponent(),
                                    height: self.frame.height)
                 let containComponent = RefreshLeftContainer(frame: frame)
                 containComponent.tag = PullToRefreshKitConst.leftTag

@@ -32,7 +32,7 @@ import UIKit
     func didBeginRefreshing()
     
     /**
-     当Scroll触发刷新，这个方法返回是否需要刷新
+     当Scroll触发刷新，这个方法返回是否需要刷新（比如你只想要点击刷新）
      */
     func shouldBeginRefreshingWhenScroll()->Bool
 }

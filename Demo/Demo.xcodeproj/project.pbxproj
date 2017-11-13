@@ -51,6 +51,8 @@
 		B3B544AD1F062A9800408912 /* YoukuTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3B543D11F062A9700408912 /* YoukuTableViewController.swift */; };
 		B3B544AE1F062A9800408912 /* LaunchScreen.strings in Resources */ = {isa = PBXBuildFile; fileRef = B3B543D21F062A9700408912 /* LaunchScreen.strings */; };
 		B3B544AF1F062A9800408912 /* Main.strings in Resources */ = {isa = PBXBuildFile; fileRef = B3B543D41F062A9700408912 /* Main.strings */; };
+		B3E751CD1FB999F5009D3A81 /* NeteaseNewsFooter.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3E751CC1FB999F5009D3A81 /* NeteaseNewsFooter.swift */; };
+		B3E751CF1FB99A22009D3A81 /* NeteaseFooterController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3E751CE1FB99A22009D3A81 /* NeteaseFooterController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -130,6 +132,8 @@
 		B3B543D11F062A9700408912 /* YoukuTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = YoukuTableViewController.swift; path = Demo/YoukuTableViewController.swift; sourceTree = "<group>"; };
 		B3B543D31F062A9700408912 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/LaunchScreen.strings"; sourceTree = "<group>"; };
 		B3B543D51F062A9700408912 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Main.strings"; sourceTree = "<group>"; };
+		B3E751CC1FB999F5009D3A81 /* NeteaseNewsFooter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NeteaseNewsFooter.swift; sourceTree = "<group>"; };
+		B3E751CE1FB99A22009D3A81 /* NeteaseFooterController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NeteaseFooterController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -190,6 +194,7 @@
 		B38F55011F976DFF00993075 /* Custom */ = {
 			isa = PBXGroup;
 			children = (
+				B3E751CB1FB999CE009D3A81 /* CustomFooter */,
 				B38F55031F976E3200993075 /* Taobao */,
 				B38F55081F976E6500993075 /* Elastic */,
 				B38F55071F976E5D00993075 /* Yahoo */,
@@ -309,6 +314,15 @@
 			path = ..;
 			sourceTree = "<group>";
 		};
+		B3E751CB1FB999CE009D3A81 /* CustomFooter */ = {
+			isa = PBXGroup;
+			children = (
+				B3E751CC1FB999F5009D3A81 /* NeteaseNewsFooter.swift */,
+				B3E751CE1FB99A22009D3A81 /* NeteaseFooterController.swift */,
+			);
+			name = CustomFooter;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -421,6 +435,7 @@
 				B3B543E31F062A9800408912 /* BaseTableViewController.swift in Sources */,
 				B3B543E41F062A9800408912 /* ConfigBannerController.swift in Sources */,
 				B3B543EB1F062A9800408912 /* DefaultTableViewController.swift in Sources */,
+				B3E751CD1FB999F5009D3A81 /* NeteaseNewsFooter.swift in Sources */,
 				B3B544AD1F062A9800408912 /* YoukuTableViewController.swift in Sources */,
 				B3B543EC1F062A9800408912 /* DefaultWebViewController.swift in Sources */,
 				B3B5442F1F062A9800408912 /* QQVideoRefreshHeader.swift in Sources */,
@@ -431,6 +446,7 @@
 				B3B544A31F062A9800408912 /* TaoBaoRefreshHeader.swift in Sources */,
 				B3B544A51F062A9800408912 /* Util.swift in Sources */,
 				B3B544A41F062A9800408912 /* TaobaoTableViewController.swift in Sources */,
+				B3E751CF1FB99A22009D3A81 /* NeteaseFooterController.swift in Sources */,
 				B3B543EE1F062A9800408912 /* DianpingTableviewController.swift in Sources */,
 				B3B544A71F062A9800408912 /* YahooWeatherRefreshHeader.swift in Sources */,
 				B3B5442E1F062A9800408912 /* MainViewController.swift in Sources */,
