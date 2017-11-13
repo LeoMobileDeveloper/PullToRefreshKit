@@ -13,7 +13,7 @@ public protocol RefreshableLeftRight:class{
     /**
      触发动作的距离，对于header/footer来讲，就是视图的高度；对于left/right来讲，就是视图的宽度
      */
-    func heightForRefreshingState()->CGFloat
+    func heightForComponent()->CGFloat
     /**
      已经开始执行刷新逻辑，在一次刷新中，只会调用一次
      */
@@ -76,7 +76,7 @@ open class DefaultRefreshLeft: UIView, RefreshableLeftRight {
         imageView.center = CGPoint(x: 40,y: frame.size.height/2)
     }
 // MARK: - RefreshableLeftRight Protocol  -
-   open func heightForRefreshingState() -> CGFloat {
+    open func heightForComponent() -> CGFloat {
         return PullToRefreshKitConst.defaultHeaderHeight
     }
    open func percentUpdateDuringScrolling(_ percent:CGFloat){

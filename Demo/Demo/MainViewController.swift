@@ -33,11 +33,10 @@ class MainViewController: UITableViewController {
                                     sectionTitle:"Config Default",
                                     rowsTitles: ["Header/Footer","Left/Right"],
                                     rowsTargetControlerNames:["ConfigDefaultHeaderFooterController","ConfigBannerController"])
-        let section3 = SectionModel(rowsCount: 6,
+        let section3 = SectionModel(rowsCount: 5,
                                     sectionTitle:"Customize",
-                                    rowsTitles: ["YahooWeather","Curve Mask","Youku","TaoBao","QQ Video","DianPing"],
+                                    rowsTitles: ["YahooWeather","Youku","TaoBao","QQ Video","DianPing"],
                                     rowsTargetControlerNames:["YahooWeatherTableViewController",
-                                                              "CurveMaskTableViewController",
                                                               "YoukuTableViewController",
                                                               "TaobaoTableViewController",
                                                               "QQVideoTableviewController",

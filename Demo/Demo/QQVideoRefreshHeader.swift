@@ -24,8 +24,8 @@ class QQVideoRefreshHeader:UIView,RefreshableHeader{
     }
     
     // MARK: - RefreshableHeader -
-    func heightForRefreshingState()->CGFloat{
-        return 50
+    func heightForHeader() -> CGFloat {
+        return 50.0
     }
     func stateDidChanged(_ oldState: RefreshHeaderState, newState: RefreshHeaderState) {
         if newState == .pulling{

@@ -15,7 +15,7 @@ class YoukuTableViewController:BaseTableViewController{
         super.viewDidLoad()
         //Setup
         self.tableView.backgroundColor = UIColor(red: 232.0/255.0, green: 234.0/255.0, blue: 235.0/255.0, alpha: 1.0)
-        let youkuHeader = YoukuRefreshHeader(frame: CGRect(x: 0,y: 0,width: self.view.bounds.width,height: 60))
+        let youkuHeader = YoukuRefreshHeader()
         youkuHeader.backgroundImageView.isHidden = true
         self.refreshHeader = youkuHeader
         self.tableView.configRefreshHeader(with: youkuHeader) {

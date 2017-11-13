@@ -11,9 +11,9 @@ import UIKit
 
 @objc public protocol RefreshableFooter:class{
     /**
-     触发动作的距离，对于header/footer来讲，就是视图的高度；对于left/right来讲，就是视图的宽度
+     footer的高度
      */
-    func heightForRefreshingState()->CGFloat
+    func heightForFooter()->CGFloat
     /**
      不需要下拉加载更多的回调
      */
@@ -78,7 +78,7 @@ public enum RefreshMode{
 
 open class DefaultRefreshFooter:UIView, RefreshableFooter{
     open static func footer()-> DefaultRefreshFooter{
-        return DefaultRefreshFooter(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.size.width, height: PullToRefreshKitConst.defaultFooterHeight))
+        return DefaultRefreshFooter()
     }
     open let spinner:UIActivityIndicatorView = UIActivityIndicatorView(activityIndicatorStyle: .gray)
     open  let textLabel:UILabel = UILabel(frame: CGRect(x: 0,y: 0,width: 140,height: 40))
@@ -89,6 +89,7 @@ open class DefaultRefreshFooter:UIView, RefreshableFooter{
             udpateTextLabelWithMode(refreshMode)
         }
     }
+    
     fileprivate func udpateTextLabelWithMode(_ refreshMode:RefreshMode){
         switch refreshMode {
         case .scroll:
@@ -99,6 +100,7 @@ open class DefaultRefreshFooter:UIView, RefreshableFooter{
             textLabel.text = textDic[.scrollAndTapToRefresh]
         }
     }
+    
     fileprivate var tap:UITapGestureRecognizer!
     fileprivate var textDic = [RefreshKitFooterText:String]()
     /**
@@ -135,11 +137,13 @@ open class DefaultRefreshFooter:UIView, RefreshableFooter{
         let scrollView = self.superview?.superview as? UIScrollView
         scrollView?.switchRefreshFooter(to: .refreshing)
     }
+    
 // MARK: - Refreshable  -
-    open func heightForRefreshingState() -> CGFloat {
+    open func heightForFooter() -> CGFloat {
         return PullToRefreshKitConst.defaultFooterHeight
     }
     open func didBeginRefreshing() {
+        self.isUserInteractionEnabled = true
         textLabel.text = textDic[.refreshing];
         spinner.startAnimating()
     }
@@ -148,9 +152,11 @@ open class DefaultRefreshFooter:UIView, RefreshableFooter{
         spinner.stopAnimating()
     }
     open func didUpdateToNoMoreData(){
+        self.isUserInteractionEnabled = false;
         textLabel.text = textDic[.noMoreData]
     }
     open func didResetToDefault() {
+        self.isUserInteractionEnabled = true
         udpateTextLabelWithMode(refreshMode)
     }
     open func shouldBeginRefreshingWhenScroll()->Bool {
@@ -208,16 +214,13 @@ class RefreshFooterContainer:UIView{
             }
             _state =  newValue
             if newValue == .refreshing{
-                self.isUserInteractionEnabled = true
                 DispatchQueue.main.async(execute: {
                     self.delegate?.didBeginRefreshing()
                     self.refreshAction?()
                 })
             }else if newValue == .noMoreData{
-                self.isUserInteractionEnabled = false
                 self.delegate?.didUpdateToNoMoreData()
             }else if newValue == .idle{
-                self.isUserInteractionEnabled = true
                 self.delegate?.didResetToDefault()
             }
         }
@@ -228,7 +231,6 @@ class RefreshFooterContainer:UIView{
         commonInit()
     }
     func commonInit(){
-        self.isUserInteractionEnabled = true
         self.backgroundColor = UIColor.clear
         self.autoresizingMask = .flexibleWidth
     }
@@ -336,16 +338,13 @@ class RefreshFooterContainer:UIView{
     }
 // MARK: - KVO -
     override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
-        guard self.isUserInteractionEnabled else{
-            return;
-        }
-        if keyPath == PullToRefreshKitConst.KPathOffSet {
+        if keyPath == PullToRefreshKitConst.KPathOffSet && self.isUserInteractionEnabled{
             handleScrollOffSetChange(change)
         }
         guard !self.isHidden else{
             return;
         }
-        if keyPath == PullToRefreshKitConst.KPathPanState{
+        if keyPath == PullToRefreshKitConst.KPathPanState && self.isUserInteractionEnabled{
             handlePanStateChange(change)
         }
         if keyPath == PullToRefreshKitConst.KPathContentSize {

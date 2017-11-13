@@ -39,7 +39,8 @@ public extension UIScrollView{
         self.addSubview(containComponent)
         containComponent.delegate = refrehser
         refrehser.autoresizingMask = [.flexibleWidth,.flexibleHeight]
-        let bounds = CGRect(x: 0,y: containFrame.height - refrehser.frame.height,width: self.frame.width,height: refrehser.frame.height)
+        let refreshHeight = refrehser.heightForHeader()
+        let bounds = CGRect(x: 0,y: containFrame.height - refreshHeight,width: self.frame.width,height: refreshHeight)
         refrehser.frame = bounds
         containComponent.addSubview(refrehser)
     }
@@ -72,7 +73,7 @@ public extension UIScrollView{
                                               action:@escaping ()->()) where T: RefreshableFooter{
         let oldContain = self.viewWithTag(PullToRefreshKitConst.footerTag)
         oldContain?.removeFromSuperview()
-        let containComponent = RefreshFooterContainer(frame: refrehser.bounds)
+        let containComponent = RefreshFooterContainer(frame: CGRect(x: 0, y: 0, width: self.frame.size.width, height: refrehser.heightForFooter()))
         containComponent.tag = PullToRefreshKitConst.footerTag
         containComponent.refreshAction = action
         self.insertSubview(containComponent, at: 0)

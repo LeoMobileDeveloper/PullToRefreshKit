@@ -47,8 +47,8 @@ open class DefaultRefreshRight:UIView, RefreshableLeftRight {
         imageView.center = CGPoint(x: 10,y: frame.size.height/2)
     }
     // MARK: - RefreshableLeftRight Protocol  -
-    open func heightForRefreshingState() -> CGFloat {
-        return PullToRefreshKitConst.defaultLeftWidth
+    open func heightForComponent() -> CGFloat {
+        return PullToRefreshKitConst.defaultHeaderHeight
     }
     open func percentUpdateDuringScrolling(_ percent:CGFloat){
         if percent > 1.0{

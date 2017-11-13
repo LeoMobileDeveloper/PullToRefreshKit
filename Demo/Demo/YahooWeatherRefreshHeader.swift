@@ -18,11 +18,8 @@ class YahooWeatherRefreshHeader: UIView,RefreshableHeader{
     override init(frame: CGRect) {
         super.init(frame: frame)
         self.backgroundColor = UIColor(white: 0.0, alpha: 0.25)
-        logoImage.center = CGPoint(x: self.bounds.width/2.0, y: frame.height - 30 - 7.0)
-        imageView.center = CGPoint(x: self.bounds.width/2.0 - 60.0, y: frame.height - 30)
         imageView.image = UIImage(named: "sun_000000")
         logoImage.image = UIImage(named: "yahoo_logo")
-        label.frame = CGRect(x: logoImage.frame.origin.x, y: logoImage.frame.origin.y + logoImage.frame.height + 2,width: 200, height: 20)
         label.textColor = UIColor.white
         label.font = UIFont.systemFont(ofSize: 12)
         label.text = "Last update: 5 minutes ago"
@@ -30,15 +27,29 @@ class YahooWeatherRefreshHeader: UIView,RefreshableHeader{
         addSubview(logoImage)
         addSubview(label)
     }
-    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        imageView.center = CGPoint(x: self.bounds.width/2.0 - 60.0, y: frame.height - 30)
+        logoImage.center = CGPoint(x: self.bounds.width/2.0, y: frame.height - 30 - 7.0)
+        label.frame = CGRect(x: logoImage.frame.origin.x, y: logoImage.frame.origin.y + logoImage.frame.height + 2,width: 200, height: 20)
+    }
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
     // MARK: - RefreshableHeader -
-    func heightForRefreshingState()->CGFloat{
-        return 60
+    func heightForHeader() -> CGFloat {
+        return UIScreen.main.bounds.size.height
     }
+    
+    func heightForFireRefreshing() -> CGFloat {
+        return 60.0
+    }
+    
+    func heightForRefreshingState() -> CGFloat {
+        return 60.0
+    }
+    
     func percentUpdateDuringScrolling(_ percent: CGFloat) {
         let adjustPercent = max(min(1.0, percent),0.0)
         let index  = Int(adjustPercent * 27)

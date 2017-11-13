@@ -15,16 +15,18 @@ class DianpingRefreshHeader:UIView,RefreshableHeader{
     override init(frame: CGRect) {
         super.init(frame: frame)
         imageView.frame = CGRect(x: 0, y: 0, width: 60, height: 60)
-        imageView.center = CGPoint(x: self.bounds.width/2.0, y: self.bounds.height/2.0)
         addSubview(imageView)
     }
-    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        imageView.center = CGPoint(x: self.bounds.width/2.0, y: self.bounds.height/2.0)
+    }
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     // MARK: - RefreshableHeader -
-    func heightForRefreshingState()->CGFloat{
-        return 70
+    func heightForHeader() -> CGFloat {
+        return 60.0
     }
     //监听百分比变化
     func percentUpdateDuringScrolling(_ percent:CGFloat){

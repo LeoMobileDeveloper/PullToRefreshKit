@@ -12,9 +12,9 @@ import UIKit
 
 @objc public protocol RefreshableHeader: class{
     /**
-     在刷新状态的时候，距离顶部的距离
+     视图的高度
      */
-    func heightForRefreshingState()->CGFloat
+    func heightForHeader()->CGFloat
     
     /**
      进入刷新状态的回调，在这里将视图调整为刷新中
@@ -40,17 +40,22 @@ import UIKit
      - parameter oldState: 老得状态
      */
     @objc optional func stateDidChanged(_ oldState:RefreshHeaderState, newState:RefreshHeaderState)
+    
     /**
-     触发刷新的距离，可选，如果没有实现，则默认触发刷新的距离就是 heightForRefreshingState
+     触发刷新的时候，距离顶部的高度，可选，如果没有实现，则默认触发刷新的距离就是 heightForHeader
      */
     @objc optional func heightForFireRefreshing()->CGFloat
     
+    /**
+     在刷新状态的时候，距离顶部的高度，默认是heightForHeader
+     */
+    @objc optional func heightForRefreshingState()->CGFloat
     /**
      不在刷新状态的时候，百分比回调，在这里你根据百分比来动态的调整你的刷新视图
      - parameter percent: 拖拽的百分比，比如一共距离是100，那么拖拽10的时候，percent就是0.1
      */
     @objc optional func percentUpdateDuringScrolling(_ percent:CGFloat)
-    
+
     /**
      刷新结束，隐藏header的时间间隔，默认0.4s
      
@@ -81,9 +86,11 @@ public enum RefreshKitHeaderText{
 }
 
 open class DefaultRefreshHeader: UIView, RefreshableHeader {
+    
     open class func header()->DefaultRefreshHeader{
-        return DefaultRefreshHeader(frame: CGRect(x: 0, y: 0, width:UIScreen.main.bounds.size.width , height: 55.0));
+        return DefaultRefreshHeader();
     }
+    
     open var imageRenderingWithTintColor = false{
         didSet{
             if imageRenderingWithTintColor{
@@ -91,6 +98,7 @@ open class DefaultRefreshHeader: UIView, RefreshableHeader {
             }
         }
     }
+    
     open let spinner:UIActivityIndicatorView = UIActivityIndicatorView(activityIndicatorStyle: .gray)
     open let textLabel:UILabel = UILabel(frame: CGRect(x: 0,y: 0,width: 140,height: 40))
     open let imageView:UIImageView = UIImageView(frame: CGRect.zero)
@@ -133,7 +141,7 @@ open class DefaultRefreshHeader: UIView, RefreshableHeader {
     }
     
     // MARK: - Refreshable  -
-    open func heightForRefreshingState() -> CGFloat {
+    public func heightForHeader() -> CGFloat {
         return PullToRefreshKitConst.defaultHeaderHeight
     }
     
@@ -245,10 +253,13 @@ open class RefreshHeaderContainer:UIView{
                 })
             case .refreshing:
                 DispatchQueue.main.async(execute: {
-                    let insetHeight = (self.delegate?.heightForRefreshingState())!
+                    var insetHeight:CGFloat! = self.delegate?.heightForRefreshingState?()
+                    if insetHeight == nil{
+                        insetHeight = self.delegate?.heightForHeader()
+                    }
                     var fireHeight:CGFloat! = self.delegate?.heightForFireRefreshing?()
                     if fireHeight == nil{
-                        fireHeight = insetHeight
+                        fireHeight = self.delegate?.heightForHeader()
                     }
                     let offSetY = self.attachedScrollView.contentOffset.y
                     let topShowOffsetY = -1.0 * self.originalInset!.top
@@ -318,10 +329,13 @@ open class RefreshHeaderContainer:UIView{
         attachedScrollView?.removeObserver(self, forKeyPath: PullToRefreshKitConst.KPathOffSet,context: nil)
     }
     func handleScrollOffSetChange(_ change: [NSKeyValueChangeKey : Any]?){
-        let insetHeight = (self.delegate?.heightForRefreshingState())!
+        var insetHeight:CGFloat! = self.delegate?.heightForRefreshingState?()
+        if insetHeight == nil {
+            insetHeight = self.delegate?.heightForHeader()
+        }
         var fireHeight:CGFloat! = self.delegate?.heightForFireRefreshing?()
         if fireHeight == nil{
-            fireHeight = insetHeight
+            fireHeight = self.delegate?.heightForHeader()
         }
         if state == .refreshing {
             guard self.window != nil else{

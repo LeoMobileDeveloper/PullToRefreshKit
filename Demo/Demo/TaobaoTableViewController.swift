@@ -12,7 +12,7 @@ class TaobaoTableViewController:BaseTableViewController{
     override func viewDidLoad() {
         super.viewDidLoad()
         //Setup
-        let taobaoHeader = TaoBaoRefreshHeader(frame: CGRect(x: 0,y: 0,width: self.view.bounds.width,height: 100))
+        let taobaoHeader = TaoBaoRefreshHeader()
         self.tableView.configRefreshHeader(with: taobaoHeader) {
             self.models = self.models.map({_ in random100()})
             self.tableView.reloadData()

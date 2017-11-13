@@ -22,8 +22,6 @@
 		B3B543E31F062A9800408912 /* BaseTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3B543071F062A9700408912 /* BaseTableViewController.swift */; };
 		B3B543E41F062A9800408912 /* ConfigBannerController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3B543081F062A9700408912 /* ConfigBannerController.swift */; };
 		B3B543E51F062A9800408912 /* ConfigHeaderFooterController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3B543091F062A9700408912 /* ConfigHeaderFooterController.swift */; };
-		B3B543E61F062A9800408912 /* CurveMaskTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3B5430A1F062A9700408912 /* CurveMaskTableViewController.swift */; };
-		B3B543E71F062A9800408912 /* CurveRefreshHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3B5430B1F062A9700408912 /* CurveRefreshHeader.swift */; };
 		B3B543E81F062A9800408912 /* DefaultBannerController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3B5430C1F062A9700408912 /* DefaultBannerController.swift */; };
 		B3B543E91F062A9800408912 /* DefaultCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3B5430D1F062A9700408912 /* DefaultCollectionViewController.swift */; };
 		B3B543EA1F062A9800408912 /* DefaultScrollViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3B5430E1F062A9700408912 /* DefaultScrollViewController.swift */; };
@@ -102,8 +100,6 @@
 		B3B543071F062A9700408912 /* BaseTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BaseTableViewController.swift; path = Demo/BaseTableViewController.swift; sourceTree = "<group>"; };
 		B3B543081F062A9700408912 /* ConfigBannerController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ConfigBannerController.swift; path = Demo/ConfigBannerController.swift; sourceTree = "<group>"; };
 		B3B543091F062A9700408912 /* ConfigHeaderFooterController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ConfigHeaderFooterController.swift; path = Demo/ConfigHeaderFooterController.swift; sourceTree = "<group>"; };
-		B3B5430A1F062A9700408912 /* CurveMaskTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CurveMaskTableViewController.swift; path = Demo/CurveMaskTableViewController.swift; sourceTree = "<group>"; };
-		B3B5430B1F062A9700408912 /* CurveRefreshHeader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CurveRefreshHeader.swift; path = Demo/CurveRefreshHeader.swift; sourceTree = "<group>"; };
 		B3B5430C1F062A9700408912 /* DefaultBannerController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DefaultBannerController.swift; path = Demo/DefaultBannerController.swift; sourceTree = "<group>"; };
 		B3B5430D1F062A9700408912 /* DefaultCollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DefaultCollectionViewController.swift; path = Demo/DefaultCollectionViewController.swift; sourceTree = "<group>"; };
 		B3B5430E1F062A9700408912 /* DefaultScrollViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DefaultScrollViewController.swift; path = Demo/DefaultScrollViewController.swift; sourceTree = "<group>"; };
@@ -199,7 +195,6 @@
 				B38F55071F976E5D00993075 /* Yahoo */,
 				B38F55061F976E4C00993075 /* Dianping */,
 				B38F55021F976E2A00993075 /* QQVideo */,
-				B38F55051F976E4300993075 /* Curve */,
 				B38F55041F976E3A00993075 /* Youku */,
 			);
 			name = Custom;
@@ -230,15 +225,6 @@
 				B3B543D11F062A9700408912 /* YoukuTableViewController.swift */,
 			);
 			name = Youku;
-			sourceTree = "<group>";
-		};
-		B38F55051F976E4300993075 /* Curve */ = {
-			isa = PBXGroup;
-			children = (
-				B3B5430A1F062A9700408912 /* CurveMaskTableViewController.swift */,
-				B3B5430B1F062A9700408912 /* CurveRefreshHeader.swift */,
-			);
-			name = Curve;
 			sourceTree = "<group>";
 		};
 		B38F55061F976E4C00993075 /* Dianping */ = {
@@ -444,7 +430,6 @@
 				B3B544311F062A9800408912 /* RowModel.swift in Sources */,
 				B3B544A31F062A9800408912 /* TaoBaoRefreshHeader.swift in Sources */,
 				B3B544A51F062A9800408912 /* Util.swift in Sources */,
-				B3B543E71F062A9800408912 /* CurveRefreshHeader.swift in Sources */,
 				B3B544A41F062A9800408912 /* TaobaoTableViewController.swift in Sources */,
 				B3B543EE1F062A9800408912 /* DianpingTableviewController.swift in Sources */,
 				B3B544A71F062A9800408912 /* YahooWeatherRefreshHeader.swift in Sources */,
@@ -452,7 +437,6 @@
 				B3B544301F062A9800408912 /* QQVideoTableViewController.swift in Sources */,
 				B3B543ED1F062A9800408912 /* DianpingRefreshHeader.swift in Sources */,
 				B3B543D91F062A9700408912 /* AppDelegate.swift in Sources */,
-				B3B543E61F062A9800408912 /* CurveMaskTableViewController.swift in Sources */,
 				B3B543EF1F062A9800408912 /* ElasticHeaderTableViewController.swift in Sources */,
 				B3B543E51F062A9800408912 /* ConfigHeaderFooterController.swift in Sources */,
 				B3B544A81F062A9800408912 /* YahooWeatherTableViewController.swift in Sources */,

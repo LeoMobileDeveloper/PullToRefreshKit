@@ -58,12 +58,12 @@ open class ElasticRefreshHeader: UIView,RefreshableHeader {
     
     // MARK: - Refreshable Header -
     
-    open func heightForRefreshingState() -> CGFloat {
-        return totalHegiht/2.0
+    open func heightForHeader() -> CGFloat {
+        return totalHegiht
     }
     
-    open func heightForFireRefreshing()->CGFloat{
-        return totalHegiht
+    open func heightForRefreshingState() -> CGFloat {
+        return totalHegiht/2.0
     }
     
     open func percentUpdateDuringScrolling(_ percent:CGFloat){
