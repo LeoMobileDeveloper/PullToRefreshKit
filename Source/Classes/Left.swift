@@ -21,7 +21,7 @@ public protocol RefreshableLeftRight:class{
     /**
      结束刷新的回调
      */
-    func didCompleteEndRefershingAnimation()
+    func didCompleteHideAnimation()
     /**
      拖动百分比变化的回调
      
@@ -102,7 +102,7 @@ open class DefaultRefreshLeft: UIView, RefreshableLeftRight {
     open func didBeginRefreshing() {
 
     }
-    open func didCompleteEndRefershingAnimation() {
+    open func didCompleteHideAnimation() {
         textLabel.text = textDic[.scrollToAction]
     }
     
@@ -142,7 +142,7 @@ class RefreshLeftContainer:UIView{
                     self.delegate?.didBeginRefreshing()
                     self.refreshAction?()
                     self.endRefreshing()
-                    self.delegate?.didCompleteEndRefershingAnimation()
+                    self.delegate?.didCompleteHideAnimation()
                 })
             default:
                 break

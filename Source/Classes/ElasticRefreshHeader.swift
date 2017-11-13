@@ -14,14 +14,11 @@ open class ElasticRefreshHeader: UIView,RefreshableHeader {
     open let textLabel:UILabel = UILabel(frame: CGRect(x: 0,y: 0,width: 120,height: 40))
     open let imageView:UIImageView = UIImageView(frame: CGRect.zero)
     fileprivate var textDic = [RefreshKitHeaderText:String]()
-    fileprivate let totalHegiht:CGFloat = 80.0
     override init(frame: CGRect) {
         control = ElasticRefreshControl(frame: frame)
-        let adjustFrame = CGRect(x: frame.origin.x, y: frame.origin.y, width: frame.size.width, height: totalHegiht)
-        super.init(frame: adjustFrame)
+        super.init(frame: frame)
         self.autoresizingMask = .flexibleWidth
         self.backgroundColor = UIColor.white
-        imageView.sizeToFit()
         imageView.frame = CGRect(x: 0, y: 0, width: 16, height: 16)
         textLabel.font = UIFont.systemFont(ofSize: 12)
         textLabel.textAlignment = .center
@@ -31,7 +28,7 @@ open class ElasticRefreshHeader: UIView,RefreshableHeader {
         addSubview(imageView)
         textDic[.refreshSuccess] = PullToRefreshKitHeaderString.refreshSuccess
         textDic[.refreshFailure] = PullToRefreshKitHeaderString.refreshFailure
-        textLabel.text = textDic[.pullToRefresh]
+        textLabel.text = nil
     }
     
     open func setText(_ text:String,mode:RefreshKitHeaderText){
@@ -45,8 +42,9 @@ open class ElasticRefreshHeader: UIView,RefreshableHeader {
     open override func layoutSubviews() {
         super.layoutSubviews()
         control.frame = self.bounds
-        imageView.center = CGPoint(x: frame.width/2 - 40 - 40, y: totalHegiht * 0.75)
-        textLabel.center = CGPoint(x: frame.size.width/2, y: totalHegiht * 0.75);
+        textLabel.sizeToFit()
+        textLabel.center = CGPoint(x: frame.size.width / 2.0 , y: self.frame.size.height * 0.75);
+        imageView.center = CGPoint(x: textLabel.frame.origin.x - imageView.frame.size.width - 8.0, y: self.frame.size.height * 0.75)
     }
     
     open override func willMove(toSuperview newSuperview: UIView?) {
@@ -59,11 +57,15 @@ open class ElasticRefreshHeader: UIView,RefreshableHeader {
     // MARK: - Refreshable Header -
     
     open func heightForHeader() -> CGFloat {
-        return totalHegiht
+        return 80.0
+    }
+    
+    public func heightForFireRefreshing() -> CGFloat {
+        return 80.0
     }
     
     open func heightForRefreshingState() -> CGFloat {
-        return totalHegiht/2.0
+        return 80.0/2.0
     }
     
     open func percentUpdateDuringScrolling(_ percent:CGFloat){
@@ -81,7 +83,7 @@ open class ElasticRefreshHeader: UIView,RefreshableHeader {
         self.control.animating = true
     }
     
-    open func didBeginEndRefershingAnimation(_ result:RefreshResult) {
+    open func didBeginHideAnimation(_ result:RefreshResult) {
         switch result {
         case .success:
             self.control.isHidden = true
@@ -102,13 +104,13 @@ open class ElasticRefreshHeader: UIView,RefreshableHeader {
             textLabel.text = textDic[.pullToRefresh]
             imageView.image = nil
         }
+        setNeedsLayout()
     }
     
-    open func didCompleteEndRefershingAnimation(_ result:RefreshResult) {
+    open func didCompleteHideAnimation(_ result:RefreshResult) {
         self.control.isHidden = false
         self.imageView.isHidden = true
         self.textLabel.isHidden = true
-        
     }
 
 }

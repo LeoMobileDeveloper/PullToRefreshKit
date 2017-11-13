@@ -12,17 +12,23 @@ import PullToRefreshKit
 
 class DefaultCollectionViewController:UIViewController,UICollectionViewDataSource{
     var collectionView:UICollectionView!
+    var count = 9
     override func viewDidLoad() {
         self.view.backgroundColor = UIColor.white
         self.setUpCollectionView()
-        self.collectionView.configRefreshHeader(with: DefaultRefreshHeader.header()) {
+        self.collectionView.configRefreshHeader(with: DefaultRefreshHeader.header()) { [weak self] in
             delay(1.0, closure: {
-                self.collectionView.switchRefreshHeader(to: .normal(.success, 0.5));
+                self?.collectionView.switchRefreshHeader(to: .normal(.success, 0.5));
             });
         }
-        self.collectionView.configRefreshFooter(with: DefaultRefreshFooter.footer()) {
+        self.collectionView.configRefreshFooter(with: DefaultRefreshFooter.footer()) { [weak self] in
             delay(1.0, closure: {
-                self.collectionView.switchRefreshFooter(to: .normal)
+                guard let sf = self else{
+                    return
+                }
+                sf.count = sf.count + 3
+                sf.collectionView.reloadData()
+                sf.collectionView.switchRefreshFooter(to: .normal)
             });
         };
 
@@ -31,7 +37,8 @@ class DefaultCollectionViewController:UIViewController,UICollectionViewDataSourc
         let flowLayout = UICollectionViewFlowLayout()
         flowLayout.scrollDirection = UICollectionViewScrollDirection.vertical
         flowLayout.itemSize = CGSize(width: 100, height: 100)
-        self.collectionView = UICollectionView(frame: self.view.bounds, collectionViewLayout: flowLayout)
+        let frame = CGRect(x: 0, y: 0, width: view.frame.size.width, height: 300)
+        self.collectionView = UICollectionView(frame:frame, collectionViewLayout: flowLayout)
         self.collectionView?.backgroundColor = UIColor.white
         self.collectionView?.dataSource = self
         self.view.addSubview(self.collectionView!)
@@ -39,7 +46,7 @@ class DefaultCollectionViewController:UIViewController,UICollectionViewDataSourc
         self.collectionView?.register(UICollectionViewCell.self, forCellWithReuseIdentifier: "cell")
     }
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 21
+        return self.count
     }
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath)

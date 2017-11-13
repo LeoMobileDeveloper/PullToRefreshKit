@@ -111,14 +111,14 @@ class TaoBaoRefreshHeader:UIView,RefreshableHeader{
         textLabel.text = "刷新中..."
     }
     
-    func didBeginEndRefershingAnimation(_ result:RefreshResult){
+    func didBeginHideAnimation(_ result:RefreshResult){
         transitionWithOutAnimation {
             self.circleLayer.strokeEnd = 0.05
         };
         self.circleLayer.removeAllAnimations()
     }
     
-    func didCompleteEndRefershingAnimation(_ result:RefreshResult){
+    func didCompleteHideAnimation(_ result:RefreshResult){
         transitionWithOutAnimation { 
             self.circleLayer.strokeEnd = 0.05
         };

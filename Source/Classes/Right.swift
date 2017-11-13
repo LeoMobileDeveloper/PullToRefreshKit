@@ -70,7 +70,7 @@ open class DefaultRefreshRight:UIView, RefreshableLeftRight {
             })
         }
     }
-    open func didCompleteEndRefershingAnimation() {
+    open func didCompleteHideAnimation() {
         imageView.transform = CGAffineTransform.identity
         textLabel.text = textDic[.scrollToAction]
     }
@@ -112,7 +112,7 @@ class RefreshRightContainer:UIView{
                     self.delegate?.didBeginRefreshing()
                     self.refreshAction?()
                     self.endRefreshing()
-                    self.delegate?.didCompleteEndRefershingAnimation()
+                    self.delegate?.didCompleteHideAnimation()
                 })
             default:
                 break

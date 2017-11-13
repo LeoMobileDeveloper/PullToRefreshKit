@@ -79,11 +79,11 @@ class YahooWeatherRefreshHeader: UIView,RefreshableHeader{
         startTransitionAnimation()
     }
     //刷新结束，将要隐藏header
-    func didBeginEndRefershingAnimation(_ result:RefreshResult){
+    func didBeginHideAnimation(_ result:RefreshResult){
         
     }
     //刷新结束，完全隐藏header
-    func didCompleteEndRefershingAnimation(_ result:RefreshResult){
+    func didCompleteHideAnimation(_ result:RefreshResult){
         imageView.stopAnimating()
         imageView.animationImages = nil
         imageView.image = UIImage(named: "sun_000000")

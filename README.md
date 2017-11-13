@@ -13,7 +13,7 @@
 )](https://developer.apple.com/swift)
  [![License](http://img.shields.io/badge/license-MIT-lightgrey.svg?style=flat
 )](http://mit-license.org)
-[![Build Status](https://travis-ci.org/LeoMobileDeveloper/PullToRefreshKit.svg?branch=master)](https://travis-ci.org/LeoMobileDeveloper/PullToRefreshKit)
+
 
 **The example project contains some hot App refresh example.**
 
@@ -22,25 +22,24 @@
 <th>Taobao</th>
 <th>YouKu</th>
 <th>QQ Video</th>
-<th>QQ</th>
+
 
 </tr>
 <tr>
 <td><img src="https://raw.github.com/LeoMobileDeveloper/PullToRefreshKit/master/Screenshot/taobao.gif" width="300"/></td>
 <td><img src="https://raw.github.com/LeoMobileDeveloper/PullToRefreshKit/master/Screenshot/youku.gif" width="300"/></td>
 <td><img src="https://raw.github.com/LeoMobileDeveloper/PullToRefreshKit/master/Screenshot/qqvideo.gif" width="300"/></td>
-<td><img src="https://raw.github.com/LeoMobileDeveloper/PullToRefreshKit/master/Screenshot/qq.gif" width="300"/></td>
 
 </tr>
 <tr>
 <tr>
-<th>Curve</th>
 <th>Yahoo Weather</th>
 <th>Dian Ping</th>
+<th>QQ</th>
 </tr>
-<td><img src="https://raw.github.com/LeoMobileDeveloper/PullToRefreshKit/master/Screenshot/curve.gif" width="300"/></td>
 <td><img src="https://raw.github.com/LeoMobileDeveloper/PullToRefreshKit/master/Screenshot/yahoo.gif" width="300"/></td>
 <td><img src="https://raw.github.com/LeoMobileDeveloper/PullToRefreshKit/master/Screenshot/dianping.gif" width="300"/></td>
+<td><img src="https://raw.github.com/LeoMobileDeveloper/PullToRefreshKit/master/Screenshot/qq.gif" width="300"/></td>
 </tr>
 <tr>
 </table>
@@ -187,7 +186,10 @@ You just need to write a `UIView` sub class,and make it conforms to these protoc
 
 For exmaple,to create a custom header
 
-```
+``` 
+    //Height of the refresh header
+    func heightForHeader()->CGFloat
+    
     //Distance from top when in refreshing state
     func heightForRefreshingState()->CGFloat
    
@@ -195,10 +197,10 @@ For exmaple,to create a custom header
     func didBeginrefreshingState()
 
     //The refreshing task is end.Refresh header will hide.Tell user the refreshing result here.
-    func didBeginEndRefershingAnimation(result:RefreshResult)
+    func didBeginHideAnimation(result:RefreshResult)
     
-    //Refresh header is hidden,reset all to inital state  here
-    func didCompleteEndRefershingAnimation(result:RefreshResult)
+    //Refresh header is hidden,reset all to inital state here
+    func didCompleteHideAnimation(result:RefreshResult)
     
     //Distance to drag to fire refresh action ,default is heightForRefreshingState
     optional func heightForFireRefreshing()->CGFloat
@@ -207,7 +209,7 @@ For exmaple,to create a custom header
     optional func percentUpdateDuringScrolling(percent:CGFloat)
     
     //Duration of header hide animation
-    optional func durationWhenEndRefreshing()->Double
+    optional func durationOfHideAnimation()->Double
     
 ```
 

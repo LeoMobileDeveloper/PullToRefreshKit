@@ -25,13 +25,13 @@ import UIKit
      刷新结束，将要进行隐藏的动画，一般在这里告诉用户刷新的结果
      - parameter result: 刷新结果
      */
-    func didBeginEndRefershingAnimation(_ result:RefreshResult)
+    func didBeginHideAnimation(_ result:RefreshResult)
     /**
      刷新结束，隐藏的动画结束，一般在这里把视图隐藏，各个参数恢复到最初状态
      
      - parameter result: 刷新结果
      */
-    func didCompleteEndRefershingAnimation(_ result:RefreshResult)
+    func didCompleteHideAnimation(_ result:RefreshResult)
     
     /**
      状态改变
@@ -60,7 +60,7 @@ import UIKit
      刷新结束，隐藏header的时间间隔，默认0.4s
      
      */
-    @objc optional func durationWhenEndRefreshing()->Double
+    @objc optional func durationOfHideAnimation()->Double
 }
 
 public enum RefreshKitHeaderText{
@@ -170,11 +170,11 @@ open class DefaultRefreshHeader: UIView, RefreshableHeader {
         }
     }
     
-    open func durationWhenEndRefreshing() -> Double {
+    open func durationOfHideAnimation() -> Double {
         return durationWhenHide
     }
     
-    open func didBeginEndRefershingAnimation(_ result:RefreshResult) {
+    open func didBeginHideAnimation(_ result:RefreshResult) {
         spinner.stopAnimating()
         imageView.transform = CGAffineTransform.identity
         imageView.isHidden = false
@@ -193,7 +193,7 @@ open class DefaultRefreshHeader: UIView, RefreshableHeader {
             imageView.image = imageView.image?.withRenderingMode(.alwaysTemplate)
         }
     }
-    open func didCompleteEndRefershingAnimation(_ result:RefreshResult) {
+    open func didCompleteHideAnimation(_ result:RefreshResult) {
         textLabel.text = textDic[.pullToRefresh]
         self.isHidden = true
         imageView.image = UIImage(named: "arrow_down", in: Bundle(for: DefaultRefreshHeader.self), compatibleWith: nil)
@@ -249,7 +249,7 @@ open class RefreshHeaderContainer:UIView{
                     oldInset.top = oldInset.top + self.insetTDelta
                     self.attachedScrollView.contentInset = oldInset
                     }, completion: { (finished) in
-                        self.delegate?.didCompleteEndRefershingAnimation(self.currentResult)
+                        self.delegate?.didCompleteHideAnimation(self.currentResult)
                 })
             case .refreshing:
                 DispatchQueue.main.async(execute: {
@@ -406,7 +406,7 @@ open class RefreshHeaderContainer:UIView{
         clearTimer()
     }
     func endRefreshing(_ result:RefreshResult,delay:TimeInterval = 0.0){
-        self.delegate?.didBeginEndRefershingAnimation(result)
+        self.delegate?.didBeginHideAnimation(result)
         self.delayTimer = Timer(timeInterval: delay, target: self, selector: #selector(RefreshHeaderContainer.updateStateToIdea), userInfo: nil, repeats: false)
         RunLoop.main.add(self.delayTimer!, forMode: RunLoopMode.commonModes)
     }

@@ -76,7 +76,7 @@ class YoukuRefreshHeader:UIView,RefreshableHeader{
         self.rotatingImageView.layer.add(rotateAnimation, forKey: "rotate")
     }
     //刷新结束，将要隐藏header
-    func didBeginEndRefershingAnimation(_ result:RefreshResult){
+    func didBeginHideAnimation(_ result:RefreshResult){
         self.rotatingImageView.isHidden = true
         self.iconImageView.isHidden = false
         self.iconImageView.layer.removeAllAnimations()
@@ -84,6 +84,6 @@ class YoukuRefreshHeader:UIView,RefreshableHeader{
         self.iconImageView.image = UIImage(named: "youku_down")
     }
     //刷新结束，完全隐藏header
-    func didCompleteEndRefershingAnimation(_ result:RefreshResult){
+    func didCompleteHideAnimation(_ result:RefreshResult){
     }
 }

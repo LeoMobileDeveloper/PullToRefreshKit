@@ -31,7 +31,7 @@ public extension UIScrollView{
         oldContain?.removeFromSuperview()
         let containFrame = CGRect(x: 0, y: -self.frame.height, width: self.frame.width, height: self.frame.height)
         let containComponent = RefreshHeaderContainer(frame: containFrame)
-        if let endDuration = refrehser.durationWhenEndRefreshing?(){
+        if let endDuration = refrehser.durationOfHideAnimation?(){
             containComponent.durationOfEndRefreshing = endDuration
         }
         containComponent.tag = PullToRefreshKitConst.headerTag
