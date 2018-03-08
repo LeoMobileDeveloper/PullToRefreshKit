@@ -24,6 +24,19 @@ public enum HeaderRefresherState {
 }
 
 public extension UIScrollView{
+    public func invalidateRefreshControls(){
+        let tags = [PullToRefreshKitConst.headerTag,
+                    PullToRefreshKitConst.footerTag,
+                    PullToRefreshKitConst.leftTag,
+                    PullToRefreshKitConst.rightTag]
+        tags.forEach { (tag) in
+            let oldContain = self.viewWithTag(tag)
+            oldContain?.removeFromSuperview()
+        }
+    }
+}
+
+public extension UIScrollView{
     
     public func configRefreshHeader<T:UIView>(with refrehser:T,
                                               action:@escaping ()->()) where T: RefreshableHeader{

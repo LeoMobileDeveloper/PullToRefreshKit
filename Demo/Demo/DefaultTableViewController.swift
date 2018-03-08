@@ -26,15 +26,14 @@ class DefaultTableViewController:UITableViewController{
     override func viewDidLoad() {
         super.viewDidLoad()
         self.tableView.tableFooterView = UIView(frame: CGRect.zero)
-        self.tableView.configRefreshHeader(with: DefaultRefreshHeader.header()) {
+        self.tableView.configRefreshHeader(with: DefaultRefreshHeader.header()) { [unowned self] in
             delay(1.5, closure: {
-                self.models = self.originalModes.map({_ in random100()})
-                self.tableView.switchRefreshFooter(to: .normal)
+                self.models = self.originalModes.map{_ in random100()}
                 self.tableView.switchRefreshHeader(to: .normal(.success, 0.5))
                 self.tableView.reloadData()
             })
         }
-        self.tableView.configRefreshFooter(with: DefaultRefreshFooter.footer()) {
+        self.tableView.configRefreshFooter(with: DefaultRefreshFooter.footer()) { [unowned self] in
             delay(1.5, closure: {
                 self.models.append(random100())
                 self.tableView.reloadData()
@@ -62,6 +61,7 @@ class DefaultTableViewController:UITableViewController{
         return cell!
     }
     deinit{
+        self.tableView.invalidateRefreshControls()
         print("Deinit of DefaultTableViewController")
     }
 }

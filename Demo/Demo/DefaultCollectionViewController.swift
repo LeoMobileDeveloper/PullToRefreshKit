@@ -16,19 +16,16 @@ class DefaultCollectionViewController:UIViewController,UICollectionViewDataSourc
     override func viewDidLoad() {
         self.view.backgroundColor = UIColor.white
         self.setUpCollectionView()
-        self.collectionView.configRefreshHeader(with: DefaultRefreshHeader.header()) { [weak self] in
+        self.collectionView.configRefreshHeader(with: DefaultRefreshHeader.header()) { [unowned self] in
             delay(1.0, closure: {
-                self?.collectionView.switchRefreshHeader(to: .normal(.success, 0.5));
+                self.collectionView.switchRefreshHeader(to: .normal(.success, 0.5));
             });
         }
-        self.collectionView.configRefreshFooter(with: DefaultRefreshFooter.footer()) { [weak self] in
+        self.collectionView.configRefreshFooter(with: DefaultRefreshFooter.footer()) { [unowned self] in
             delay(1.0, closure: {
-                guard let sf = self else{
-                    return
-                }
-                sf.count = sf.count + 3
-                sf.collectionView.reloadData()
-                sf.collectionView.switchRefreshFooter(to: .normal)
+                self.count = self.count + 3
+                self.collectionView.reloadData()
+                self.collectionView.switchRefreshFooter(to: .normal)
             });
         };
 
@@ -54,6 +51,7 @@ class DefaultCollectionViewController:UIViewController,UICollectionViewDataSourc
         return cell
     }
     deinit{
+        self.collectionView.invalidateRefreshControls()
         print("Deinit of DefaultCollectionViewController")
     }
 }

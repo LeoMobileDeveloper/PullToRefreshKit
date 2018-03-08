@@ -25,11 +25,11 @@ class ConfigDefaultHeaderFooterController: UITableViewController {
         header.tintColor = UIColor.orange
         header.imageRenderingWithTintColor = true
         header.durationWhenHide = 0.4
-        self.tableView.configRefreshHeader(with: header) { [weak self] in
+        self.tableView.configRefreshHeader(with: header) { [unowned self] in
             delay(1.5, closure: {
-                self?.models = (self?.models.map({_ in random100()}))!
-                self?.tableView.reloadData()
-                self?.tableView.switchRefreshHeader(to: .normal(.success, 0.3))
+                self.models = self.models.map{_ in random100()}
+                self.tableView.reloadData()
+                self.tableView.switchRefreshHeader(to: .normal(.success, 0.3))
             })
         };
         let footer = DefaultRefreshFooter.footer()
@@ -39,7 +39,7 @@ class ConfigDefaultHeaderFooterController: UITableViewController {
         footer.setText("Tap to load more", mode: .tapToRefresh)
         footer.textLabel.textColor  = UIColor.orange
         footer.refreshMode = .tap
-        self.tableView.configRefreshFooter(with: footer) {
+        self.tableView.configRefreshFooter(with: footer) { [unowned self] in
             delay(1.5, closure: {
                 self.models.append(random100())
                 self.tableView.reloadData()

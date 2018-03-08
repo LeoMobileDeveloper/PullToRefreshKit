@@ -47,7 +47,7 @@ class MainViewController: UITableViewController {
         models.append(section2)
         models.append(section3)
         let header = DefaultRefreshHeader.header()
-        self.tableView.configRefreshHeader(with: header) {
+        self.tableView.configRefreshHeader(with: header) { [unowned self] in
             delay(2, closure: {
                 self.tableView.switchRefreshHeader(to: .normal(.success, 0.5))
             })

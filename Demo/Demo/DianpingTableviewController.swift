@@ -13,11 +13,11 @@ class DianpingTableviewController:BaseTableViewController{
     override func viewDidLoad() {
         super.viewDidLoad()
         //Setup
-        self.tableView.configRefreshHeader(with: DianpingRefreshHeader()) { [weak self] in
+        self.tableView.configRefreshHeader(with: DianpingRefreshHeader()) { [unowned self] in
             delay(1.5, closure: {
-                self?.models = (self?.models.map({_ in random100()}))!
-                self?.tableView.reloadData()
-                self?.tableView.switchRefreshHeader(to: .normal(.none, 0.0))
+                self.models = self.models.map{_ in random100()}
+                self.tableView.reloadData()
+                self.tableView.switchRefreshHeader(to: .normal(.none, 0.0))
             })
         };
         self.tableView.switchRefreshHeader(to: .refreshing)
