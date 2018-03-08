@@ -36,17 +36,20 @@ class DefaultTableViewController:UITableViewController{
                 vc.tableView.reloadData()
             })
         }
-//        self.tableView.configRefreshFooter(with: DefaultRefreshFooter.footer()) { [weak self] in
-//            delay(1.5, closure: {
-//                self.models.append(random100())
-//                self.tableView.reloadData()
-//                if self.models.count < 18 {
-//                    self.tableView.switchRefreshFooter(to: .normal)
-//                }else{
-//                    self.tableView.switchRefreshFooter(to: .noMoreData)
-//                }
-//            })
-//        };
+        self.tableView.configRefreshFooter(with: DefaultRefreshFooter.footer(),container:self) { [weak self] in
+            delay(1.5, closure: {
+                guard let vc = self else{
+                    return;
+                }
+                vc.models.append(random100())
+                vc.tableView.reloadData()
+                if vc.models.count < 18 {
+                    vc.tableView.switchRefreshFooter(to: .normal)
+                }else{
+                    vc.tableView.switchRefreshFooter(to: .noMoreData)
+                }
+            })
+        };
         self.tableView.switchRefreshHeader(to: .refreshing)
     }
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
