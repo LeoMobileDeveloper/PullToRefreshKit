@@ -18,7 +18,7 @@ class DefaultWebViewController: UIViewController,UIWebViewDelegate{
         self.webview.autoresizingMask = [.flexibleWidth,.flexibleHeight]
         self.webview.backgroundColor = UIColor.white
         view.addSubview(self.webview)
-        self.webview.scrollView.configRefreshHeader(with: DefaultRefreshHeader.header()) {
+        self.webview.scrollView.configRefreshHeader(container:self) {
             if self.webview.request != nil{
                 self.webview.reload()
             }else{

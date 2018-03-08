@@ -14,11 +14,14 @@ class YahooWeatherTableViewController:BaseTableViewController{
         super.viewDidLoad()
         //Setup
         let yahooHeader = YahooWeatherRefreshHeader()
-        tableView.configRefreshHeader(with: yahooHeader) { [unowned self] in
+        tableView.configRefreshHeader(with: yahooHeader,container:self) { [weak self] in
             delay(2.5, closure: {
-                self.models = self.models.map{_ in random100()}
-                self.tableView.reloadData()
-                self.tableView.switchRefreshHeader(to: .normal(.none, 0.0))
+                guard let vc = self else{
+                    return;
+                }
+                vc.models = vc.models.map{_ in random100()}
+                vc.tableView.reloadData()
+                vc.tableView.switchRefreshHeader(to: .normal(.none, 0.0))
             })
             
         };

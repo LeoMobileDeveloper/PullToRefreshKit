@@ -26,24 +26,27 @@ class DefaultTableViewController:UITableViewController{
     override func viewDidLoad() {
         super.viewDidLoad()
         self.tableView.tableFooterView = UIView(frame: CGRect.zero)
-        self.tableView.configRefreshHeader(with: DefaultRefreshHeader.header()) { [unowned self] in
+        self.tableView.configRefreshHeader(container:self) { [weak self] in
             delay(1.5, closure: {
-                self.models = self.originalModes.map{_ in random100()}
-                self.tableView.switchRefreshHeader(to: .normal(.success, 0.5))
-                self.tableView.reloadData()
+                guard let vc = self else{
+                    return;
+                }
+                vc.models = vc.originalModes.map{_ in random100()}
+                vc.tableView.switchRefreshHeader(to: .normal(.success, 0.5))
+                vc.tableView.reloadData()
             })
         }
-        self.tableView.configRefreshFooter(with: DefaultRefreshFooter.footer()) { [unowned self] in
-            delay(1.5, closure: {
-                self.models.append(random100())
-                self.tableView.reloadData()
-                if self.models.count < 18 {
-                    self.tableView.switchRefreshFooter(to: .normal)
-                }else{
-                    self.tableView.switchRefreshFooter(to: .noMoreData)
-                }
-            })
-        };
+//        self.tableView.configRefreshFooter(with: DefaultRefreshFooter.footer()) { [weak self] in
+//            delay(1.5, closure: {
+//                self.models.append(random100())
+//                self.tableView.reloadData()
+//                if self.models.count < 18 {
+//                    self.tableView.switchRefreshFooter(to: .normal)
+//                }else{
+//                    self.tableView.switchRefreshFooter(to: .noMoreData)
+//                }
+//            })
+//        };
         self.tableView.switchRefreshHeader(to: .refreshing)
     }
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -61,7 +64,6 @@ class DefaultTableViewController:UITableViewController{
         return cell!
     }
     deinit{
-        self.tableView.invalidateRefreshControls()
         print("Deinit of DefaultTableViewController")
     }
 }

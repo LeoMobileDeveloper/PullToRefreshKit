@@ -20,7 +20,7 @@ class ConfigBannerController: UIViewController {
         left.setText("👉滑动关闭", mode: .scrollToAction)
         left.setText("松开关闭", mode: .releaseToAction)
         left.textLabel.textColor = UIColor.orange
-        scrollView.configSideRefresh(with: left, at: .left) {
+        scrollView.configSideRefresh(with: left,container:self, at: .left) {
             self.navigationController?.popViewController(animated: true)
         };
         
@@ -28,7 +28,7 @@ class ConfigBannerController: UIViewController {
         right.setText("👈滑动关闭", mode: .scrollToAction)
         right.setText("松开关闭", mode: .releaseToAction)
         right.textLabel.textColor = UIColor.orange
-        scrollView.configSideRefresh(with: right, at: .right) {
+        scrollView.configSideRefresh(with: right, container:self, at: .right) {
             self.navigationController?.popViewController(animated: true)
         };
     }

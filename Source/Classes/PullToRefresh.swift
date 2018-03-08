@@ -8,8 +8,20 @@
 
 import Foundation
 import UIKit
+import ObjectiveC
 
 // MARK: - Header API  -
+
+class AttachObject:NSObject{
+    init(closure:@escaping ()->()) {
+        onDeinit = closure
+        super.init()
+    }
+    var onDeinit:()->()
+    deinit {
+        onDeinit()
+    }
+}
 
 @objc public enum RefreshResult:Int{
     case success = 200
@@ -34,12 +46,26 @@ public extension UIScrollView{
             oldContain?.removeFromSuperview()
         }
     }
+    func configAssociatedObject(object:AnyObject){
+        guard objc_getAssociatedObject(self, &AssociatedObject.key) == nil else{
+            return;
+        }
+        let attach = AttachObject { [weak self] in
+            self?.invalidateRefreshControls()
+        }
+        objc_setAssociatedObject(object, &AssociatedObject.key, attach, .OBJC_ASSOCIATION_RETAIN)
+    }
+}
+
+struct AssociatedObject {
+    static var key:UInt8 = 0
 }
 
 public extension UIScrollView{
     
-    public func configRefreshHeader<T:UIView>(with refrehser:T,
-                                              action:@escaping ()->()) where T: RefreshableHeader{
+    public func configRefreshHeader(with refrehser:UIView & RefreshableHeader = DefaultRefreshHeader(),
+                                    container object: AnyObject,
+                                    action:@escaping ()->()){
         let oldContain = self.viewWithTag(PullToRefreshKitConst.headerTag)
         oldContain?.removeFromSuperview()
         let containFrame = CGRect(x: 0, y: -self.frame.height, width: self.frame.width, height: self.frame.height)
@@ -56,6 +82,7 @@ public extension UIScrollView{
         let bounds = CGRect(x: 0,y: containFrame.height - refreshHeight,width: self.frame.width,height: refreshHeight)
         refrehser.frame = bounds
         containComponent.addSubview(refrehser)
+        configAssociatedObject(object: object)
     }
     
     public func switchRefreshHeader(to state:HeaderRefresherState){
@@ -82,8 +109,9 @@ public enum FooterRefresherState {
 
 
 public extension UIScrollView{
-    public func configRefreshFooter<T:UIView>(with refrehser:T,
-                                              action:@escaping ()->()) where T: RefreshableFooter{
+    public func configRefreshFooter(with refrehser:UIView & RefreshableFooter = DefaultRefreshFooter.footer(),
+                                    container object: AnyObject,
+                                    action:@escaping ()->()){
         let oldContain = self.viewWithTag(PullToRefreshKitConst.footerTag)
         oldContain?.removeFromSuperview()
         let containComponent = RefreshFooterContainer(frame: CGRect(x: 0, y: 0, width: self.frame.size.width, height: refrehser.heightForFooter()))
@@ -94,6 +122,7 @@ public extension UIScrollView{
         refrehser.autoresizingMask = [.flexibleWidth,.flexibleHeight]
         refrehser.frame = containComponent.bounds
         containComponent.addSubview(refrehser)
+        configAssociatedObject(object: object)
     }
     
     public func switchRefreshFooter(to state:FooterRefresherState){
@@ -122,9 +151,10 @@ public enum SideRefreshDestination {
 }
 
 public extension UIScrollView{
-    public func configSideRefresh<T:UIView>(with refrehser:T,
-                                            at destination:SideRefreshDestination,
-                                            action:@escaping ()->()) where T: RefreshableLeftRight{
+    public func configSideRefresh(with refrehser:UIView & RefreshableLeftRight,
+                                  container object: AnyObject,
+                                  at destination:SideRefreshDestination,
+                                  action:@escaping ()->()){
         switch destination {
             case .left:
                 let oldContain = self.viewWithTag(PullToRefreshKitConst.leftTag)
@@ -158,6 +188,7 @@ public extension UIScrollView{
                 refrehser.frame = containComponent.bounds
                 containComponent.addSubview(refrehser)
         }
+        configAssociatedObject(object: object)
     }
     
     public func removeSideRefresh(at destination:SideRefreshDestination){

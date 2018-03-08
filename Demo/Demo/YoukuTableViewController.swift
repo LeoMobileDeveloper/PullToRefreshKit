@@ -18,7 +18,7 @@ class YoukuTableViewController:BaseTableViewController{
         let youkuHeader = YoukuRefreshHeader()
         youkuHeader.backgroundImageView.isHidden = true
         self.refreshHeader = youkuHeader
-        self.tableView.configRefreshHeader(with: youkuHeader) {
+        self.tableView.configRefreshHeader(with: youkuHeader,container:self) {
             delay(1.5, closure: {
                 self.models = self.models.map({_ in random100()})
                 self.tableView.reloadData()

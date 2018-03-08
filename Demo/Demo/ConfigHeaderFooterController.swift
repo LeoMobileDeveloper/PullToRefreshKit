@@ -25,11 +25,14 @@ class ConfigDefaultHeaderFooterController: UITableViewController {
         header.tintColor = UIColor.orange
         header.imageRenderingWithTintColor = true
         header.durationWhenHide = 0.4
-        self.tableView.configRefreshHeader(with: header) { [unowned self] in
+        self.tableView.configRefreshHeader(with: header,container:self) { [weak self] in
             delay(1.5, closure: {
-                self.models = self.models.map{_ in random100()}
-                self.tableView.reloadData()
-                self.tableView.switchRefreshHeader(to: .normal(.success, 0.3))
+                guard let vc = self else{
+                    return;
+                }
+                vc.models = vc.models.map{_ in random100()}
+                vc.tableView.reloadData()
+                vc.tableView.switchRefreshHeader(to: .normal(.success, 0.3))
             })
         };
         let footer = DefaultRefreshFooter.footer()
@@ -39,14 +42,17 @@ class ConfigDefaultHeaderFooterController: UITableViewController {
         footer.setText("Tap to load more", mode: .tapToRefresh)
         footer.textLabel.textColor  = UIColor.orange
         footer.refreshMode = .tap
-        self.tableView.configRefreshFooter(with: footer) { [unowned self] in
+        self.tableView.configRefreshFooter(with: footer,container:self) { [weak self] in
             delay(1.5, closure: {
-                self.models.append(random100())
-                self.tableView.reloadData()
-                if self.models.count > 18{
-                    self.tableView.switchRefreshFooter(to: .removed)
+                guard let vc = self else{
+                    return;
+                }
+                vc.models.append(random100())
+                vc.tableView.reloadData()
+                if vc.models.count > 18{
+                    vc.tableView.switchRefreshFooter(to: .removed)
                 }else{
-                    self.tableView.switchRefreshFooter(to: .normal)
+                    vc.tableView.switchRefreshFooter(to: .normal)
                 }
             })
         }

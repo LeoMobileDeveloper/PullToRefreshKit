@@ -20,7 +20,7 @@ class DefaultScrollViewController:UIViewController{
         let header = DefaultRefreshHeader.header()
         header.textLabel.textColor = UIColor.white;
         header.spinner.activityIndicatorViewStyle = .white
-        scrollView.configRefreshHeader(with: header) {
+        scrollView.configRefreshHeader(with: header,container:self) {
             delay(1.0, closure: {
                 self.scrollView.switchRefreshHeader(to: .normal(.success, 0.5));
             })

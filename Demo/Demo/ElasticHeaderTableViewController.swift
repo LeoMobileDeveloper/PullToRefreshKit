@@ -14,11 +14,14 @@ class ElasticHeaderTableViewController:BaseTableViewController{
     override func viewDidLoad() {
         super.viewDidLoad()
         let elasticHeader = ElasticRefreshHeader()
-        self.tableView.configRefreshHeader(with: elasticHeader) { [unowned self] in
+        self.tableView.configRefreshHeader(with: elasticHeader,container:self) { [weak self] in
             delay(1.5, closure: {
-                self.models = self.models.map{_ in random100()}
-                self.tableView.reloadData()
-                self.tableView.switchRefreshHeader(to: .normal(.success, 0.5));
+                guard let vc = self else{
+                    return;
+                }
+                vc.models = vc.models.map{_ in random100()}
+                vc.tableView.reloadData()
+                vc.tableView.switchRefreshHeader(to: .normal(.success, 0.5));
             })
         };
     }

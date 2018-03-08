@@ -13,7 +13,7 @@ class TaobaoTableViewController:BaseTableViewController{
         super.viewDidLoad()
         //Setup
         let taobaoHeader = TaoBaoRefreshHeader()
-        self.tableView.configRefreshHeader(with: taobaoHeader) {
+        self.tableView.configRefreshHeader(with: taobaoHeader,container:self) {
             self.models = self.models.map({_ in random100()})
             self.tableView.reloadData()
             self.tableView.switchRefreshHeader(to: .normal(.none, 0.0))

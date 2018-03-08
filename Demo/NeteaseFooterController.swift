@@ -12,14 +12,17 @@ class NeteaseFooterController: BaseTableViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.tableView.configRefreshFooter(with: NeteaseNewsFooter()) { [unowned self] in
+        self.tableView.configRefreshFooter(with: NeteaseNewsFooter(),container:self) { [weak self] in
             delay(2.0, closure: {
-                self.models.append(random100())
-                self.tableView.reloadData()
-                if self.models.count == 12{
-                    self.tableView.switchRefreshFooter(to: .noMoreData)
+                guard let vc = self else{
+                    return;
+                }
+                vc.models.append(random100())
+                vc.tableView.reloadData()
+                if vc.models.count == 12{
+                    vc.tableView.switchRefreshFooter(to: .noMoreData)
                 }else{
-                    self.tableView.switchRefreshFooter(to: .normal)
+                    vc.tableView.switchRefreshFooter(to: .normal)
                 }
             });
         };

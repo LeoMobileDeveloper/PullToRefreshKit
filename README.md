@@ -80,13 +80,16 @@ github "LeoMobileDeveloper/PullToRefreshKit"
 
 ## Useage
 
+> What is a container?
+> A container is the object that hold the scrollView reference, most time it is a UIViewController object
+
 ### Pull down to refresh
 
 
 ```
-self.tableView.configRefreshHeader(with: DefaultRefreshHeader.header()) {
+self.tableView.configRefreshHeader(container:self) { [weak self] in
     delay(2, closure: {
-        self.tableView.switchRefreshHeader(to: .normal(.success, 0.5))
+        self?.tableView.switchRefreshHeader(to: .normal(.success, 0.5))
     })
 }
 ```
@@ -102,15 +105,16 @@ self.tableView.switchRefreshHeader(to: .normal(.none, 0.0))
 
 ### Pull up to load more
 
-Support three mode to fire refresh action
+Support three mode to fire refresh action  
+
 - [x] Tap
 - [x] Scroll
 - [x] Scroll and Tap
 
 ```
-self.tableView.configRefreshFooter(with: DefaultRefreshFooter.footer()) {
+self.tableView.configRefreshFooter(container:self) { [weak self] in
 	delay(1.5, closure: {
-	    self.tableView.switchRefreshFooter(to: .normal)
+	    self?.tableView.switchRefreshFooter(to: .normal)
 	})
 };
 ```
@@ -132,7 +136,7 @@ self.tableView.switchRefreshFooter(to: .noMoreData)
 ### Pull left to exit
 
 ```
-scrollView.configSideRefresh(with: DefaultRefreshLeft.left(), at: .left) {
+scrollView.configSideRefresh(with: DefaultRefreshLeft.left(), container:self, at: .left) {
    self.navigationController?.popViewController(animated: true)
 };
 ```
@@ -146,8 +150,8 @@ let right  = DefaultRefreshRight.right()
 right.setText("👈滑动关闭", mode: .scrollToAction)
 right.setText("松开关闭", mode: .releaseToAction)
 right.textLabel.textColor = UIColor.orange
-scrollView.configSideRefresh(with: right, at: .right) {
-    self.navigationController?.popViewController(animated: true)
+scrollView.configSideRefresh(with: right, container:self, at: .right) { [weak self] in
+    self?.navigationController?.popViewController(animated: true)
 };
 ```
 
@@ -167,7 +171,7 @@ header.setText("Failed", mode: .refreshFailure)
 header.tintColor = UIColor.orange
 header.imageRenderingWithTintColor = true
 header.durationWhenHide = 0.4
-self.tableView.configRefreshHeader(with: header) { [weak self] in
+self.tableView.configRefreshHeader(with: header,container:self) { [weak self] in
     delay(1.5, closure: {
         self?.models = (self?.models.map({_ in random100()}))!
         self?.tableView.reloadData()

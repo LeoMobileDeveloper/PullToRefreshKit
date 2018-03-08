@@ -47,9 +47,9 @@ class MainViewController: UITableViewController {
         models.append(section2)
         models.append(section3)
         let header = DefaultRefreshHeader.header()
-        self.tableView.configRefreshHeader(with: header) { [unowned self] in
+        self.tableView.configRefreshHeader(with: header,container:self) { [weak self] in
             delay(2, closure: {
-                self.tableView.switchRefreshHeader(to: .normal(.success, 0.5))
+                self?.tableView.switchRefreshHeader(to: .normal(.success, 0.5))
             })
         }
         self.tableView.tableFooterView = UIView(frame: CGRect.zero)

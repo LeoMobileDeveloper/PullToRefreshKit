@@ -17,10 +17,10 @@ class DefaultBannerController: UIViewController {
         self.navigationItem.title = "Banners"
         self.automaticallyAdjustsScrollViewInsets = false
         setUpViews()
-        scrollView.configSideRefresh(with: DefaultRefreshLeft.left(), at: .left) {
+        scrollView.configSideRefresh(with: DefaultRefreshLeft.left(),container:self, at: .left) {
             self.navigationController?.popViewController(animated: true)
         };
-        scrollView.configSideRefresh(with: DefaultRefreshRight.right(), at: .right) {
+        scrollView.configSideRefresh(with: DefaultRefreshRight.right(),container:self, at: .right) {
             let nvc = DefaultBannerController()
             self.navigationController?.pushViewController(nvc, animated: true)
         };

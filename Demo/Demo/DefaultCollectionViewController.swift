@@ -16,16 +16,19 @@ class DefaultCollectionViewController:UIViewController,UICollectionViewDataSourc
     override func viewDidLoad() {
         self.view.backgroundColor = UIColor.white
         self.setUpCollectionView()
-        self.collectionView.configRefreshHeader(with: DefaultRefreshHeader.header()) { [unowned self] in
+        self.collectionView.configRefreshHeader(container:self) { [weak self] in
             delay(1.0, closure: {
-                self.collectionView.switchRefreshHeader(to: .normal(.success, 0.5));
+                self?.collectionView.switchRefreshHeader(to: .normal(.success, 0.5));
             });
         }
-        self.collectionView.configRefreshFooter(with: DefaultRefreshFooter.footer()) { [unowned self] in
+        self.collectionView.configRefreshFooter(container:self) { [weak self] in
             delay(1.0, closure: {
-                self.count = self.count + 3
-                self.collectionView.reloadData()
-                self.collectionView.switchRefreshFooter(to: .normal)
+                guard let vc = self else{
+                    return;
+                }
+                vc.count = vc.count + 3
+                vc.collectionView.reloadData()
+                vc.collectionView.switchRefreshFooter(to: .normal)
             });
         };
 
