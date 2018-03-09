@@ -36,7 +36,7 @@ class DefaultTableViewController:UITableViewController{
                 vc.tableView.reloadData()
             })
         }
-        self.tableView.configRefreshFooter(with: DefaultRefreshFooter.footer(),container:self) { [weak self] in
+        self.tableView.configRefreshFooter(container:self) { [weak self] in
             delay(1.5, closure: {
                 guard let vc = self else{
                     return;

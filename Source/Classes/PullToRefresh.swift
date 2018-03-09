@@ -12,7 +12,7 @@ import ObjectiveC
 
 // MARK: - Header API  -
 
-class AttachObject:NSObject{
+@objc class AttachObject:NSObject{
     init(closure:@escaping ()->()) {
         onDeinit = closure
         super.init()
@@ -47,7 +47,7 @@ public extension UIScrollView{
         }
     }
     func configAssociatedObject(object:AnyObject){
-        guard objc_getAssociatedObject(self, &AssociatedObject.key) == nil else{
+        guard objc_getAssociatedObject(object, &AssociatedObject.key) == nil else{
             return;
         }
         let attach = AttachObject { [weak self] in
@@ -63,7 +63,7 @@ struct AssociatedObject {
 
 public extension UIScrollView{
     
-    public func configRefreshHeader(with refrehser:UIView & RefreshableHeader = DefaultRefreshHeader(),
+    public func configRefreshHeader(with refrehser:UIView & RefreshableHeader = DefaultRefreshHeader.header(),
                                     container object: AnyObject,
                                     action:@escaping ()->()){
         let oldContain = self.viewWithTag(PullToRefreshKitConst.headerTag)
