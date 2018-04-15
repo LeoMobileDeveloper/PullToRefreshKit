@@ -334,7 +334,7 @@ class RefreshFooterContainer:UIView{
         }
     }
     func handleContentSizeChange(_ change: [NSKeyValueChangeKey : Any]?){
-        self.frame = CGRect(x: 0,y: self.attachedScrollView.contentSize.height,width: self.frame.size.width,height: self.frame.size.height)
+        self.frame = CGRect(x: 0,y: max(self.attachedScrollView.contentSize.height, self.attachedScrollView.frame.height),width: self.frame.size.width,height: self.frame.size.height)
     }
 // MARK: - KVO -
     override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
