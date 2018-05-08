@@ -30,7 +30,7 @@ import UIKit
      已经开始执行刷新逻辑，在一次刷新中，只会调用一次
      */
     func didBeginRefreshing()
-    
+   
     /**
      当Scroll触发刷新，这个方法返回是否需要刷新（比如你只想要点击刷新）
      */
@@ -298,8 +298,8 @@ class RefreshFooterContainer:UIView{
                 guard newOffset?.y > oldOffset?.y else{
                     return
                 }
-                let shouldStart = self.delegate?.shouldBeginRefreshingWhenScroll()
-                guard shouldStart! else{
+                let shouldStart = self.delegate?.shouldBeginRefreshingWhenScroll() ?? false
+                guard shouldStart else{
                     return
                 }
                 beginRefreshing()
@@ -316,16 +316,16 @@ class RefreshFooterContainer:UIView{
             let contentSize = attachedScrollView.contentSize
             if scrollInset.top + contentSize.height <= attachedScrollView.frame.height{
                 if scrollOffset.y >= -1 * scrollInset.top {
-                    let shouldStart = self.delegate?.shouldBeginRefreshingWhenScroll()
-                    guard shouldStart! else{
+                    let shouldStart = self.delegate?.shouldBeginRefreshingWhenScroll() ?? false
+                    guard shouldStart else{
                         return
                     }
                     beginRefreshing()
                 }
             }else{
                 if scrollOffset.y > contentSize.height + scrollInset.bottom - attachedScrollView.frame.height {
-                    let shouldStart = self.delegate?.shouldBeginRefreshingWhenScroll()
-                    guard shouldStart! else{
+                    let shouldStart = self.delegate?.shouldBeginRefreshingWhenScroll() ?? false
+                    guard shouldStart else{
                         return
                     }
                     beginRefreshing()
