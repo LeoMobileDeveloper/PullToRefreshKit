@@ -12,24 +12,28 @@ import PullToRefreshKit
 
 class YahooWeatherRefreshHeader: UIView,RefreshableHeader{
     
-    let imageView = UIImageView(frame:CGRect(x: 0, y: 0, width: 40, height: 40))
+    var imageView = UIImageView(frame:CGRect(x: 0, y: 0, width: 40, height: 40))
+    var animatingImageView = UIImageView(frame:CGRect(x: 0, y: 0, width: 40, height: 40))
     let logoImage = UIImageView(frame: CGRect(x: 0, y: 0, width: 60, height: 14))
     let label = UILabel()
     override init(frame: CGRect) {
         super.init(frame: frame)
         self.backgroundColor = UIColor(white: 0.0, alpha: 0.25)
         imageView.image = UIImage(named: "sun_000000")
+        animatingImageView.isHidden = true
         logoImage.image = UIImage(named: "yahoo_logo")
         label.textColor = UIColor.white
         label.font = UIFont.systemFont(ofSize: 12)
         label.text = "Last update: 5 minutes ago"
         addSubview(imageView)
+        addSubview(animatingImageView)
         addSubview(logoImage)
         addSubview(label)
     }
     override func layoutSubviews() {
         super.layoutSubviews()
         imageView.center = CGPoint(x: self.bounds.width/2.0 - 60.0, y: frame.height - 30)
+        animatingImageView.center = imageView.center
         logoImage.center = CGPoint(x: self.bounds.width/2.0, y: frame.height - 30 - 7.0)
         label.frame = CGRect(x: logoImage.frame.origin.x, y: logoImage.frame.origin.y + logoImage.frame.height + 2,width: 200, height: 20)
     }
@@ -67,11 +71,13 @@ class YahooWeatherRefreshHeader: UIView,RefreshableHeader{
     }
     @objc func transitionFinihsed(){
         imageView.stopAnimating()
+        imageView.isHidden = true
+        animatingImageView.isHidden = false
         let images = (73...109).map({return $0 < 100 ? "sun_000\($0)" : "sun_00\($0)"}).map({UIImage(named:$0)!})
-        imageView.animationImages = images
-        imageView.animationDuration = Double(images.count) * 0.03
-        imageView.animationRepeatCount = 1000000
-        imageView.startAnimating()
+        animatingImageView.animationImages = images
+        animatingImageView.animationDuration = Double(images.count) * 0.03
+        animatingImageView.animationRepeatCount = 1000000
+        animatingImageView.startAnimating()
     }
     //松手即将刷新的状态
     func didBeginRefreshingState(){
@@ -80,11 +86,15 @@ class YahooWeatherRefreshHeader: UIView,RefreshableHeader{
     }
     //刷新结束，将要隐藏header
     func didBeginHideAnimation(_ result:RefreshResult){
-        
+        animatingImageView.animationImages = nil
+        animatingImageView.isHidden = true
+        animatingImageView.stopAnimating()
+        imageView.isHidden = false
     }
     //刷新结束，完全隐藏header
     func didCompleteHideAnimation(_ result:RefreshResult){
         imageView.stopAnimating()
+        imageView.isHidden = false
         imageView.animationImages = nil
         imageView.image = UIImage(named: "sun_000000")
         NSObject.cancelPreviousPerformRequests(withTarget: self, selector: #selector(YahooWeatherRefreshHeader.transitionFinihsed), object: nil)

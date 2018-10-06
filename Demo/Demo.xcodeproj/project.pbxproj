@@ -621,7 +621,7 @@
 				DEVELOPMENT_TEAM = R7X999328A;
 				INFOPLIST_FILE = Demo/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = Leo.PullToRefreshKitd;
+				PRODUCT_BUNDLE_IDENTIFIER = Leo.PullToRefreshKitkk;
 				PRODUCT_MODULE_NAME = Demo;
 				PRODUCT_NAME = Demo;
 				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
@@ -637,7 +637,7 @@
 				DEVELOPMENT_TEAM = R7X999328A;
 				INFOPLIST_FILE = Demo/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = Leo.PullToRefreshKitd;
+				PRODUCT_BUNDLE_IDENTIFIER = Leo.PullToRefreshKitkk;
 				PRODUCT_MODULE_NAME = Demo;
 				PRODUCT_NAME = Demo;
 				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
