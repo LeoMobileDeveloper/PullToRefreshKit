@@ -37,11 +37,11 @@ public enum RefreshKitLeftRightText{
 }
 @objcMembers
 open class DefaultRefreshLeft: UIView, RefreshableLeftRight {
-    open static func left()->DefaultRefreshLeft{
+    public static func left()->DefaultRefreshLeft{
         return DefaultRefreshLeft(frame: CGRect(x: 0, y: 0, width: PullToRefreshKitConst.defaultLeftWidth, height: UIScreen.main.bounds.size.height))
     }
-    open let imageView:UIImageView = UIImageView()
-    open let textLabel:UILabel  = UILabel()
+    public let imageView:UIImageView = UIImageView()
+    public let textLabel:UILabel  = UILabel()
     fileprivate var textDic = [RefreshKitLeftRightText:String]()
     
     /**
