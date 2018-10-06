@@ -12,7 +12,7 @@ import PullToRefreshKit
 
 class DefaultCollectionViewController:UIViewController,UICollectionViewDataSource{
     var collectionView:UICollectionView!
-    var count = 9
+    var count = 0
     override func viewDidLoad() {
         self.view.backgroundColor = UIColor.white
         self.setUpCollectionView()
@@ -31,7 +31,7 @@ class DefaultCollectionViewController:UIViewController,UICollectionViewDataSourc
                 vc.collectionView.switchRefreshFooter(to: .normal)
             });
         };
-
+        self.collectionView.footerAlwaysAtBottom = true
     }
     func setUpCollectionView(){
         let flowLayout = UICollectionViewFlowLayout()

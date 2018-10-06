@@ -77,11 +77,11 @@ public enum RefreshMode{
 }
 
 open class DefaultRefreshFooter:UIView, RefreshableFooter{
-    open static func footer()-> DefaultRefreshFooter{
+    public static func footer()-> DefaultRefreshFooter{
         return DefaultRefreshFooter()
     }
-    open let spinner:UIActivityIndicatorView = UIActivityIndicatorView(activityIndicatorStyle: .gray)
-    open  let textLabel:UILabel = UILabel(frame: CGRect(x: 0,y: 0,width: 140,height: 40))
+    public let spinner:UIActivityIndicatorView = UIActivityIndicatorView(activityIndicatorStyle: .gray)
+    public  let textLabel:UILabel = UILabel(frame: CGRect(x: 0,y: 0,width: 140,height: 40))
     /// 触发刷新的模式
     open var refreshMode = RefreshMode.scrollAndTap{
         didSet{
@@ -217,6 +217,12 @@ class RefreshFooterContainer:UIView{
                 DispatchQueue.main.async(execute: {
                     self.delegate?.didBeginRefreshing()
                     self.refreshAction?()
+                    if self.attachedScrollView.footerAlwaysAtBottom{
+                        self.frame = CGRect(x: 0,
+                                            y: self.yFooter(),
+                                            width: self.frame.size.width,
+                                            height: self.frame.size.height)
+                    }
                 })
             }else if newValue == .noMoreData{
                 self.delegate?.didUpdateToNoMoreData()
@@ -333,8 +339,20 @@ class RefreshFooterContainer:UIView{
             }
         }
     }
+    func yFooter()->CGFloat{
+        if state == .refreshing {
+            return max(self.attachedScrollView.contentSize.height - self.frame.size.height,
+                       self.attachedScrollView.frame.height)
+        }else{
+            return max(self.attachedScrollView.contentSize.height, self.attachedScrollView.frame.height)
+        }
+    }
     func handleContentSizeChange(_ change: [NSKeyValueChangeKey : Any]?){
-        self.frame = CGRect(x: 0,y: self.attachedScrollView.contentSize.height,width: self.frame.size.width,height: self.frame.size.height)
+        if self.attachedScrollView.footerAlwaysAtBottom {
+            self.frame = CGRect(x: 0,y:yFooter() ,width: self.frame.size.width,height: self.frame.size.height)
+        }else{
+            self.frame = CGRect(x: 0,y: self.attachedScrollView.contentSize.height,width: self.frame.size.width,height: self.frame.size.height)
+        }
     }
 // MARK: - KVO -
     override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {

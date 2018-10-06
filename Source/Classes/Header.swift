@@ -99,9 +99,9 @@ open class DefaultRefreshHeader: UIView, RefreshableHeader {
         }
     }
     
-    open let spinner:UIActivityIndicatorView = UIActivityIndicatorView(activityIndicatorStyle: .gray)
-    open let textLabel:UILabel = UILabel(frame: CGRect(x: 0,y: 0,width: 140,height: 40))
-    open let imageView:UIImageView = UIImageView(frame: CGRect.zero)
+    public let spinner:UIActivityIndicatorView = UIActivityIndicatorView(activityIndicatorStyle: .gray)
+    public let textLabel:UILabel = UILabel(frame: CGRect(x: 0,y: 0,width: 140,height: 40))
+    public let imageView:UIImageView = UIImageView(frame: CGRect.zero)
     open var durationWhenHide = 0.5
     fileprivate var textDic = [RefreshKitHeaderText:String]()
     override init(frame: CGRect) {

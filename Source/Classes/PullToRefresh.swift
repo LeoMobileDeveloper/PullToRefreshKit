@@ -59,6 +59,7 @@ public extension UIScrollView{
 
 struct AssociatedObject {
     static var key:UInt8 = 0
+    static var footerBottomKey:UInt8 = 0
 }
 
 public extension UIScrollView{
@@ -109,6 +110,24 @@ public enum FooterRefresherState {
 
 
 public extension UIScrollView{
+    
+    /// Whether footer should stay at the bottom of tableView when cells count is small.
+    public var footerAlwaysAtBottom:Bool{
+        get{
+            let object = objc_getAssociatedObject(self, &AssociatedObject.footerBottomKey)
+            guard let number = object as? NSNumber else {
+                return false
+            }
+            return number.boolValue
+        }set{
+            let number = NSNumber(value: newValue)
+            objc_setAssociatedObject(self, &AssociatedObject.footerBottomKey, number, .OBJC_ASSOCIATION_RETAIN)
+            guard let footerContainer = self.viewWithTag(PullToRefreshKitConst.footerTag) as? RefreshFooterContainer else{
+                return;
+            }
+            footerContainer.handleContentSizeChange(nil)
+        }
+    }
     public func configRefreshFooter(with refrehser:UIView & RefreshableFooter = DefaultRefreshFooter.footer(),
                                     container object: AnyObject,
                                     action:@escaping ()->()){
@@ -128,7 +147,6 @@ public extension UIScrollView{
     public func switchRefreshFooter(to state:FooterRefresherState){
         let footer = self.viewWithTag(PullToRefreshKitConst.footerTag) as? RefreshFooterContainer
         switch state {
-            
         case .refreshing:
             footer?.beginRefreshing()
         case .normal:

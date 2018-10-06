@@ -12,7 +12,7 @@ import UIKit
 @IBDesignable
 open class ElasticRefreshControl: UIView {
     //目标，height 80, 高度 40
-    open let spinner: UIActivityIndicatorView = UIActivityIndicatorView()
+    public let spinner: UIActivityIndicatorView = UIActivityIndicatorView()
     var radius: CGFloat{
         get{
             return totalHeight / 4 - margin
