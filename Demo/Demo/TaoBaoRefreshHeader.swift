@@ -50,7 +50,11 @@ class TaoBaoRefreshHeader:UIView,RefreshableHeader{
         self.arrowLayer.strokeColor = UIColor.lightGray.cgColor
         self.arrowLayer.fillColor = UIColor.clear.cgColor
         self.arrowLayer.lineWidth = 1.0
-        self.arrowLayer.lineCap = kCALineCapRound
+        #if swift(>=4.2)
+        self.circleLayer.lineCap = CAShapeLayerLineCap.round
+        #else
+        self.circleLayer.lineCap = kCALineCapRound
+        #endif
         self.arrowLayer.bounds = CGRect(x: 0, y: 0,width: 40, height: 40)
         self.arrowLayer.anchorPoint = CGPoint(x: 0.5, y: 0.5)
         self.layer.addSublayer(self.arrowLayer)
@@ -67,7 +71,11 @@ class TaoBaoRefreshHeader:UIView,RefreshableHeader{
         self.circleLayer.strokeStart = 0.05
         self.circleLayer.strokeEnd = 0.05
         self.circleLayer.lineWidth = 1.0
+        #if swift(>=4.2)
+        self.circleLayer.lineCap = CAShapeLayerLineCap.round
+        #else
         self.circleLayer.lineCap = kCALineCapRound
+        #endif
         self.circleLayer.bounds = CGRect(x: 0, y: 0,width: 40, height: 40)
         self.circleLayer.anchorPoint = CGPoint(x: 0.5, y: 0.5)
         self.layer.addSublayer(self.circleLayer)

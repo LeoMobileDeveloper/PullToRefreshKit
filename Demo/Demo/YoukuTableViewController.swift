@@ -32,7 +32,11 @@ class YoukuTableViewController:BaseTableViewController{
         let sw = UISwitch()
         sw.isOn = !refreshHeader!.backgroundImageView.isHidden
         let rightItem = UIBarButtonItem(customView: sw)
+        #if swift(>=4.2)
+        sw.addTarget(self, action: #selector(YoukuTableViewController.switchValueChanged(_:)), for: UIControl.Event.valueChanged)
+        #else
         sw.addTarget(self, action: #selector(YoukuTableViewController.switchValueChanged(_:)), for: UIControlEvents.valueChanged)
+        #endif
         self.navigationItem.rightBarButtonItem = rightItem
     }
     @objc func switchValueChanged(_ sender:UISwitch){

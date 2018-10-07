@@ -55,7 +55,11 @@ class NeteaseNewsFooter: UIView, RefreshableFooter {
         shapeLayer.strokeStart = 0.3
         shapeLayer.strokeEnd = 0.8
         shapeLayer.lineWidth = 1.0
+        #if swift(>=4.2)
+        shapeLayer.lineCap = CAShapeLayerLineCap.round
+        #else
         shapeLayer.lineCap = kCALineCapRound
+        #endif
         shapeLayer.bounds = CGRect(x: 0, y: 0,width: 40, height: 40)
         shapeLayer.anchorPoint = CGPoint(x: 0.5, y: 0.5)
         layer.addSublayer(shapeLayer)
