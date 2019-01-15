@@ -5,8 +5,6 @@
 
 </p>
 
-[![Apps Using](https://img.shields.io/cocoapods/at/PullToRefreshKit.svg?label=Apps%20Using%20PullToRefreshKit&colorB=28B9FE)](http://cocoapods.org/pods/PullToRefreshKit)
-[![Downloads](https://img.shields.io/cocoapods/dt/PullToRefreshKit.svg?label=Total%20Downloads&colorB=28B9FE)](http://cocoapods.org/pods/PullToRefreshKit)
  [![Version](https://img.shields.io/cocoapods/v/PullToRefreshKit.svg?style=flat)](http://cocoapods.org/pods/PullToRefreshKit)  [![Platform](http://img.shields.io/badge/platform-ios-blue.svg?style=flat
 )](https://developer.apple.com/iphone/index.action)
  [![Language](http://img.shields.io/badge/language-swift-brightgreen.svg?style=flat
