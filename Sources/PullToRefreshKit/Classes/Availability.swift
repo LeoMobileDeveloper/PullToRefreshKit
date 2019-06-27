@@ -7,12 +7,13 @@
 //
 
 import Foundation
+import UIKit
 
 public protocol SetUp {}
 public extension SetUp where Self: AnyObject {
     @discardableResult
     @available(*, deprecated, message: "This method will be removed at V 1.0.0")
-    public func SetUp(_ closure: (Self) -> Void) -> Self {
+    func SetUp(_ closure: (Self) -> Void) -> Self {
         closure(self)
         return self
     }
@@ -26,7 +27,7 @@ public extension UIScrollView{
     
     @discardableResult
     @available(*, deprecated, message: "Use new API at PullToRefresh.Swift")
-    public func setUpHeaderRefresh(_ action:@escaping ()->())->DefaultRefreshHeader{
+    func setUpHeaderRefresh(_ action:@escaping ()->())->DefaultRefreshHeader{
         let header = DefaultRefreshHeader(frame:CGRect(x: 0,
                                                        y: 0,
                                                        width: self.frame.width,
@@ -35,7 +36,7 @@ public extension UIScrollView{
     }
     @discardableResult
     @available(*, deprecated, message: "Use new API at PullToRefresh.Swift")
-    public func setUpHeaderRefresh<T:UIView>(_ header:T,action:@escaping ()->())->T where T:RefreshableHeader{
+    func setUpHeaderRefresh<T:UIView>(_ header:T,action:@escaping ()->())->T where T:RefreshableHeader{
         let oldContain = self.viewWithTag(PullToRefreshKitConst.headerTag)
         oldContain?.removeFromSuperview()
         let containFrame = CGRect(x: 0, y: -self.frame.height, width: self.frame.width, height: self.frame.height)
@@ -55,12 +56,12 @@ public extension UIScrollView{
         return header
     }
     @available(*, deprecated, message: "Use new API at PullToRefresh.Swift")
-    public func beginHeaderRefreshing(){
+    func beginHeaderRefreshing(){
         let header = self.viewWithTag(PullToRefreshKitConst.headerTag) as? RefreshHeaderContainer
         header?.beginRefreshing()
     }
     @available(*, deprecated, message: "Use new API at PullToRefresh.Swift")
-    public  func endHeaderRefreshing(_ result:RefreshResult = .none,delay:Double = 0.0){
+    func endHeaderRefreshing(_ result:RefreshResult = .none,delay:Double = 0.0){
         let header = self.viewWithTag(PullToRefreshKitConst.headerTag) as? RefreshHeaderContainer
         header?.endRefreshing(result,delay: delay)
     }
@@ -70,7 +71,7 @@ public extension UIScrollView{
 public extension UIScrollView{
     @discardableResult
     @available(*, deprecated, message: "Use new API at PullToRefresh.Swift")
-    public func setUpFooterRefresh(_ action:@escaping ()->())->DefaultRefreshFooter{
+    func setUpFooterRefresh(_ action:@escaping ()->())->DefaultRefreshFooter{
         let footer = DefaultRefreshFooter(frame: CGRect(x: 0,
                                                         y: 0,
                                                         width: self.frame.width,
@@ -79,7 +80,7 @@ public extension UIScrollView{
     }
     @discardableResult
     @available(*, deprecated, message: "Use new API at PullToRefresh.Swift")
-    public func setUpFooterRefresh<T:UIView>(_ footer:T,action:@escaping ()->())->T where T:RefreshableFooter{
+    func setUpFooterRefresh<T:UIView>(_ footer:T,action:@escaping ()->())->T where T:RefreshableFooter{
         let oldContain = self.viewWithTag(PullToRefreshKitConst.footerTag)
         oldContain?.removeFromSuperview()
         let frame = CGRect(x: 0,y: 0,width: self.frame.width, height: PullToRefreshKitConst.defaultFooterHeight)
@@ -96,29 +97,29 @@ public extension UIScrollView{
         return footer
     }
     @available(*, deprecated, message: "Use new API at PullToRefresh.Swift")
-    public func beginFooterRefreshing(){
+    func beginFooterRefreshing(){
         let footer = self.viewWithTag(PullToRefreshKitConst.footerTag) as? RefreshFooterContainer
         if footer?.state == .idle {
             footer?.beginRefreshing()
         }
     }
     @available(*, deprecated, message: "Use new API at PullToRefresh.Swift")
-    public func endFooterRefreshing(){
+    func endFooterRefreshing(){
         let footer = self.viewWithTag(PullToRefreshKitConst.footerTag) as? RefreshFooterContainer
         footer?.endRefreshing()
     }
     @available(*, deprecated, message: "Use new API at PullToRefresh.Swift")
-    public func setFooterNoMoreData(){
+    func setFooterNoMoreData(){
         let footer = self.viewWithTag(PullToRefreshKitConst.footerTag) as? RefreshFooterContainer
         footer?.endRefreshing()
     }
     @available(*, deprecated, message: "Use new API at PullToRefresh.Swift")
-    public func resetFooterToDefault(){
+    func resetFooterToDefault(){
         let footer = self.viewWithTag(PullToRefreshKitConst.footerTag) as? RefreshFooterContainer
         footer?.resetToDefault()
     }
     @available(*, deprecated, message: "Use new API at PullToRefresh.Swift")
-    public  func endFooterRefreshingWithNoMoreData(){
+    func endFooterRefreshingWithNoMoreData(){
         let footer = self.viewWithTag(PullToRefreshKitConst.footerTag) as? RefreshFooterContainer
         footer?.endRefreshing()
         footer?.updateToNoMoreData()
