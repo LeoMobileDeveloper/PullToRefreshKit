@@ -9,7 +9,8 @@
 )](https://developer.apple.com/iphone/index.action)
  [![Language](http://img.shields.io/badge/language-swift-brightgreen.svg?style=flat
 )](https://developer.apple.com/swift)
- [![License](http://img.shields.io/badge/license-MIT-lightgrey.svg?style=flat
+[![Swift Package Manager](https://img.shields.io/badge/SPM-compatible-orange.svg)](https://swift.org/package-manager)
+[![License](http://img.shields.io/badge/license-MIT-lightgrey.svg?style=flat
 )](http://mit-license.org)
 
 
@@ -47,7 +48,7 @@
 
 - iOS 8
 - Swift 4+
-- XCode 9+
+- XCode 10.2+
 
 For Swift 3, See branch [Swift3](https://github.com/LeoMobileDeveloper/PullToRefreshKit/tree/Swift3)
 
@@ -75,6 +76,12 @@ Carthage
 
 ```
 github "LeoMobileDeveloper/PullToRefreshKit"
+```
+
+Swift Package Manager
+
+```swift
+.package(url: "https://github.com/LeoMobileDeveloper/PullToRefreshKit.git",  from: "0.8.9")
 ```
 
 ## Useage
